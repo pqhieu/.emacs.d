@@ -32,7 +32,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'solarized-light t)
+(load-theme 'jazz t)
 (set-default-font "Source Code Pro-13")
 
 ;; Add user load path
