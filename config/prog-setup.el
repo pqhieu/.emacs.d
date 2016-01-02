@@ -1,3 +1,5 @@
+(add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t)))
+
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default tab-always-indent 'complete)

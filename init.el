@@ -17,9 +17,6 @@
 ;; Show column number
 (setq column-number-mode t)
 
-;; Show trailing white spaces
-(setq-default show-trailing-whitespace t)
-
 ;; Disable init screen and toolbar
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
@@ -32,7 +29,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'jazz t)
+(load-theme 'material t)
 (set-default-font "Source Code Pro-13")
 
 ;; Add user load path
