@@ -34,7 +34,7 @@
 
 ;; Add user load path
 (add-to-list 'load-path "~/.emacs.d/config")
-(require 'c-c++-setup)
+(require 'cpp-setup)
 (require 'prog-setup)
 (require 'modeline-setup)
 (require 'helm-setup)
