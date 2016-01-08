@@ -48,3 +48,5 @@
 (add-hook 'c++-mode-hook 'my-c-setup)
 
 (toggle-frame-fullscreen)
+
+(add-hook 'after-init-hook 'show-agenda-all)
