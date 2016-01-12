@@ -29,7 +29,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'material t)
+(load-theme 'reykjavik t)
 (set-default-font "Source Code Pro-13")
 
 ;; Add user load path

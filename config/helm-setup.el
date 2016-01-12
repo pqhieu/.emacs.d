@@ -9,6 +9,7 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 
 (setq helm-quick-update nil
+      helm-split-window-in-side-p t
       helm-M-x-fuzzy-match t
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t)
