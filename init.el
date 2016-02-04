@@ -29,7 +29,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'reykjavik t)
+(load-theme 'zenburn t)
 (set-default-font "Source Code Pro-13")
 
 ;; Add user load path
@@ -50,3 +50,8 @@
 (toggle-frame-fullscreen)
 
 (add-hook 'after-init-hook 'show-agenda-all)
+
+(require 'use-package)
+(use-package yasnippet
+  :diminish (yas-minor-mode . "γ")
+  :init (yas-global-mode))
