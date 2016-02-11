@@ -55,3 +55,6 @@
 (use-package yasnippet
   :diminish (yas-minor-mode . "γ")
   :init (yas-global-mode))
+
+
+(exec-path-from-shell-initialize)

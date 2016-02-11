@@ -1,6 +1,7 @@
 (require 'helm-config)
 (require 'helm)
 (require 'helm-swoop)
+(require 'use-package)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
@@ -15,6 +16,7 @@
       helm-recentf-fuzzy-match t)
 
 (helm-mode 1)
+(diminish 'helm-mode "ℌ")
 
 ;; Configure helm-swoop
 (global-set-key (kbd "C-s") 'helm-swoop)
