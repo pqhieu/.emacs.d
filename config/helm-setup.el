@@ -16,7 +16,7 @@
       helm-recentf-fuzzy-match t)
 
 (helm-mode 1)
-(diminish 'helm-mode "ℌ")
+(diminish 'helm-mode "Ⓗ")
 
 ;; Configure helm-swoop
 (global-set-key (kbd "C-s") 'helm-swoop)
