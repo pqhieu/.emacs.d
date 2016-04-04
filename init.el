@@ -1,5 +1,4 @@
-;;---------- General configuration ----------
-
+;;----------------------------------------------------------------------
 ;; Personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -7,11 +6,14 @@
 ;; Add package sources
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+(setq package-enable-at-startup nil)
 
 (require 'use-package)
 (setq use-package-verbose t)
+
+(setq require-final-newline t)
 
 ;; Ask "y" or "n" instead of "yes" or "no"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -34,8 +36,8 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'quasi-monochrome t)
-(set-default-font "Source Code Pro-13")
+(load-theme 'subatomic t)
+(set-frame-font "Source Code Pro-13")
 
 
 ;;---------- Helm configuration ----------
@@ -52,14 +54,11 @@
 	 ("C-x b" . helm-mini)
 	 ("C-s" . helm-swoop)))
 
-
 (add-to-list 'load-path "~/.emacs.d/config")
 (require 'global-key-bindings)
 (require 'cpp-setup)
 (require 'prog-setup)
 (require 'modeline-setup)
-;; (require 'helm-setup)
-(require 'company-setup)
 (require 'org-setup)
 
 (defun my-c-setup ()
@@ -68,11 +67,12 @@
 
 (toggle-frame-fullscreen)
 
-(add-hook 'after-init-hook 'show-agenda-all)
-
 (require 'use-package)
 (use-package yasnippet
   :diminish 'yas-minor-mode
   :init (yas-global-mode))
 
+(add-hook 'after-init-hook 'show-agenda-all)
 (exec-path-from-shell-initialize)
+
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
