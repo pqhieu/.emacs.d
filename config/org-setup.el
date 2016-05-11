@@ -1,4 +1,4 @@
-(setq org-agenda-files (list "~/.emacs.d/org/gtd.org"))
+(setq org-agenda-files (list "~/Dropbox/Documents/org/gtd.org"))
 
 (setq org-agenda-show-log t)
 (setq org-agenda-skip-scheduled-if-done t)

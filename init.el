@@ -36,7 +36,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'subatomic t)
+(load-theme 'danneskjold t)
 (set-frame-font "Source Code Pro-13")
 
 
@@ -65,8 +65,6 @@
   (c-set-offset 'innamespace 0))
 (add-hook 'c++-mode-hook 'my-c-setup)
 
-(toggle-frame-fullscreen)
-
 (require 'use-package)
 (use-package yasnippet
   :diminish 'yas-minor-mode
@@ -76,3 +74,4 @@
 (exec-path-from-shell-initialize)
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(toggle-frame-fullscreen)

@@ -1,7 +1,4 @@
 (require 'spaceline-config)
-(spaceline-emacs-theme)
-
-(require 'nyan-mode)
-(nyan-mode t)
+(spaceline-spacemacs-theme)
 
 (provide 'modeline-setup)
