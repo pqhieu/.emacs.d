@@ -36,7 +36,7 @@
 (setq auto-save-default nil)
 
 ;; Set theme and font
-(load-theme 'subatomic t)
+(load-theme 'tao-yin t)
 (set-frame-font "Source Code Pro-13")
 
 
@@ -76,3 +76,36 @@
 (exec-path-from-shell-initialize)
 
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+(add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
+
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+
+(add-hook 'prog-mode-hook 'whitespace-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-todo-ignore-scheduled (quote all))
+ '(org-agenda-todo-list-sublevels nil)
+ '(subatomic-high-contrast t)
+ '(subatomic-more-visible-comment-delimiters t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant italic :weight bold))))
+ '(org-done ((t (:foreground "rosy brown" :weight bold))))
+ '(org-level-1 ((t (:foreground "#F9F9F9" :height 1.0))))
+ '(org-level-2 ((t (:foreground "#D9D9D9" :height 1.0))))
+ '(org-level-3 ((t (:foreground "#C2C2C2" :height 1.0))))
+ '(org-meta-line ((t (:foreground "#9D9D9D" :height 1.0))))
+ '(org-target ((t (:foreground "white smoke" :slant italic))))
+ '(org-todo ((t (:foreground "light blue" :weight bold)))))
+
+
+(setq font-lock-maximum-decoration 1)
