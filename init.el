@@ -97,12 +97,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant oblique :weight bold))))
+ '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant italic :weight semi-bold))))
+ '(org-agenda-calendar-event ((t (:inherit default :slant italic))))
  '(org-done ((t (:foreground "rosy brown" :weight bold))))
  '(org-level-1 ((t (:foreground "#F9F9F9" :height 1.0))))
  '(org-level-2 ((t (:foreground "#D9D9D9" :height 1.0))))
  '(org-level-3 ((t (:foreground "#C2C2C2" :height 1.0))))
  '(org-meta-line ((t (:foreground "#9D9D9D" :height 1.0))))
+ '(org-scheduled-today ((t (:foreground "#E8E8E8" :slant italic))))
  '(org-target ((t (:foreground "white smoke" :slant italic))))
  '(org-todo ((t (:foreground "light blue" :weight bold)))))
 

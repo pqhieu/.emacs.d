@@ -1,4 +1,4 @@
-(defun show-agenda-all ()
+(defun show-agenda-all()
   ;; Show agenda and todo list
   (interactive)
   (org-agenda nil "n")
