@@ -1,46 +1,81 @@
 ;;----------------------------------------------------------------------
-;; Personal information
-(setq user-full-name "Quang-Hieu Pham")
-(setq user-mail-address "pqhieu1192@gmail.com")
+;; My Personal Emacs Configuration
+;;
+;; I will try to keep it clean and well-documented as much as possible,
+;; but sometimes the laziness just get me...
+;; I don't guarantee it will work on any computer or any Emacs version,
+;; and will not hold any responsibilities for it.
 
-;; Add package sources
+;;----------------------------------------------------------------------
+;; Package Initialisation
+;; Start Emacs package manager
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
 (setq package-enable-at-startup nil)
-
+(package-initialize)
+;; Check for use-package and install if needed
+(unless (package-installed-p 'use-package)
+  (message "`use-package` not found. Installing...")
+  (package-refresh-contents)
+  (package-install 'use-package))
+;; Config use-package
 (require 'use-package)
 (setq use-package-verbose t)
 
-(setq require-final-newline t)
-
-;; Ask "y" or "n" instead of "yes" or "no"
+;;----------------------------------------------------------------------
+;; General Settings
+;; Set personal information
+(setq user-full-name "Quang-Hieu Pham")
+(setq user-mail-address "pqhieu1192@gmail.com")
+;; Disable backup files and auto save
+;; I like to live dangerously
+(setq-default make-backup-files nil)
+(setq-default backup-inhibited t)
+(setq-default auto-save-default nil)
+;; Set tab width and its behaviour
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-always-indent 'complete)
+;; Insert new line at EOF when save
+(setq-default require-final-newline t)
+;; Ask the real question: 'y' or 'n'
 (fset 'yes-or-no-p 'y-or-n-p)
+;; Start in fullscreen
+(set-frame-parameter nil 'fullscreen 'fullboth)
 
+;;----------------------------------------------------------------------
+;; Display Settings
+;; Disable splash screen, toolbar and scrollbar
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(setq-default inhibit-splash-screen t)
+(setq-default initial-scratch-message nil)
+;; Highlight current line and show column number
+(column-number-mode 1)
+(global-hl-line-mode 1)
+;; Uniquify buffer names
+(setq-default uniquify-buffer-name-style 'forward)
 ;; Highligt corresponding parentheses
 (show-paren-mode t)
-
-;; Show column number
-(setq column-number-mode t)
-
-;; Disable init screen and toolbar
-(setq inhibit-splash-screen t)
-(setq initial-scratch-message nil)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-
-;; Disable backup files
-(setq make-backup-files nil)
-(setq backup-inhibited t)
-(setq auto-save-default nil)
-
 ;; Set theme and font
-(load-theme 'tao-yin t)
 (set-frame-font "Source Code Pro-13")
+(use-package tao-theme
+  :ensure t
+  :init (load-theme 'tao-yin t))
+;; TODO: Directly change these stuff instead of using Custom
+(custom-set-faces
+ '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant italic :weight bold))))
+ '(org-done ((t (:foreground "rosy brown" :weight bold))))
+ '(org-level-1 ((t (:foreground "#F9F9F9" :height 1.0))))
+ '(org-level-2 ((t (:foreground "#D9D9D9" :height 1.0))))
+ '(org-level-3 ((t (:foreground "#C2C2C2" :height 1.0))))
+ '(org-meta-line ((t (:foreground "#9D9D9D" :height 1.0))))
+ '(org-target ((t (:foreground "white smoke" :slant italic))))
+ '(org-todo ((t (:foreground "light blue" :weight bold)))))
 
-
-;;---------- Helm configuration ----------
+;;----------------------------------------------------------------------
+;; Helm Settings
 (use-package helm
   :ensure t
   :diminish (helm-mode . "Ⓗ")
@@ -54,18 +89,9 @@
 	 ("C-x b" . helm-mini)
 	 ("C-s" . helm-swoop)))
 
-(add-to-list 'load-path "~/.emacs.d/config")
-(require 'global-key-bindings)
-(require 'cpp-setup)
-(require 'prog-setup)
-(require 'modeline-setup)
-(require 'org-setup)
-
 (defun my-c-setup ()
   (c-set-offset 'innamespace 0))
 (add-hook 'c++-mode-hook 'my-c-setup)
-
-(toggle-frame-fullscreen)
 
 (require 'use-package)
 (use-package yasnippet
@@ -90,22 +116,49 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote all))
- '(org-agenda-todo-list-sublevels nil)
- '(subatomic-high-contrast t)
- '(subatomic-more-visible-comment-delimiters t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant italic :weight bold))))
- '(org-done ((t (:foreground "rosy brown" :weight bold))))
- '(org-level-1 ((t (:foreground "#F9F9F9" :height 1.0))))
- '(org-level-2 ((t (:foreground "#D9D9D9" :height 1.0))))
- '(org-level-3 ((t (:foreground "#C2C2C2" :height 1.0))))
- '(org-meta-line ((t (:foreground "#9D9D9D" :height 1.0))))
- '(org-target ((t (:foreground "white smoke" :slant italic))))
- '(org-todo ((t (:foreground "light blue" :weight bold)))))
+ '(org-agenda-todo-list-sublevels nil))
 
 
 (setq font-lock-maximum-decoration 1)
+(require 'cc-mode)
+(setq c-default-style "stroustrup")
+(add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t)))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(require 'spaceline-config)
+(spaceline-emacs-theme)
+
+(require 'nyan-mode)
+(nyan-mode t)
+(setq org-agenda-files (list "~/Dropbox/Documents/org/gtd.org"))
+
+(setq org-agenda-show-log t)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-start-on-weekday nil)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(defun show-agenda-all ()
+  ;; Show agenda and todo list
+  (interactive)
+  (org-agenda nil "n")
+  (delete-other-windows))
+
+(global-set-key (kbd "C-c a") 'show-agenda-all)
+
+(setq helm-quick-update nil
+      helm-split-window-in-side-p t
+      helm-M-x-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match t)
+(setq helm-swoop-split-with-multiple-windows t
+      helm-swoop-split-direction 'split-window-vertically
+      helm-swoop-move-to-line-cycle t)
+;; (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+;; (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+
+(add-to-list 'display-buffer-alist
+             `(,(rx bos "*helm" (* not-newline) "*" eos)
+               (display-buffer-in-side-window)
+               (inhibit-same-window . t)
+               (window-height . 0.4)))
