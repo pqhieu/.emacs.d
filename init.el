@@ -5,6 +5,7 @@
 ;; but sometimes the laziness just get me...
 ;; I don't guarantee it will work on any computer or any Emacs version,
 ;; and will not hold any responsibilities for it.
+;; Current init time: 2.0 seconds (still acceptable)
 
 ;;----------------------------------------------------------------------
 ;; Package Initialisation
@@ -93,7 +94,6 @@
   (c-set-offset 'innamespace 0))
 (add-hook 'c++-mode-hook 'my-c-setup)
 
-(require 'use-package)
 (use-package yasnippet
   :diminish 'yas-minor-mode
   :init (yas-global-mode))
