@@ -116,6 +116,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote all))
+ '(org-agenda-todo-ignore-timestamp (quote all))
  '(org-agenda-todo-list-sublevels nil))
 
 
@@ -136,6 +137,7 @@
 (setq org-agenda-show-log t)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-timestamp-if-done t)
 (setq org-agenda-start-on-weekday nil)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 (defun show-agenda-all ()
