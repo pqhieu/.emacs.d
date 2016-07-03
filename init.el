@@ -61,21 +61,19 @@
 (show-paren-mode t)
 ;; Set theme and font
 (set-frame-font "Source Code Pro-13")
-(use-package tao-theme
-  :ensure t
-  :init (load-theme 'tao-yin t))
-;; TODO: Directly change these stuff instead of using Custom
+(load-theme 'oldlace t)
+;; (use-package tao-theme
+;;   :ensure t
+;;   :init (load-theme 'tao-yin t))
+;; ;; TODO: Directly change these stuff instead of using Custom
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-lock-type-face ((t (:foreground "#F6F6F6" :underline nil :slant italic :weight bold))))
- '(org-level-1 ((t (:foreground "#F9F9F9" :height 1.0))))
- '(org-level-2 ((t (:foreground "#D9D9D9" :height 1.0))))
- '(org-level-3 ((t (:foreground "#C2C2C2" :height 1.0))))
- '(org-meta-line ((t (:foreground "#9D9D9D" :height 1.0))))
- '(org-target ((t (:foreground "white smoke" :slant italic)))))
+ '(org-meta-line ((t (:height 1.0))))
+ '(org-scheduled-today ((t (:height 1.0)))))
+;;  '(org-target ((t (:foreground "white smoke" :slant italic)))))
 
 ;;----------------------------------------------------------------------
 ;; Helm Settings
@@ -106,6 +104,7 @@
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 (add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
+(setq modern-c++-literal-integer nil)
 
 (require 'whitespace)
 (setq whitespace-line-column 80) ;; limit line length
@@ -119,7 +118,8 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote all))
  '(org-agenda-todo-ignore-timestamp (quote all))
- '(org-agenda-todo-list-sublevels nil))
+ '(org-agenda-todo-list-sublevels nil)
+ '(powerline-default-separator (quote wave)))
 
 
 (setq font-lock-maximum-decoration 1)
@@ -129,6 +129,7 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(setq ns-use-srgb-colorspace nil)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
 
