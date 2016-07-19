@@ -61,7 +61,7 @@
 (show-paren-mode t)
 ;; Set theme and font
 (set-frame-font "Source Code Pro-13")
-(load-theme 'oldlace t)
+(load-theme 'foggy-night t)
 ;; (use-package tao-theme
 ;;   :ensure t
 ;;   :init (load-theme 'tao-yin t))
@@ -119,6 +119,9 @@
  '(org-agenda-todo-ignore-scheduled (quote all))
  '(org-agenda-todo-ignore-timestamp (quote all))
  '(org-agenda-todo-list-sublevels nil)
+ '(package-selected-packages
+   (quote
+    (org-page foggy-night-theme reykjavik-theme helm-swoop org-bullets modern-cpp-font-lock s helm)))
  '(powerline-default-separator (quote wave)))
 
 
@@ -167,3 +170,8 @@
                (display-buffer-in-side-window)
                (inhibit-same-window . t)
                (window-height . 0.4)))
+
+(global-set-key (kbd "C-c C-k") (lambda ()
+                               (interactive)
+                               (setq-local compilation-read-command nil)
+                               (call-interactively 'compile)))
