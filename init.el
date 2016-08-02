@@ -1,4 +1,4 @@
-;;----------------------------------------------------------------------
+1;;----------------------------------------------------------------------
 ;; My Personal Emacs Configuration
 ;;
 ;; I will try to keep it clean and well-documented as much as possible,
@@ -121,7 +121,7 @@
  '(org-agenda-todo-list-sublevels nil)
  '(package-selected-packages
    (quote
-    (org-page foggy-night-theme reykjavik-theme helm-swoop org-bullets modern-cpp-font-lock s helm)))
+    (glsl-mode org-page foggy-night-theme reykjavik-theme helm-swoop org-bullets modern-cpp-font-lock s helm)))
  '(powerline-default-separator (quote wave)))
 
 
@@ -175,3 +175,12 @@
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
+
+
+(require 'org-page)
+(setq op/repository-directory "~/Workspace/pandora")
+(setq op/site-domain "https://pqhieu.github.io")
+(setq op/theme-root-directory "~/Workspace/pandora/themes")
+(setq op/theme 'org-page-one-column)
+
+(setq org-ellipsis "▼")
