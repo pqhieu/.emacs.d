@@ -72,7 +72,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'zenburn t)
+(load-theme 'subatomic t)
 ;; Modeline config
 (use-package spaceline
   :init
@@ -129,5 +129,18 @@
 (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
 (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))  ; was dired-up-directory
 (put 'dired-find-alternate-file 'disabled nil)
+
+(defun mydired-sort ()
+  "Sort dired listings with directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+    (set-buffer-modified-p nil)))
+
+(defadvice dired-readin
+  (after dired-after-updating-hook first () activate)
+  "Sort dired listings with directories first before adding marks."
+  (mydired-sort))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

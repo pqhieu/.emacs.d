@@ -5,7 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (zenburn-theme use-package spaceline org-bullets nyan-mode modern-cpp-font-lock ivy exec-path-from-shell all-the-icons))))
+    (subatomic-theme use-package spaceline org-bullets nyan-mode modern-cpp-font-lock ivy exec-path-from-shell all-the-icons)))
+ '(subatomic-high-contrast t)
+ '(subatomic-more-visible-comment-delimiters t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
