@@ -72,7 +72,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'subatomic t)
+(load-theme 'apropospriate-dark t)
 ;; Modeline config
 (use-package spaceline
   :init
@@ -130,7 +130,7 @@
 (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))  ; was dired-up-directory
 (put 'dired-find-alternate-file 'disabled nil)
 
-(defun mydired-sort ()
+(defun dired-sort ()
   "Sort dired listings with directories first."
   (save-excursion
     (let (buffer-read-only)
@@ -141,6 +141,6 @@
 (defadvice dired-readin
   (after dired-after-updating-hook first () activate)
   "Sort dired listings with directories first before adding marks."
-  (mydired-sort))
+  (dired-sort))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

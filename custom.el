@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (subatomic-theme use-package spaceline org-bullets nyan-mode modern-cpp-font-lock ivy exec-path-from-shell all-the-icons)))
+    (apropospriate-theme glsl-mode foggy-night-theme color-theme-sanityinc-tomorrow cuda-mode magit use-package spaceline org-bullets nyan-mode modern-cpp-font-lock ivy exec-path-from-shell all-the-icons)))
  '(subatomic-high-contrast t)
  '(subatomic-more-visible-comment-delimiters t))
 (custom-set-faces
