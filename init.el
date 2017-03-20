@@ -23,9 +23,6 @@
 (require 'use-package)
 (setq use-package-verbose t)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;;----------------------------------------------------------------------
 ;; User-defined Functions
 (defun show-agenda-all ()
@@ -39,7 +36,7 @@
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
-;; Disable backup and autosaving
+;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
 (setq-default auto-save-default nil)
@@ -65,14 +62,12 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-13")
-;; Start in fullscreen
-(set-frame-parameter nil 'fullscreen 'fullboth)
+(set-frame-font "Anonymous Pro-14")
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'apropospriate-dark t)
+(load-theme 'spacemacs-light t)
 ;; Modeline config
 (use-package spaceline
   :init
@@ -84,7 +79,7 @@
   :init (nyan-mode 1)
   :config
   (nyan-start-animation))
-;; Set up Ivy for completion
+;; Set up Ivy
 (use-package ivy
   :ensure t
   :diminish ivy-mode
@@ -92,7 +87,7 @@
   (ivy-mode 1)
   ;; Add recent files into completion list
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 10)
+  (setq ivy-height 20)
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
 ;; Org-mode settings
@@ -101,46 +96,50 @@
   :config
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
-  (setq org-agenda-files (list "~/Dropbox/Documents/org/general.org"))
+  (setq org-agenda-start-on-weekday nil)
+  (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
-  (global-set-key (kbd "C-c a") 'show-agenda-all))
+  (bind-key "C-c a" 'show-agenda-all))
 (use-package org-bullets
+  :ensure t
   :config
   (add-hook 'org-mode-hook 'org-bullets-mode 1))
+;; Miscellaneous
+(use-package exec-path-from-shell
+  :ensure t
+  :init (exec-path-from-shell-initialize))
+(use-package whitespace
+  :ensure t
+  :config
+  (setq whitespace-style '(face lines-tail))
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t))))
+;; Keybindings
+(use-package bind-key
+  :ensure t
+  :config
+  (bind-key "C-c C-f" 'toggle-frame-fullscreen))
+;;----------------------------------------------------------------------
+;; Programming settings
+(use-package cc-mode
+  :ensure t
+  :config
+  (setq c-default-style "ellemtel")
+  (setq c-basic-offset 4))
 
-(defun my-c-setup ()
-  (c-set-offset 'innamespace 0))
-(add-hook 'c++-mode-hook 'my-c-setup)
 
-(exec-path-from-shell-initialize)
 
-(add-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
-(setq modern-c++-literal-integer nil)
-
-(require 'whitespace)
-(setq whitespace-style '(face lines-tail))
-
-(require 'cc-mode)
-(setq c-default-style "ellemtel")
-(setq c-basic-offset 4)
-(add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t)))
-
-(require 'dired )
-(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
-(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))  ; was dired-up-directory
-(put 'dired-find-alternate-file 'disabled nil)
-
-(defun dired-sort ()
-  "Sort dired listings with directories first."
-  (save-excursion
-    (let (buffer-read-only)
-      (forward-line 2) ;; beyond dir. header
-      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-    (set-buffer-modified-p nil)))
-
-(defadvice dired-readin
-  (after dired-after-updating-hook first () activate)
-  "Sort dired listings with directories first before adding marks."
-  (dired-sort))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (org-bullets nyan-mode spaceline use-package spacemacs-theme spacegray-theme rtags ivy exec-path-from-shell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
