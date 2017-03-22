@@ -47,6 +47,8 @@
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
+;; Miscellaneous
+(setq-default with-editor-emacsclient-executable "emacsclient-snapshot")
 
 ;;----------------------------------------------------------------------
 ;; Display Settings
@@ -125,7 +127,20 @@
 ;; Magit
 (use-package magit
   :ensure t
-  :bind ("C-c g" . magit-status))
+  :config)
+(use-package hydra
+  :ensure t
+  :init
+  (defhydra hydra-magit (:color blue :hint nil)
+  "
+^Magit^             ^Actions^
+^^^^^^^^------------------------------
+_s_: status         _c_: commit
+"
+  ("s" magit-status)
+  ("c" magit-commit)
+  ("q" quit-window "quit" :color red))
+  :bind ("C-c g" . hydra-magit/body))
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
@@ -159,7 +174,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (org-bullets nyan-mode spaceline use-package spacemacs-theme spacegray-theme rtags ivy exec-path-from-shell))))
+    (use-package spacemacs-theme spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
