@@ -53,6 +53,9 @@
 ;; Disable splash screen, toolbar and scrollbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
+(blink-cursor-mode 0)
+(display-time-mode 1)
+(global-subword-mode 1)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Highlight current line and show column number
@@ -63,6 +66,8 @@
 (show-paren-mode 1)
 ;; Set theme and font
 (set-frame-font "Anonymous Pro-14")
+;; Fancy symbols
+(global-prettify-symbols-mode 1)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
@@ -85,25 +90,42 @@
   :diminish ivy-mode
   :config
   (ivy-mode 1)
-  ;; Add recent files into completion list
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-height 20)
+  (setq ivy-use-virtual-buffers t) ;; Add recent files into completion list
+  (setq ivy-height 15)
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
 ;; Org-mode settings
 (use-package org
   :ensure t
-  :config
+  :init
+  (add-hook 'org-mode-hook 'yas-minor-mode-on)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
-  (bind-key "C-c a" 'show-agenda-all))
+  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
+                            (sequence "NEXT(n)" "|" "CANCELED(c)")))
+  :bind ("C-c a" . show-agenda-all)
+  :config
+  (font-lock-add-keywords
+   'org-mode
+   `(("^\\*+ \\(TODO\\) "
+      (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚑") nil)))
+     ("^\\*+ \\(NEXT\\) "
+      (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚐")) nil))
+     ("^\\*+ \\(CANCELED\\) "
+      (1 (progn (compose-region (match-beginning 1) (match-end 1) "✘") nil)))
+     ("^\\*+ \\(DONE\\) "
+      (1 (progn (compose-region (match-beginning 1) (match-end 1) "✔") nil))))))
 (use-package org-bullets
   :ensure t
-  :config
-  (add-hook 'org-mode-hook 'org-bullets-mode 1))
+  :init
+  (add-hook 'org-mode-hook 'org-bullets-mode))
+;; Magit
+(use-package magit
+  :ensure t
+  :bind ("C-c g" . magit-status))
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
@@ -126,6 +148,7 @@
   :config
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
+(global-subword-mode 1)
 
 
 
