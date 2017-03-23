@@ -47,8 +47,6 @@
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
-;; Miscellaneous
-(setq-default with-editor-emacsclient-executable "emacsclient-snapshot")
 
 ;;----------------------------------------------------------------------
 ;; Display Settings
@@ -128,6 +126,7 @@
 (use-package magit
   :ensure t
   :config)
+;; Hydra
 (use-package hydra
   :ensure t
   :init
@@ -147,6 +146,11 @@ _l_: log            _p_: pull
   ("p" magit-pull)
   ("q" quit-window "quit" :color red))
   :bind ("C-c g" . hydra-magit/body))
+;; Dired
+(use-package all-the-icons-dired
+  :ensure t
+  :init
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
