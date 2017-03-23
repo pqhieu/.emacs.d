@@ -65,7 +65,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Anonymous Pro-14")
+(set-frame-font "Fira Code-14")
 ;; Fancy symbols
 (global-prettify-symbols-mode 1)
 
@@ -125,7 +125,9 @@
 ;; Magit
 (use-package magit
   :ensure t
-  :config)
+  :init
+  (if (eq system-type 'darwin)
+    (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient")))
 ;; Hydra
 (use-package hydra
   :ensure t
