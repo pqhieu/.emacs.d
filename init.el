@@ -134,11 +134,17 @@
   (defhydra hydra-magit (:color blue :hint nil)
   "
 ^Magit^             ^Actions^
-^^^^^^^^------------------------------
+^^^^^^^------------------------------
 _s_: status         _c_: commit
+_d_: diff           _u_: push
+_l_: log            _p_: pull
 "
   ("s" magit-status)
+  ("d" magit-diff)
+  ("l" magit-log-all)
   ("c" magit-commit)
+  ("u" magit-push)
+  ("p" magit-pull)
   ("q" quit-window "quit" :color red))
   :bind ("C-c g" . hydra-magit/body))
 ;; Miscellaneous
