@@ -127,27 +127,8 @@
   :ensure t
   :init
   (if (eq system-type 'darwin)
-    (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient")))
-;; Hydra
-(use-package hydra
-  :ensure t
-  :init
-  (defhydra hydra-magit (:color blue :hint nil)
-  "
-^Magit^             ^Actions^
-^^^^^^^------------------------------
-_s_: status         _c_: commit
-_d_: diff           _u_: push
-_l_: log            _p_: pull
-"
-  ("s" magit-status)
-  ("d" magit-diff)
-  ("l" magit-log-all)
-  ("c" magit-commit)
-  ("u" magit-push)
-  ("p" magit-pull)
-  ("q" quit-window "quit" :color red))
-  :bind ("C-c g" . hydra-magit/body))
+      (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient"))
+  :bind ("C-c g" . magit-status))
 ;; Dired
 (use-package all-the-icons-dired
   :ensure t
