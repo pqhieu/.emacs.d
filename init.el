@@ -154,7 +154,7 @@
 (use-package bind-key
   :ensure t
   :config
-  (bind-key "C-c C-f" 'toggle-frame-fullscreen))
+  (bind-key "C-c f" 'toggle-frame-fullscreen))
 ;;----------------------------------------------------------------------
 ;; Programming settings
 (use-package cc-mode
