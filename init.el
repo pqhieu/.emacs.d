@@ -130,9 +130,11 @@
       (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
 ;; Dired
+
 (use-package all-the-icons-dired
   :ensure t
   :init
+  (require 'tramp)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 ;; Miscellaneous
 (use-package exec-path-from-shell
