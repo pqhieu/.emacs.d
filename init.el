@@ -55,7 +55,6 @@
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
 (display-time-mode 1)
-(global-subword-mode 1)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Highlight current line and show column number
@@ -99,7 +98,6 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'yas-minor-mode-on)
-  (setq org-agenda-diary-file "~/Dropbox/diary.org")
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-start-on-weekday nil)
@@ -131,7 +129,6 @@
       (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
 ;; Dired
-
 (use-package all-the-icons-dired
   :ensure t
   :init
@@ -147,6 +144,12 @@
   (setq whitespace-style '(face lines-tail))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t))))
+(use-package calendar
+  :ensure t
+  :config
+  (setq diary-file "~/Dropbox/diary")
+  (add-hook 'diary-display-hook 'diary-fancy-display-mode)
+  :bind ("C-c c" . calendar))
 ;; Keybindings
 (use-package bind-key
   :ensure t
