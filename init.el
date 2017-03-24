@@ -73,7 +73,7 @@
 ;; User-installed Package Settings
 ;; Set Emacs theme
 (load-theme 'spacemacs-light t)
-;; Modeline config
+;; Modeline
 (use-package spaceline
   :init
   ;; Disable sRGB on Mac OSX to get a sharp look
@@ -84,7 +84,7 @@
   :init (nyan-mode 1)
   :config
   (nyan-start-animation))
-;; Set up Ivy
+;; Ivy
 (use-package ivy
   :ensure t
   :diminish ivy-mode
@@ -99,6 +99,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'yas-minor-mode-on)
+  (setq org-agenda-diary-file "~/Dropbox/diary.org")
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-start-on-weekday nil)
