@@ -71,7 +71,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'spacemacs-light t)
+(load-theme 'flatui t)
 ;; Modeline
 (use-package spaceline
   :init
@@ -98,13 +98,15 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'yas-minor-mode-on)
+  (setq org-agenda-tags-column -80)
+  (setq org-tags-column -80)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
-  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")
-                            (sequence "NEXT(n)" "|" "CANCELED(c)")))
+  (setq org-todo-keywords '
+        ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
   :bind ("C-c a" . show-agenda-all)
   :config
   (font-lock-add-keywords
@@ -163,7 +165,6 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 (global-subword-mode 1)
-
 
 
 (custom-set-variables
