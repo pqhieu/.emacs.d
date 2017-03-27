@@ -128,9 +128,11 @@
   :ensure t
   :init
   (if (eq system-type 'darwin)
-      (setq-default with-editor-emacsclient-executable "usr/local/bin/emacsclient"))
+      (setq-default with-editor-emacsclient-executable "/usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
 ;; Dired
+(use-package all-the-icons
+  :ensure t)
 (use-package all-the-icons-dired
   :ensure t
   :init
@@ -174,7 +176,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (use-package spacemacs-theme spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
+    (flatui-theme use-package spacemacs-theme spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
