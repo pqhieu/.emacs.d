@@ -71,18 +71,20 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'flatui t)
+(load-theme 'sexy-monochrome t)
 ;; Modeline
 (use-package spaceline
+  :ensure t
   :init
   ;; Disable sRGB on Mac OSX to get a sharp look
   (setq ns-use-srgb-colorspace nil)
   (require 'spaceline-config)
   (spaceline-emacs-theme))
 (use-package nyan-mode
+  :ensure t
   :init (nyan-mode 1)
-  :config
-  (nyan-start-animation))
+  :config (nyan-start-animation))
+
 ;; Ivy
 (use-package ivy
   :ensure t
@@ -93,6 +95,7 @@
   (setq ivy-height 15)
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
+
 ;; Org-mode settings
 (use-package org
   :ensure t
@@ -123,6 +126,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode))
+
 ;; Magit
 (use-package magit
   :ensure t
@@ -130,14 +134,18 @@
   (if (eq system-type 'darwin)
       (setq-default with-editor-emacsclient-executable "/usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
+
 ;; Dired
 (use-package all-the-icons
-  :ensure t)
+  :ensure t
+  :init
+  (require 'cl))
 (use-package all-the-icons-dired
   :ensure t
   :init
   (require 'tramp)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
@@ -148,17 +156,20 @@
   (setq whitespace-style '(face lines-tail))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t))))
+
 (use-package calendar
   :ensure t
   :config
   (setq diary-file "~/Dropbox/diary")
   (add-hook 'diary-display-hook 'diary-fancy-display-mode)
   :bind ("C-c c" . calendar))
+
 ;; Keybindings
 (use-package bind-key
   :ensure t
   :config
   (bind-key "C-c f" 'toggle-frame-fullscreen))
+
 ;;----------------------------------------------------------------------
 ;; Programming settings
 (use-package cc-mode
@@ -176,7 +187,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flatui-theme use-package spacemacs-theme spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
+    (go-mode sexy-monochrome-theme web-mode glsl-mode use-package spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
