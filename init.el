@@ -65,8 +65,6 @@
 (show-paren-mode 1)
 ;; Set theme and font
 (set-frame-font "Fira Code-14")
-;; Fancy symbols
-(global-prettify-symbols-mode 1)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
@@ -109,19 +107,14 @@
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
   (setq org-todo-keywords '
-        ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
+        ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
   :bind ("C-c a" . show-agenda-all)
   :config
   (font-lock-add-keywords
    'org-mode
-   `(("^\\*+ \\(TODO\\) "
-      (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚑") nil)))
-     ("^\\*+ \\(NEXT\\) "
-      (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚐")) nil))
-     ("^\\*+ \\(CANCELED\\) "
-      (1 (progn (compose-region (match-beginning 1) (match-end 1) "✘") nil)))
-     ("^\\*+ \\(DONE\\) "
-      (1 (progn (compose-region (match-beginning 1) (match-end 1) "✔") nil))))))
+   `(("^\\*+ \\(TODO\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚑") nil)))
+     ("^\\*+ \\(NEXT\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚐")) nil))
+     ("^\\*+ \\(DONE\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "✔") nil))))))
 (use-package org-bullets
   :ensure t
   :init
@@ -139,11 +132,11 @@
 (use-package all-the-icons
   :ensure t
   :init
-  (require 'cl))
+  (require 'cl)
+  (require 'tramp))
 (use-package all-the-icons-dired
   :ensure t
   :init
-  (require 'tramp)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 ;; Miscellaneous
@@ -165,32 +158,15 @@
   :bind ("C-c c" . calendar))
 
 ;; Keybindings
-(use-package bind-key
-  :ensure t
-  :config
-  (bind-key "C-c f" 'toggle-frame-fullscreen))
+(global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
+(global-prettify-symbols-mode 1)
+(global-subword-mode 1)
+
 (use-package cc-mode
   :ensure t
   :config
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
-(global-subword-mode 1)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (go-mode sexy-monochrome-theme web-mode glsl-mode use-package spaceline spacegray-theme rtags org-bullets nyan-mode magit ivy hydra exec-path-from-shell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
