@@ -106,14 +106,11 @@
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
-  (setq org-todo-keywords '
-        ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
   :bind ("C-c a" . show-agenda-all)
   :config
   (font-lock-add-keywords
    'org-mode
    `(("^\\*+ \\(TODO\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚑") nil)))
-     ("^\\*+ \\(NEXT\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚐")) nil))
      ("^\\*+ \\(DONE\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "✔") nil))))))
 (use-package org-bullets
   :ensure t
@@ -149,6 +146,10 @@
   (setq whitespace-style '(face lines-tail))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t))))
+
+(use-package elfeed
+  :ensure t
+  :bind ("C-c w" . elfeed))
 
 (use-package calendar
   :ensure t
