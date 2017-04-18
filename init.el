@@ -69,7 +69,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'sexy-monochrome t)
+(load-theme 'sanityinc-tomorrow-day t)
 ;; Modeline
 (use-package spaceline
   :ensure t
@@ -100,18 +100,14 @@
   :init
   (add-hook 'org-mode-hook 'yas-minor-mode-on)
   (setq org-agenda-tags-column -80)
-  (setq org-tags-column -80)
+  (setq org-tags-column -79)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
-  :bind ("C-c a" . show-agenda-all)
-  :config
-  (font-lock-add-keywords
-   'org-mode
-   `(("^\\*+ \\(TODO\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "⚑") nil)))
-     ("^\\*+ \\(DONE\\) " (1 (progn (compose-region (match-beginning 1) (match-end 1) "✔") nil))))))
+  (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
+  :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
   :ensure t
   :init
@@ -134,7 +130,12 @@
 (use-package all-the-icons-dired
   :ensure t
   :init
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  (add-hook 'dired-mode-hook 'auto-revert-mode))
+(use-package dired-quick-sort
+  :ensure t
+  :config
+  (dired-quick-sort-setup))
 
 ;; Miscellaneous
 (use-package exec-path-from-shell
@@ -149,6 +150,13 @@
 
 (use-package elfeed
   :ensure t
+  :init
+  (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)
+                       ("http://irreal.org/blog/?feed=rss2" blog emacs)
+                       ("https://jeremykun.com/feed/" blog math)
+                       ("http://distill.pub/rss.xml" blog research)
+                       ("http://emacsredux.com/atom.xml" blog emacs)))
+  (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 
 (use-package calendar
