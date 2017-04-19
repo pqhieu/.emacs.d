@@ -127,15 +127,19 @@
   :init
   (require 'cl)
   (require 'tramp))
+(use-package dired-quick-sort
+  :ensure t
+  :init
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program "/usr/local/bin/gls"))
+  (setq dired-listing-switches "-aBhl --group-directories-first")
+  :config
+  (dired-quick-sort-setup))
 (use-package all-the-icons-dired
   :ensure t
   :init
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'dired-mode-hook 'auto-revert-mode))
-(use-package dired-quick-sort
-  :ensure t
-  :config
-  (dired-quick-sort-setup))
 
 ;; Miscellaneous
 (use-package exec-path-from-shell
@@ -163,6 +167,7 @@
   :ensure t
   :config
   (setq diary-file "~/Dropbox/diary")
+  (setq calendar-mark-diary-entries-flag t)
   (add-hook 'diary-display-hook 'diary-fancy-display-mode)
   :bind ("C-c c" . calendar))
 
