@@ -64,12 +64,12 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-14")
+(set-frame-font "Source Code Pro-14")
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'sanityinc-tomorrow-day t)
+(load-theme 'nord t)
 ;; Modeline
 (use-package spaceline
   :ensure t
@@ -159,7 +159,8 @@
                        ("http://irreal.org/blog/?feed=rss2" blog emacs)
                        ("https://jeremykun.com/feed/" blog math)
                        ("http://distill.pub/rss.xml" blog research)
-                       ("http://emacsredux.com/atom.xml" blog emacs)))
+                       ("http://emacsredux.com/atom.xml" blog emacs)
+                       ("https://oremacs.com/atom.xml" blog emacs)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 
@@ -184,3 +185,19 @@
   :config
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (flatui-dark-theme markdown-mode yasnippet web-mode use-package spaceline org-bullets nyan-mode nord-theme modern-cpp-font-lock magit ivy go-mode glsl-mode exec-path-from-shell elfeed dired-quick-sort all-the-icons-dired))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
