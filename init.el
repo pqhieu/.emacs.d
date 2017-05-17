@@ -161,6 +161,7 @@
                        ("http://distill.pub/rss.xml" blog research)
                        ("http://emacsredux.com/atom.xml" blog emacs)
                        ("http://oremacs.com/atom.xml" blog emacs)
+                       ("http://www.hieuthi.com/blog/feed.xml" blog)
                        ("https://github.com/pqhieu.private.atom?token=AC5x9joK5wqGekvaHbPbO8oR2GUpJBdeks63GAK1wA==" github)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
