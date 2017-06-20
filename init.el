@@ -71,13 +71,6 @@
 ;; Set Emacs theme
 (load-theme 'nord t)
 ;; Modeline
-(use-package spaceline
-  :ensure t
-  :init
-  ;; Disable sRGB on Mac OSX to get a sharp look
-  (setq ns-use-srgb-colorspace nil)
-  (require 'spaceline-config)
-  (spaceline-emacs-theme))
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
@@ -118,7 +111,8 @@
   :ensure t
   :init
   (if (eq system-type 'darwin)
-      (setq-default with-editor-emacsclient-executable "/usr/local/bin/emacsclient"))
+      (setq-default with-editor-emacsclient-executable
+                    "/usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
 
 ;; Dired
@@ -127,14 +121,6 @@
   :init
   (require 'cl)
   (require 'tramp))
-(use-package dired-quick-sort
-  :ensure t
-  :init
-  (when (eq system-type 'darwin)
-    (setq insert-directory-program "/usr/local/bin/gls"))
-  (setq dired-listing-switches "-aBhl --group-directories-first")
-  :config
-  (dired-quick-sort-setup))
 (use-package all-the-icons-dired
   :ensure t
   :init
@@ -148,9 +134,9 @@
 (use-package whitespace
   :ensure t
   :config
-  (setq whitespace-style '(face lines-tail))
+  (setq show-trailing-whitespace t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'prog-mode-hook (lambda() (setq show-trailing-whitespace t))))
+  (add-hook 'prog-mode-hook 'whitespace-mode))
 
 (use-package elfeed
   :ensure t
@@ -158,11 +144,9 @@
   (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)
                        ("http://irreal.org/blog/?feed=rss2" blog emacs)
                        ("https://jeremykun.com/feed/" blog math)
-                       ("http://distill.pub/rss.xml" blog research)
                        ("http://emacsredux.com/atom.xml" blog emacs)
                        ("http://oremacs.com/atom.xml" blog emacs)
-                       ("http://www.hieuthi.com/blog/feed.xml" blog)
-                       ("https://github.com/pqhieu.private.atom?token=AC5x9joK5wqGekvaHbPbO8oR2GUpJBdeks63GAK1wA==" github)))
+                       ("http://www.hieuthi.com/blog/feed.xml" blog)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 
@@ -176,6 +160,7 @@
 
 ;; Keybindings
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
+
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
@@ -198,17 +183,15 @@
    (quote
     (markdown-mode
      yasnippet
-     web-mode
      use-package
-     spaceline
      org-bullets
      nyan-mode
      nord-theme
-     magit ivy
+     magit
+     ivy
      go-mode
-     glsl-mode
      exec-path-from-shell
-     elfeed dired-quick-sort
+     elfeed
      all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
