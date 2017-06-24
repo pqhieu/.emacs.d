@@ -134,7 +134,7 @@
 (use-package whitespace
   :ensure t
   :config
-  (setq show-trailing-whitespace t)
+  (setq whitespace-style '(trailing))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
 
@@ -172,6 +172,8 @@
   :config
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
+
+(toggle-frame-fullscreen)
 
 
 (custom-set-variables
