@@ -170,7 +170,9 @@
 (use-package cc-mode
   :ensure t
   :config
-  (setq c-default-style "ellemtel")
+  (defun c-setup () (c-set-offset 'innamespace [0]))
+  (add-hook 'c++-mode-hook 'c-setup)
+  (setq c-default-style "stroustrup")
   (setq c-basic-offset 4))
 
 (toggle-frame-fullscreen)
