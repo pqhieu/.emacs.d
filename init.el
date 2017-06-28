@@ -69,7 +69,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Set Emacs theme
-(load-theme 'nord t)
+(load-theme 'gruvbox-dark-hard t)
 ;; Modeline
 (use-package nyan-mode
   :ensure t
@@ -185,7 +185,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode
+    (gruvbox-theme
+     markdown-mode
      yasnippet
      use-package
      org-bullets
