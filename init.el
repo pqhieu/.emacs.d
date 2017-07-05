@@ -92,7 +92,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'yas-minor-mode-on)
-  (setq org-agenda-tags-column -80)
+  (setq org-agenda-tags-column -100)
   (setq org-tags-column -79)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
