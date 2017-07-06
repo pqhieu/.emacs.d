@@ -191,7 +191,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (cuda-mode
+    (haskell-mode
+     counsel-projectile
+     projectile
+     cuda-mode
      spaceline-all-the-icons
      gruvbox-theme
      markdown-mode
@@ -205,10 +208,13 @@
      go-mode
      exec-path-from-shell
      elfeed
-     all-the-icons-dired))))
+     all-the-icons-dired)))
+ '(spaceline-all-the-icons-hide-long-buffer-path t)
+ '(spaceline-all-the-icons-icon-set-sun-time (quote sun/moon))
+ '(spaceline-all-the-icons-separator-type (quote arrow)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box (:line-width 1 :color "grey75" :style released-button))))))
