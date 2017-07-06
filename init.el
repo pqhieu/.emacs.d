@@ -126,6 +126,12 @@
   :init
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'dired-mode-hook 'auto-revert-mode))
+(use-package spaceline)
+(use-package spaceline-all-the-icons
+  :after spaceline
+  :config (spaceline-all-the-icons-theme))
+(if (eq system-type 'gnu/linux)
+    (setq dired-listing-switches "-aBhl  --group-directories-first"))
 
 ;; Miscellaneous
 (use-package exec-path-from-shell
@@ -185,7 +191,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (gruvbox-theme
+    (cuda-mode
+     spaceline-all-the-icons
+     gruvbox-theme
      markdown-mode
      yasnippet
      use-package
