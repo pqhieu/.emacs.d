@@ -1,6 +1,10 @@
 ;;----------------------------------------------------------------------
 ;; My Personal Emacs Configuration
 ;;
+;; Copyright (C) 2015-2017  Quang-Hieu Pham <pqhieu1192@gmail.com>
+;;
+;; Author: Quang-Hieu Pham <pqhieu1192@gmail.com>
+;;
 ;; I will try to keep it clean and well-documented as much as possible,
 ;; but sometimes the laziness just get me...
 ;; I won't guarantee it will work on any computer or any Emacs version,
@@ -65,17 +69,11 @@
 (show-paren-mode 1)
 ;; Set theme and font
 (set-frame-font "Source Code Pro-14")
+;; Set Emacs theme
+(load-theme 'gruvbox-dark-hard t)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
-;; Set Emacs theme
-(load-theme 'gruvbox-dark-hard t)
-;; Modeline
-(use-package nyan-mode
-  :ensure t
-  :init (nyan-mode 1)
-  :config (nyan-start-animation))
-
 ;; Ivy
 (use-package ivy
   :ensure t
@@ -126,10 +124,17 @@
   :init
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'dired-mode-hook 'auto-revert-mode))
+
+;; Modeline
 (use-package spaceline)
+(use-package nyan-mode
+  :ensure t
+  :init (nyan-mode 1)
+  :config (nyan-start-animation))
 (use-package spaceline-all-the-icons
-  :after spaceline
+  :after spaceline nyan-mode
   :config (spaceline-all-the-icons-theme))
+
 (if (eq system-type 'gnu/linux)
     (setq dired-listing-switches "-aBhl  --group-directories-first"))
 
