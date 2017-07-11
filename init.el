@@ -125,7 +125,7 @@
   (if (eq system-type 'gnu/linux)
     (setq dired-listing-switches "-aBhl  --group-directories-first")))
 
-;; Modeline
+;; Mode line
 (use-package spaceline)
 (use-package nyan-mode
   :ensure t
@@ -137,6 +137,15 @@
   (spaceline-all-the-icons-theme)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
   (setq spaceline-all-the-icons-separator-type (quote arrow)))
+
+;; Projectile
+(use-package projectile
+  :ensure t
+  :init (projectile-mode 1))
+(use-package counsel-projectile
+  :after projectile
+  :init (counsel-projectile-on))
+
 
 ;; Miscellaneous
 (use-package exec-path-from-shell
