@@ -115,15 +115,15 @@
 
 ;; Dired
 (use-package all-the-icons
-  :ensure t
-  :init
-  (require 'cl)
-  (require 'tramp))
+  :after cl tramp
+  :ensure t)
 (use-package all-the-icons-dired
   :ensure t
   :init
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  (add-hook 'dired-mode-hook 'auto-revert-mode))
+  (add-hook 'dired-mode-hook 'auto-revert-mode)
+  (if (eq system-type 'gnu/linux)
+    (setq dired-listing-switches "-aBhl  --group-directories-first")))
 
 ;; Modeline
 (use-package spaceline)
@@ -133,10 +133,10 @@
   :config (nyan-start-animation))
 (use-package spaceline-all-the-icons
   :after spaceline nyan-mode
-  :config (spaceline-all-the-icons-theme))
-
-(if (eq system-type 'gnu/linux)
-    (setq dired-listing-switches "-aBhl  --group-directories-first"))
+  :config
+  (spaceline-all-the-icons-theme)
+  (setq spaceline-all-the-icons-hide-long-buffer-path t)
+  (setq spaceline-all-the-icons-separator-type (quote arrow)))
 
 ;; Miscellaneous
 (use-package exec-path-from-shell
@@ -213,13 +213,11 @@
      go-mode
      exec-path-from-shell
      elfeed
-     all-the-icons-dired)))
- '(spaceline-all-the-icons-hide-long-buffer-path t)
- '(spaceline-all-the-icons-icon-set-sun-time (quote sun/moon))
- '(spaceline-all-the-icons-separator-type (quote arrow)))
+     all-the-icons-dired))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box (:line-width 1 :color "grey75" :style released-button))))))
+ '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box
+                              (:line-width 1 :color "grey75" :style released-button))))))
