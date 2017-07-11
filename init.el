@@ -84,7 +84,6 @@
   (setq ivy-height 15)
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
-
 ;; Org-mode settings
 (use-package org
   :ensure t
@@ -103,7 +102,6 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode))
-
 ;; Magit
 (use-package magit
   :ensure t
@@ -112,7 +110,6 @@
       (setq-default with-editor-emacsclient-executable
                     "/usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
-
 ;; Dired
 (use-package all-the-icons
   :after cl tramp
@@ -124,7 +121,6 @@
   (add-hook 'dired-mode-hook 'auto-revert-mode)
   (if (eq system-type 'gnu/linux)
     (setq dired-listing-switches "-aBhl  --group-directories-first")))
-
 ;; Mode line
 (use-package powerline :ensure t)
 (use-package spaceline :ensure t :after powerline)
@@ -138,7 +134,6 @@
   (spaceline-all-the-icons-theme)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
   (setq spaceline-all-the-icons-separator-type (quote arrow)))
-
 ;; Projectile
 (use-package projectile
   :ensure t
@@ -146,8 +141,10 @@
 (use-package counsel-projectile
   :after projectile
   :init (counsel-projectile-on))
-
-
+;; Yasnippet
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode 1))
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
@@ -158,7 +155,7 @@
   (setq whitespace-style '(trailing))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
-
+;; RSS reader
 (use-package elfeed
   :ensure t
   :init
@@ -170,7 +167,7 @@
                        ("http://www.hieuthi.com/blog/feed.xml" blog)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
-
+;; Calender & Diary
 (use-package calendar
   :ensure t
   :config
@@ -178,7 +175,6 @@
   (setq calendar-mark-diary-entries-flag t)
   (add-hook 'diary-display-hook 'diary-fancy-display-mode)
   :bind ("C-c c" . calendar))
-
 ;; Keybindings
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
@@ -198,7 +194,6 @@
   (setq c-basic-offset 4))
 
 (toggle-frame-fullscreen)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
