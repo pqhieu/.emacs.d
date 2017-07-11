@@ -126,7 +126,9 @@
     (setq dired-listing-switches "-aBhl  --group-directories-first")))
 
 ;; Mode line
-(use-package spaceline)
+(use-package spaceline
+  :ensure t
+  :after powerline)
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
