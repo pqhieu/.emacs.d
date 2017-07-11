@@ -17,7 +17,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
-(package-initialize)
+(package-initialize nil)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -126,9 +126,8 @@
     (setq dired-listing-switches "-aBhl  --group-directories-first")))
 
 ;; Mode line
-(use-package spaceline
-  :ensure t
-  :after powerline)
+(use-package powerline :ensure t)
+(use-package spaceline :ensure t :after powerline)
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
@@ -194,6 +193,7 @@
   :config
   (defun c-setup () (c-set-offset 'innamespace [0]))
   (add-hook 'c++-mode-hook 'c-setup)
+  (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "stroustrup")
   (setq c-basic-offset 4))
 
