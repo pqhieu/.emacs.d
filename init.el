@@ -75,15 +75,29 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Ivy
-(use-package ivy
+(use-package swiper
   :ensure t
   :diminish ivy-mode
+  :bind (("C-s" . swiper)
+         ("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-M-i" . complete-symbol)
+         ("C-." . counsel-imenu)
+         ("C-c 8" . counsel-unicode-char)
+         ("C-c v" . ivy-push-view)
+         ("C-c V" . ivy-pop-view)
+         ("M-y" . counsel-yank-pop))
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t) ;; Add recent files into completion list
   (setq ivy-height 15)
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
+;; which-key
+(use-package which-key
+  :ensure t
+  :config (which-key-mode 1))
 ;; Org-mode settings
 (use-package org
   :ensure t
@@ -96,6 +110,7 @@
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
+  (setq org-pretty-entities t)
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
   :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
@@ -133,7 +148,9 @@
   :config
   (spaceline-all-the-icons-theme)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
-  (setq spaceline-all-the-icons-separator-type (quote arrow)))
+  (setq spaceline-all-the-icons-separator-type (quote arrow))
+  (spaceline-toggle-all-the-icons-fullscreen-on)
+  (spaceline-toggle-all-the-icons-buffer-position-on))
 ;; Projectile
 (use-package projectile
   :ensure t
@@ -202,7 +219,10 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (haskell-mode
+    (creamsody-theme
+     ledger-mode
+     which-key
+     haskell-mode
      counsel-projectile
      projectile
      cuda-mode
@@ -225,5 +245,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box
-                              (:line-width 1 :color "grey75" :style released-button))))))
+ '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box (:line-width 1 :color "grey75" :style released-button))))))
