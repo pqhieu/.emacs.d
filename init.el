@@ -102,6 +102,7 @@
 (use-package org
   :ensure t
   :init
+  (setq org-agenda-span 1)
   (setq org-agenda-tags-column -100)
   (setq org-tags-column -79)
   (setq org-agenda-todo-ignore-scheduled (quote all))
@@ -204,7 +205,7 @@
   (defun c-setup () (c-set-offset 'innamespace [0]))
   (add-hook 'c++-mode-hook 'c-setup)
   (add-hook 'cuda-mode-hook 'c-setup)
-  (setq c-default-style "stroustrup")
+  (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 
 (toggle-frame-fullscreen)
