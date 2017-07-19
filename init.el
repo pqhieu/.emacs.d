@@ -146,6 +146,7 @@
   :after spaceline nyan-mode
   :config
   (spaceline-all-the-icons-theme)
+  (setq inhibit-compacting-font-caches t)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
   (setq spaceline-all-the-icons-separator-type (quote arrow))
   (spaceline-toggle-all-the-icons-fullscreen-on)
@@ -177,10 +178,7 @@
   :init
   (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)
                        ("http://irreal.org/blog/?feed=rss2" blog emacs)
-                       ("https://jeremykun.com/feed/" blog math)
-                       ("http://emacsredux.com/atom.xml" blog emacs)
-                       ("http://oremacs.com/atom.xml" blog emacs)
-                       ("http://www.hieuthi.com/blog/feed.xml" blog)))
+                       ("https://jeremykun.com/feed/" blog math)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 ;; Calender & Diary
