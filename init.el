@@ -71,6 +71,8 @@
 (set-frame-font "Source Code Pro-14")
 ;; Set Emacs theme
 (load-theme 'gruvbox-dark-hard t)
+;; Set recenter command behaviour
+(setq recenter-positions '(top middle bottom))
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
