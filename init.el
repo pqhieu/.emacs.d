@@ -89,6 +89,7 @@
          ("C-c 8" . counsel-unicode-char)
          ("C-c v" . ivy-push-view)
          ("C-c V" . ivy-pop-view)
+         ("C-c s" . counsel-git-grep)
          ("M-y" . counsel-yank-pop))
   :config
   (ivy-mode 1)
