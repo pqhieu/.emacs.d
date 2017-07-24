@@ -104,7 +104,7 @@
 (use-package org
   :ensure t
   :init
-  (setq org-agenda-span 1)
+  (setq org-agenda-span 'day)
   (setq org-agenda-tags-column -100)
   (setq org-tags-column -79)
   (setq org-agenda-todo-ignore-scheduled (quote all))
