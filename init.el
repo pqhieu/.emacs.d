@@ -201,6 +201,7 @@
 ;; Programming settings
 (global-prettify-symbols-mode 1)
 (global-subword-mode 1)
+(setq-default electric-indent-inhibit t)
 
 (use-package cc-mode
   :ensure t
