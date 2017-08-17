@@ -206,7 +206,9 @@
 (use-package cc-mode
   :ensure t
   :config
-  (defun c-setup () (c-set-offset 'innamespace [0]))
+  (defun c-setup ()
+    (c-set-offset 'innamespace [0])
+    (c-set-offset 'inextern-lang [0]))
   (add-hook 'c++-mode-hook 'c-setup)
   (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "ellemtel")
