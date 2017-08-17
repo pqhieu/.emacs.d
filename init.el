@@ -182,7 +182,8 @@
   :init
   (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)
                        ("http://irreal.org/blog/?feed=rss2" blog emacs)
-                       ("https://jeremykun.com/feed/" blog math)))
+                       ("https://jeremykun.com/feed/" blog math)
+                       ("https://realitybytes.blog/?feed=rss2")))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 ;; Calender & Diary
