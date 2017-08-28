@@ -68,7 +68,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-14")
+(set-frame-font "Fira Code-16")
 ;; Set Emacs theme
 (load-theme 'gruvbox-dark-hard t)
 ;; Set recenter command behaviour
