@@ -68,9 +68,9 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-16")
+(set-frame-font "Fira Code-14")
 ;; Set Emacs theme
-(load-theme 'gruvbox-dark-hard t)
+(load-theme 'nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 
@@ -106,7 +106,8 @@
   :ensure t
   :init
   (setq org-agenda-span 'day)
-  (setq org-agenda-tags-column -100)
+  (setq org-src-fontify-natively t)
+  (setq org-agenda-tags-column -79)
   (setq org-tags-column -79)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
@@ -114,6 +115,7 @@
   (setq org-agenda-files (list "~/Dropbox/gtd.org"))
   (setq org-ellipsis "▼")
   (setq org-pretty-entities t)
+  (setq org-highlight-latex-and-related '(latex))
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
   :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
@@ -215,6 +217,8 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 
+(setq tex-fontify-script nil)
+(add-hook 'after-init-hook 'show-agenda-all)
 (toggle-frame-fullscreen)
 
 (custom-set-variables
