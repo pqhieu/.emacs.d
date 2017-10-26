@@ -68,9 +68,9 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-14")
+(set-frame-font "Fira Code-16")
 ;; Set Emacs theme
-(load-theme 'nord t)
+(load-theme 'kaolin-dark t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 
@@ -104,7 +104,7 @@
 ;; Org-mode settings
 (use-package org
   :ensure t
-  :init
+  :config
   (setq org-agenda-span 'day)
   (setq org-src-fontify-natively t)
   (setq org-agenda-tags-column -79)
@@ -140,7 +140,7 @@
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
   (add-hook 'dired-mode-hook 'auto-revert-mode)
   (if (eq system-type 'gnu/linux)
-    (setq dired-listing-switches "-aBhl  --group-directories-first")))
+      (setq dired-listing-switches "-aBhl  --group-directories-first")))
 ;; Mode line
 (use-package powerline :ensure t)
 (use-package spaceline :ensure t :after powerline)
@@ -155,8 +155,7 @@
   (setq inhibit-compacting-font-caches t)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
   (setq spaceline-all-the-icons-separator-type (quote arrow))
-  (spaceline-toggle-all-the-icons-fullscreen-on)
-  (spaceline-toggle-all-the-icons-buffer-position-on))
+  (spaceline-toggle-all-the-icons-fullscreen-on))
 ;; Projectile
 (use-package projectile
   :ensure t
@@ -182,19 +181,14 @@
 (use-package elfeed
   :ensure t
   :init
-  (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)
-                       ("http://irreal.org/blog/?feed=rss2" blog emacs)
-                       ("https://jeremykun.com/feed/" blog math)
-                       ("https://realitybytes.blog/?feed=rss2")))
+  (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)))
   (setq-default elfeed-search-filter "+unread")
   :bind ("C-c w" . elfeed))
 ;; Calender & Diary
 (use-package calendar
   :ensure t
   :config
-  (setq diary-file "~/Dropbox/diary")
   (setq calendar-mark-diary-entries-flag t)
-  (add-hook 'diary-display-hook 'diary-fancy-display-mode)
   :bind ("C-c c" . calendar))
 ;; Keybindings
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
@@ -204,7 +198,7 @@
 ;; Programming settings
 (global-prettify-symbols-mode 1)
 (global-subword-mode 1)
-(setq-default electric-indent-inhibit t)
+(setq-default electric-indent-inhibit nil)
 
 (use-package cc-mode
   :ensure t
@@ -217,6 +211,7 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 
+(setq tramp-default-method "ssh")
 (setq tex-fontify-script nil)
 (add-hook 'after-init-hook 'show-agenda-all)
 (toggle-frame-fullscreen)
@@ -258,7 +253,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (creamsody-theme
+    (kaolin-themes
+     creamsody-theme
      ledger-mode
      which-key
      haskell-mode
@@ -277,11 +273,4 @@
      ivy
      go-mode
      exec-path-from-shell
-     elfeed
-     all-the-icons-dired))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#504945" :foreground "#d5c4a1" :box (:line-width 1 :color "grey75" :style released-button))))))
+     elfeed all-the-icons-dired))))
