@@ -70,7 +70,7 @@
 ;; Set theme and font
 (set-frame-font "Fira Code-16")
 ;; Set Emacs theme
-(load-theme 'kaolin-dark t)
+(load-theme 'kaolin-light t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 
@@ -141,6 +141,9 @@
   (add-hook 'dired-mode-hook 'auto-revert-mode)
   (if (eq system-type 'gnu/linux)
       (setq dired-listing-switches "-aBhl  --group-directories-first")))
+(require 'dired)
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
 ;; Mode line
 (use-package powerline :ensure t)
 (use-package spaceline :ensure t :after powerline)
@@ -154,8 +157,9 @@
   (spaceline-all-the-icons-theme)
   (setq inhibit-compacting-font-caches t)
   (setq spaceline-all-the-icons-hide-long-buffer-path t)
-  (setq spaceline-all-the-icons-separator-type (quote arrow))
-  (spaceline-toggle-all-the-icons-fullscreen-on))
+  (setq spaceline-all-the-icons-separator-type (quote wave))
+  (spaceline-toggle-all-the-icons-fullscreen-on)
+  (spaceline-toggle-all-the-icons-buffer-position-on))
 ;; Projectile
 (use-package projectile
   :ensure t
