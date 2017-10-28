@@ -278,3 +278,4 @@
      go-mode
      exec-path-from-shell
      elfeed all-the-icons-dired))))
+(put 'dired-find-alternate-file 'disabled nil)
