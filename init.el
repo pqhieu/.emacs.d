@@ -182,18 +182,7 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; RSS reader
-(use-package elfeed
-  :ensure t
-  :init
-  (setq elfeed-feeds '(("http://pragmaticemacs.com/feed/" blog emacs)))
-  (setq-default elfeed-search-filter "+unread")
-  :bind ("C-c w" . elfeed))
-;; Calender & Diary
-(use-package calendar
-  :ensure t
-  :config
-  (setq calendar-mark-diary-entries-flag t)
-  :bind ("C-c c" . calendar))
+(use-package elfeed :ensure t)
 ;; Keybindings
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
