@@ -117,6 +117,7 @@
   (setq org-pretty-entities t)
   (setq org-highlight-latex-and-related '(latex))
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
+  (setq org-image-actual-width nil)
   :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
   :ensure t
@@ -178,7 +179,8 @@
 (use-package whitespace
   :ensure t
   :config
-  (setq whitespace-style '(trailing))
+  (setq whitespace-line-column 79)
+  (setq whitespace-style '(lines trailing))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; RSS reader
