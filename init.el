@@ -68,9 +68,9 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Fira Code-16")
+(set-frame-font "Input Mono-16")
 ;; Set Emacs theme
-(load-theme 'kaolin-light t)
+(load-theme 'nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 
@@ -132,6 +132,10 @@
                     "/usr/local/bin/emacsclient"))
   :bind ("C-c g" . magit-status))
 ;; Dired
+(use-package dired
+  :config
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+  (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 (use-package all-the-icons
   :after cl tramp
   :ensure t)
@@ -142,9 +146,6 @@
   (add-hook 'dired-mode-hook 'auto-revert-mode)
   (if (eq system-type 'gnu/linux)
       (setq dired-listing-switches "-aBhl  --group-directories-first")))
-(require 'dired)
-(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))
 ;; Mode line
 (use-package powerline :ensure t)
 (use-package spaceline :ensure t :after powerline)
@@ -193,7 +194,6 @@
 ;; Programming settings
 (global-prettify-symbols-mode 1)
 (global-subword-mode 1)
-(setq-default electric-indent-inhibit nil)
 
 (use-package cc-mode
   :ensure t
@@ -206,46 +206,10 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 
-(setq tramp-default-method "ssh")
-(setq tex-fontify-script nil)
 (add-hook 'after-init-hook 'show-agenda-all)
 (toggle-frame-fullscreen)
 
-(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-               (36 . ".\\(?:>\\)")
-               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-               (48 . ".\\(?:x[a-zA-Z]\\)")
-               (58 . ".\\(?:::\\|[:=]\\)")
-               (59 . ".\\(?:;;\\|;\\)")
-               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-               (91 . ".\\(?:]\\)")
-               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-               (94 . ".\\(?:=\\)")
-               (119 . ".\\(?:ww\\)")
-               (123 . ".\\(?:-\\)")
-               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-               )
-             ))
-  (dolist (char-regexp alist)
-    (set-char-table-range composition-function-table (car char-regexp)
-                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
-
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
     (kaolin-themes
