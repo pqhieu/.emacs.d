@@ -73,6 +73,8 @@
 (load-theme 'nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
+;; Disable bell
+(setq visible-bell t)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
@@ -154,6 +156,7 @@
   :init (nyan-mode 1)
   :config (nyan-start-animation))
 (use-package spaceline-all-the-icons
+  :ensure t
   :after spaceline nyan-mode
   :config
   (spaceline-all-the-icons-theme)
@@ -167,6 +170,7 @@
   :ensure t
   :init (projectile-mode 1))
 (use-package counsel-projectile
+  :ensure t
   :after projectile
   :init (counsel-projectile-on))
 ;; Yasnippet
@@ -210,27 +214,17 @@
 (toggle-frame-fullscreen)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (kaolin-themes
-     creamsody-theme
-     ledger-mode
-     which-key
-     haskell-mode
-     counsel-projectile
-     projectile
-     cuda-mode
-     spaceline-all-the-icons
-     gruvbox-theme
-     markdown-mode
-     yasnippet
-     use-package
-     org-bullets
-     nyan-mode
-     nord-theme
-     magit
-     ivy
-     go-mode
-     exec-path-from-shell
-     elfeed all-the-icons-dired))))
+    (kaolin-themes creamsody-theme ledger-mode which-key haskell-mode counsel-projectile projectile cuda-mode spaceline-all-the-icons gruvbox-theme markdown-mode yasnippet use-package org-bullets nyan-mode nord-theme magit ivy go-mode exec-path-from-shell elfeed all-the-icons-dired))))
 (put 'dired-find-alternate-file 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
