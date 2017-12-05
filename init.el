@@ -26,6 +26,7 @@
 ;; Config use-package
 (require 'use-package)
 (setq use-package-verbose t)
+(require 'cl)
 
 ;;----------------------------------------------------------------------
 ;; User-defined Functions
@@ -79,6 +80,7 @@
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
 ;; Ivy
+(use-package counsel :ensure t)
 (use-package swiper
   :ensure t
   :diminish ivy-mode
@@ -192,7 +194,6 @@
 (use-package elfeed :ensure t)
 ;; Keybindings
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
-
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
