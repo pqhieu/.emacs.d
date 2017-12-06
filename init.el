@@ -79,6 +79,7 @@
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
+(use-package diminish :ensure t)
 ;; Ivy
 (use-package counsel :ensure t)
 (use-package swiper
@@ -221,7 +222,28 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (kaolin-themes creamsody-theme ledger-mode which-key haskell-mode counsel-projectile projectile cuda-mode spaceline-all-the-icons gruvbox-theme markdown-mode yasnippet use-package org-bullets nyan-mode nord-theme magit ivy go-mode exec-path-from-shell elfeed all-the-icons-dired))))
+    (kaolin-themes
+     creamsody-theme
+     ledger-mode
+     which-key
+     haskell-mode
+     counsel-projectile
+     projectile
+     cuda-mode
+     spaceline-all-the-icons
+     gruvbox-theme
+     markdown-mode
+     yasnippet
+     use-package
+     org-bullets
+     nyan-mode
+     nord-theme
+     magit
+     ivy
+     go-mode
+     exec-path-from-shell
+     elfeed
+     all-the-icons-dired))))
 (put 'dired-find-alternate-file 'disabled nil)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
