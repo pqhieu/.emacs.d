@@ -109,14 +109,17 @@
   :config
   (setq org-agenda-span 'day)
   (setq org-src-fontify-natively t)
-  (setq org-agenda-tags-column -79)
-  (setq org-tags-column -79)
+  (setq org-agenda-tags-column -120)
+  (setq org-tags-column -120)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-start-on-weekday nil)
-  (setq org-agenda-files (list "~/Dropbox/gtd.org"))
+  (setq org-agenda-files (list "~/Dropbox"))
   (setq org-ellipsis "▼")
   (setq org-pretty-entities t)
+  (setq org-pretty-entities-include-sub-superscripts nil)
   (setq org-highlight-latex-and-related '(latex))
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
   (setq org-image-actual-width nil)
@@ -148,6 +151,9 @@
   (add-hook 'dired-mode-hook 'auto-revert-mode)
   (if (eq system-type 'gnu/linux)
       (setq dired-listing-switches "-aBhl  --group-directories-first")))
+(use-package dired-sidebar
+  :ensure t
+  :commands (dired-sidebar-toggle-sidebar))
 ;; Mode line
 (use-package powerline :ensure t)
 (use-package spaceline :ensure t :after powerline)
@@ -211,16 +217,20 @@
 (toggle-frame-fullscreen)
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (kaolin-themes
+    (dired-sidebar
+     kaolin-themes
      creamsody-theme
      ledger-mode
      which-key
      haskell-mode
      counsel-projectile
-     projectile
-     cuda-mode
+     projectile cuda-mode
      spaceline-all-the-icons
      gruvbox-theme
      markdown-mode
@@ -233,5 +243,12 @@
      ivy
      go-mode
      exec-path-from-shell
-     elfeed all-the-icons-dired))))
+     elfeed
+     all-the-icons-dired))))
 (put 'dired-find-alternate-file 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
