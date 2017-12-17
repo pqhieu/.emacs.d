@@ -74,9 +74,12 @@
 (load-theme 'nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
+;; Disable bell
+(setq visible-bell t)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
+(use-package diminish :ensure t)
 ;; Ivy
 (use-package counsel :ensure t)
 (use-package swiper
@@ -162,6 +165,7 @@
   :init (nyan-mode 1)
   :config (nyan-start-animation))
 (use-package spaceline-all-the-icons
+  :ensure t
   :after spaceline nyan-mode
   :config
   (spaceline-all-the-icons-theme)
@@ -175,6 +179,7 @@
   :ensure t
   :init (projectile-mode 1))
 (use-package counsel-projectile
+  :ensure t
   :after projectile
   :init (counsel-projectile-on))
 ;; Yasnippet
