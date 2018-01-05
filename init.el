@@ -69,9 +69,9 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Input Mono-16")
+(set-frame-font "CMU Typewriter Text-16")
 ;; Set Emacs theme
-(load-theme 'nord t)
+(load-theme 'gruvbox-dark-medium t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -110,10 +110,13 @@
 (use-package org
   :ensure t
   :config
-  (setq org-agenda-span 'day)
+  (setq org-agenda-span 'week)
   (setq org-src-fontify-natively t)
   (setq org-agenda-tags-column -120)
   (setq org-tags-column -120)
+  (setq org-log-into-drawer t)
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-skip-deadline-if-done t)
@@ -126,6 +129,7 @@
   (setq org-highlight-latex-and-related '(latex))
   (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
   (setq org-image-actual-width nil)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
   :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
   :ensure t
@@ -226,6 +230,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-latex-preview-ltxpng-directory "figs/org/")
  '(package-selected-packages
    (quote
     (dired-sidebar
@@ -235,7 +240,8 @@
      which-key
      haskell-mode
      counsel-projectile
-     projectile cuda-mode
+     projectile
+     cuda-mode
      spaceline-all-the-icons
      gruvbox-theme
      markdown-mode
