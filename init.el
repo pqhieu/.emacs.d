@@ -49,6 +49,7 @@
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-always-indent 'complete)
+(setq-default fill-column 80)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -63,6 +64,7 @@
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Highlight current line and show column number
+(global-hl-line-mode 1)
 (column-number-mode 1)
 ;; Uniquify buffer names
 (setq-default uniquify-buffer-name-style 'forward)
@@ -71,11 +73,13 @@
 ;; Set theme and font
 (set-frame-font "CMU Typewriter Text-16")
 ;; Set Emacs theme
-(load-theme 'gruvbox-dark-medium t)
+(load-theme 'paper t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
 (setq visible-bell t)
+;; Reduce cursor movement lag
+(setq auto-window-vscroll nil)
 
 ;;----------------------------------------------------------------------
 ;; User-installed Package Settings
@@ -127,7 +131,7 @@
   (setq org-pretty-entities t)
   (setq org-pretty-entities-include-sub-superscripts nil)
   (setq org-highlight-latex-and-related '(latex))
-  (setq org-todo-keywords '((sequence "☛ TODO(t)" "|" "✔ DONE(d)")))
+  (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
   (setq org-image-actual-width nil)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
   :bind ("C-c a" . show-agenda-all))
@@ -147,40 +151,24 @@
 (use-package dired
   :config
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+  (setq dired-listing-switches "-aBhl --group-directories-first")
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
-(use-package all-the-icons
-  :after cl tramp
-  :ensure t)
-(use-package all-the-icons-dired
-  :ensure t
-  :init
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-  (add-hook 'dired-mode-hook 'auto-revert-mode)
-  (if (eq system-type 'gnu/linux)
-      (setq dired-listing-switches "-aBhl  --group-directories-first")))
-(use-package dired-sidebar
-  :ensure t
-  :commands (dired-sidebar-toggle-sidebar))
 ;; Mode line
 (use-package powerline :ensure t)
-(use-package spaceline :ensure t :after powerline)
+(use-package spaceline
+  :ensure t
+  :after powerline
+  :init
+  (require 'spaceline-config)
+  (spaceline-emacs-theme))
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
   :config (nyan-start-animation))
-(use-package spaceline-all-the-icons
-  :ensure t
-  :after spaceline nyan-mode
-  :config
-  (spaceline-all-the-icons-theme)
-  (setq inhibit-compacting-font-caches t)
-  (setq spaceline-all-the-icons-hide-long-buffer-path t)
-  (setq spaceline-all-the-icons-separator-type (quote wave))
-  (spaceline-toggle-all-the-icons-fullscreen-on)
-  (spaceline-toggle-all-the-icons-buffer-position-on))
 ;; Projectile
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :init (projectile-mode 1))
 (use-package counsel-projectile
   :ensure t
@@ -204,10 +192,12 @@
 ;; RSS reader
 (use-package elfeed :ensure t)
 ;; Keybindings
-(global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c C-f") 'toggle-frame-fullscreen)
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
+(setq compilation-read-command nil)
+(global-set-key (kbd "C-c C-k") 'compile)
 (global-prettify-symbols-mode 1)
 (global-subword-mode 1)
 
