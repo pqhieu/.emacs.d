@@ -64,7 +64,7 @@
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Highlight current line and show column number
-(global-hl-line-mode 1)
+;; (global-hl-line-mode 1)
 (column-number-mode 1)
 ;; Uniquify buffer names
 (setq-default uniquify-buffer-name-style 'forward)
@@ -73,7 +73,7 @@
 ;; Set theme and font
 (set-frame-font "CMU Typewriter Text-16")
 ;; Set Emacs theme
-(load-theme 'paper t)
+(load-theme 'apropospriate-dark t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -134,6 +134,13 @@
   (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
   (setq org-image-actual-width nil)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
+  (custom-set-faces
+   '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+   )
   :bind ("C-c a" . show-agenda-all))
 (use-package org-bullets
   :ensure t
@@ -213,6 +220,7 @@
   (setq c-basic-offset 4))
 
 (add-hook 'after-init-hook 'show-agenda-all)
+(add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
 
 (custom-set-variables
