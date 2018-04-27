@@ -180,8 +180,7 @@
   :init (projectile-mode 1))
 (use-package counsel-projectile
   :ensure t
-  :after projectile
-  :init (counsel-projectile-on))
+  :after projectile)
 ;; Yasnippet
 (use-package yasnippet
   :ensure t
