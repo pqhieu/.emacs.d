@@ -145,7 +145,8 @@
 (use-package org-bullets
   :ensure t
   :init
-  (add-hook 'org-mode-hook 'org-bullets-mode))
+  (add-hook 'org-mode-hook 'org-bullets-mode)
+  (setq org-bullets-bullet-list '("◉" "◎" "✸" "✿")))
 ;; Magit
 (use-package magit
   :ensure t
