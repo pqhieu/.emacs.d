@@ -63,8 +63,7 @@
 (display-time-mode 1)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-;; Highlight current line and show column number
-;; (global-hl-line-mode 1)
+;; Show column number
 (column-number-mode 1)
 ;; Uniquify buffer names
 (setq-default uniquify-buffer-name-style 'forward)
@@ -186,6 +185,10 @@
 (use-package yasnippet
   :ensure t
   :init (yas-global-mode 1))
+;; Beacon
+(use-package beacon
+  :ensure t
+  :init (beacon-mode 1))
 ;; Miscellaneous
 (use-package exec-path-from-shell
   :ensure t
@@ -220,6 +223,7 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 
+;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'show-agenda-all)
 (add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
@@ -231,7 +235,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (graphviz-dot-mode
+    (beacon
+     graphviz-dot-mode
      yasnippet
      which-key
      use-package
@@ -239,8 +244,7 @@
      org-bullets
      nyan-mode
      markdown-mode
-     magit
-     glsl-mode
+     magit glsl-mode
      exec-path-from-shell
      elfeed
      diminish
@@ -254,4 +258,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
