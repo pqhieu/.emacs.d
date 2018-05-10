@@ -127,7 +127,7 @@
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-start-on-weekday nil)
   (setq org-agenda-files (list "~/Dropbox"))
-  (setq org-ellipsis "▼")
+  (setq org-ellipsis "▿")
   (setq org-pretty-entities t)
   (setq org-pretty-entities-include-sub-superscripts nil)
   (setq org-highlight-latex-and-related '(latex))
@@ -231,33 +231,31 @@
  '(org-latex-preview-ltxpng-directory "figs/org/")
  '(package-selected-packages
    (quote
-    (dired-sidebar
-     kaolin-themes
-     creamsody-theme
-     ledger-mode
-     which-key
-     haskell-mode
-     counsel-projectile
-     projectile
-     cuda-mode
-     spaceline-all-the-icons
-     gruvbox-theme
-     markdown-mode
+    (graphviz-dot-mode
      yasnippet
+     which-key
      use-package
+     spaceline
      org-bullets
      nyan-mode
-     nord-theme
+     markdown-mode
      magit
-     ivy
-     go-mode
+     glsl-mode
      exec-path-from-shell
      elfeed
-     all-the-icons-dired))))
+     diminish
+     cuda-mode
+     counsel-projectile
+     company
+     apropospriate-theme))))
 (put 'dired-find-alternate-file 'disabled nil)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
