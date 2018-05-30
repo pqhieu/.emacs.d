@@ -227,6 +227,13 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
 
+;;----------------------------------------------------------------------
+;; User-defined functions
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
