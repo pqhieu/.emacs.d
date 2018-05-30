@@ -70,8 +70,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "CMU Typewriter Text-16")
-;; Set Emacs theme
+(set-frame-font "CMU Typewriter Text-16") ;; sudo apt install fonts-cmu
 (load-theme 'apropospriate-dark t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
@@ -146,7 +145,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode)
-  (setq org-bullets-bullet-list '("◉" "◎" "✸" "✿")))
+  (setq org-bullets-bullet-list '("◉" "◎" "⏺" "✸")))
 ;; Magit
 (use-package magit
   :ensure t
@@ -244,7 +243,8 @@
      org-bullets
      nyan-mode
      markdown-mode
-     magit glsl-mode
+     magit
+     glsl-mode
      exec-path-from-shell
      elfeed
      diminish
@@ -252,7 +252,6 @@
      counsel-projectile
      company
      apropospriate-theme))))
-(put 'dired-find-alternate-file 'disabled nil)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -263,3 +262,4 @@
  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
+(put 'dired-find-alternate-file 'disabled nil)
