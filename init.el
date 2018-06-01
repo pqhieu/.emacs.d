@@ -70,12 +70,14 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "CMU Typewriter Text-16") ;; sudo apt install fonts-cmu
+(if (eq system-type 'darwin)
+    (set-frame-font "CMU Typewriter Text-22") ;; iMac, need bigger font
+  (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
 (load-theme 'apropospriate-dark t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
-(setq visible-bell t)
+(setq visible-bell nil)
 ;; Reduce cursor movement lag
 (setq auto-window-vscroll nil)
 
@@ -159,7 +161,7 @@
   :config
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
   (if (eq system-type 'gnu/linux)
-      ((setq dired-listing-switches "-aBhl --group-directories-first")))
+      (setq dired-listing-switches "-aBhl --group-directories-first"))
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Mode line
 (use-package powerline :ensure t)
