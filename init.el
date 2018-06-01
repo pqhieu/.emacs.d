@@ -158,7 +158,8 @@
 (use-package dired
   :config
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-  (setq dired-listing-switches "-aBhl --group-directories-first")
+  (if (eq system-type 'gnu/linux)
+      ((setq dired-listing-switches "-aBhl --group-directories-first")))
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Mode line
 (use-package powerline :ensure t)
@@ -208,7 +209,6 @@
 ;; Programming settings
 (setq compilation-read-command nil)
 (global-set-key (kbd "C-c C-k") 'compile)
-(global-prettify-symbols-mode 1)
 (global-subword-mode 1)
 
 (use-package cc-mode
