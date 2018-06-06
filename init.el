@@ -35,6 +35,10 @@
   (interactive)
   (org-agenda nil "n")
   (delete-other-windows))
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 ;;----------------------------------------------------------------------
 ;; General Settings
@@ -73,7 +77,7 @@
 (if (eq system-type 'darwin)
     (set-frame-font "CMU Typewriter Text-22") ;; iMac, need bigger font
   (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
-(load-theme 'apropospriate-dark t)
+(load-theme 'zenburn t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -229,12 +233,6 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
 
-;;----------------------------------------------------------------------
-;; User-defined functions
-(defun kill-other-buffers ()
-  "Kill all other buffers."
-  (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -243,24 +241,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (beacon
-     graphviz-dot-mode
-     yasnippet
-     which-key
-     use-package
-     spaceline
-     org-bullets
-     nyan-mode
-     markdown-mode
-     magit
-     glsl-mode
-     exec-path-from-shell
-     elfeed
-     diminish
-     cuda-mode
-     counsel-projectile
-     company
-     apropospriate-theme))))
+    (zenburn-theme beacon graphviz-dot-mode yasnippet which-key use-package spaceline org-bullets nyan-mode markdown-mode magit glsl-mode exec-path-from-shell elfeed diminish cuda-mode counsel-projectile company apropospriate-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
