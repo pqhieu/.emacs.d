@@ -77,7 +77,7 @@
 (if (eq system-type 'darwin)
     (set-frame-font "CMU Typewriter Text-22") ;; iMac, need bigger font
   (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
-(load-theme 'zenburn t)
+(load-theme 'doom-nord-light t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -139,7 +139,7 @@
   (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
   (setq org-image-actual-width nil)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
-  (custom-set-faces ;; Disable variable height on some themes
+  (set-face-attribute ;; Disable variable height on some themes
    '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
    '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
    '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
@@ -166,6 +166,7 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
   (if (eq system-type 'gnu/linux)
       (setq dired-listing-switches "-aBhl --group-directories-first"))
+  (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Mode line
 (use-package powerline :ensure t)
@@ -210,11 +211,11 @@
 (use-package elfeed :ensure t)
 ;; Keybindings
 (global-set-key (kbd "C-c C-f") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c C-k") 'compile)
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
 (setq compilation-read-command nil)
-(global-set-key (kbd "C-c C-k") 'compile)
 (global-subword-mode 1)
 
 (use-package cc-mode
@@ -232,24 +233,3 @@
 (add-hook 'after-init-hook 'show-agenda-all)
 (add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (zenburn-theme beacon graphviz-dot-mode yasnippet which-key use-package spaceline org-bullets nyan-mode markdown-mode magit glsl-mode exec-path-from-shell elfeed diminish cuda-mode counsel-projectile company apropospriate-theme))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
-(put 'dired-find-alternate-file 'disabled nil)
