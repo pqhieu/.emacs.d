@@ -75,7 +75,7 @@
 (show-paren-mode 1)
 ;; Set theme and font
 (if (eq system-type 'darwin)
-    (set-frame-font "CMU Typewriter Text-22") ;; iMac, need bigger font
+    (set-frame-font "SF Mono-20") ;; iMac, need bigger font
   (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
 (load-theme 'doom-nord-light t)
 ;; Set recenter command behaviour
@@ -209,8 +209,8 @@
 ;; RSS reader
 (use-package elfeed :ensure t)
 ;; Keybindings
-(global-set-key (kbd "C-c C-f") 'toggle-frame-fullscreen)
-(global-set-key (kbd "C-c C-k") 'compile)
+(global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c k") 'compile)
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
