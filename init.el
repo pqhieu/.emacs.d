@@ -76,7 +76,7 @@
 ;; Set theme and font
 (if (eq system-type 'darwin)
     (set-frame-font "SF Mono-22") ;; iMac, need bigger font
-  (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
+  (set-frame-font "SF Mono-16"))
 (load-theme 'doom-nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
@@ -216,6 +216,7 @@
 ;; Programming settings
 (setq compilation-read-command nil)
 (global-subword-mode 1)
+(global-auto-revert-mode 1)
 
 (use-package cc-mode
   :ensure t
