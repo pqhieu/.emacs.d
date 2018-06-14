@@ -31,7 +31,7 @@
 ;;----------------------------------------------------------------------
 ;; User-defined Functions
 (defun show-agenda-all ()
-  ;; Show agenda and todo list
+  "Show both agenda and todo list."
   (interactive)
   (org-agenda nil "n")
   (delete-other-windows))
@@ -75,9 +75,9 @@
 (show-paren-mode 1)
 ;; Set theme and font
 (if (eq system-type 'darwin)
-    (set-frame-font "SF Mono-20") ;; iMac, need bigger font
+    (set-frame-font "SF Mono-22") ;; iMac, need bigger font
   (set-frame-font "CMU Typewriter Text-16")) ;; sudo apt install fonts-cmu
-(load-theme 'doom-nord-light t)
+(load-theme 'doom-nord t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
