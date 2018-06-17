@@ -77,7 +77,7 @@
 (if (eq system-type 'darwin)
     (set-frame-font "SF Mono-22") ;; iMac, need bigger font
   (set-frame-font "SF Mono-16"))
-(load-theme 'doom-nord t)
+(load-theme 'doom-tomorrow-night t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -225,6 +225,7 @@
     (c-set-offset 'innamespace [0])
     (c-set-offset 'inextern-lang [0]))
   (add-hook 'c++-mode-hook 'c-setup)
+  (add-hook 'c-mode-hook 'c-setup)
   (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
