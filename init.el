@@ -74,10 +74,8 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(if (eq system-type 'darwin)
-    (set-frame-font "SF Mono-22") ;; iMac, need bigger font
-  (set-frame-font "SF Mono-16"))
-(load-theme 'doom-tomorrow-night t)
+(set-frame-font "SF Mono-16")
+(load-theme 'doom-opera t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -209,6 +207,7 @@
 ;; RSS reader
 (use-package elfeed :ensure t)
 ;; Keybindings
+(global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c k") 'compile)
 
@@ -242,7 +241,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yasnippet
+    (graphviz-dot-mode
+     yasnippet
      which-key
      use-package
      spaceline
