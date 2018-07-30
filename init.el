@@ -136,6 +136,8 @@
   (setq org-highlight-latex-and-related '(latex))
   (setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
   (setq org-image-actual-width nil)
+  (setq org-habit-graph-column 80)
+  (setq org-agenda-repeating-timestamp-show-all nil)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
   (custom-set-faces ;; Disable variable height on some themes
    '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
@@ -239,6 +241,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-modules
+   (quote
+    (org-bbdb
+     org-bibtex
+     org-docview
+     org-gnus
+     org-habit
+     org-info
+     org-irc
+     org-mhe
+     org-rmail
+     org-w3m)))
  '(package-selected-packages
    (quote
     (graphviz-dot-mode
