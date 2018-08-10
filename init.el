@@ -111,9 +111,11 @@
   (setq ivy-use-selectable-prompt t)
   (setq ivy-height 15)
   (setq ivy-dynamic-exhibit-delay-ms 200)
-  (setq ivy-extra-directories nil)
   (setq ivy-switch-buffer-faces-alist nil)
   (setq ivy-initial-inputs-alist nil))
+(use-package ivy-xref
+  :ensure t
+  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 ;; which-key
 (use-package which-key
   :diminish which-key-mode
@@ -169,16 +171,14 @@
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Mode line
-(use-package powerline :ensure t)
-(use-package spaceline
+(use-package powerline
   :ensure t
-  :after powerline
-  :init
-  (require 'spaceline-config)
-  (spaceline-info-mode t)
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-emacs-theme))
+  :config
+  (setq ns-use-srgb-colorspace nil))
+(use-package doom-modeline
+  :ensure t
+  :defer t
+  :hook (after-init . doom-modeline-init))
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
@@ -200,8 +200,7 @@
   (setq whitespace-style '(lines trailing))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
-;; RSS reader
-(use-package elfeed :ensure t)
+;; Auto completion server
 (use-package lsp-mode
   :ensure t
   :config
@@ -214,7 +213,8 @@
   :ensure t
   :config
   (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
-  (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable))))
+  (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable)))
+  (setq cquery-sem-highlight-method 'font-lock))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
@@ -246,6 +246,9 @@
 (use-package company
   :ensure t
   :config
+  (setq company-transformers nil)
+  (setq company-lsp-async t)
+  (setq company-lsp-cache-candidates nil)
   (setq company-idle-delay 0.1)
   (global-company-mode))
 ;; Show your agenda and make Emacs go fullscreen
@@ -268,7 +271,25 @@
      org-irc
      org-mhe
      org-rmail
-     org-w3m))))
+     org-w3m)))
+ '(package-selected-packages
+   (quote
+    (doom-modeline
+     ivy-xref
+     which-key
+     use-package
+     org-bullets
+     nyan-mode
+     markdown-mode
+     magit
+     glsl-mode
+     exec-path-from-shell
+     doom-themes
+     diminish
+     cuda-mode
+     cquery
+     company-lsp
+     beacon))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
