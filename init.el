@@ -170,7 +170,7 @@
       (setq dired-listing-switches "-aBhl --group-directories-first"))
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
-;; Mode line
+;; Modeline
 (use-package powerline
   :ensure t
   :config
@@ -179,10 +179,6 @@
   :ensure t
   :defer t
   :hook (after-init . doom-modeline-init))
-(use-package nyan-mode
-  :ensure t
-  :init (nyan-mode 1)
-  :config (nyan-start-animation))
 ;; Beacon
 (use-package beacon
   :ensure t
@@ -200,7 +196,7 @@
   (setq whitespace-style '(lines trailing))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
-;; Auto completion server
+;; Autocompletion server
 (use-package lsp-mode
   :ensure t
   :config
@@ -214,6 +210,7 @@
   :config
   (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
   (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable)))
+  (setq cquery-cache-dir ".cache/")
   (setq cquery-sem-highlight-method 'font-lock))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
@@ -279,7 +276,6 @@
      which-key
      use-package
      org-bullets
-     nyan-mode
      markdown-mode
      magit
      glsl-mode
