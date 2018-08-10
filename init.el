@@ -74,8 +74,8 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-16")
-(load-theme 'doom-opera t)
+(set-frame-font "SF Mono-20")
+(load-theme 'doom-tomorrow-night t)
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Disable bell
@@ -101,20 +101,28 @@
          ("C-c v" . ivy-push-view)
          ("C-c V" . ivy-pop-view)
          ("C-c s" . counsel-git-grep)
+         ("C-h v" . counsel-describe-variable)
+         ("C-h f" . counsel-describe-function)
          ("M-y" . counsel-yank-pop))
   :config
   (ivy-mode 1)
+  (setq ivy-count-format "[%d/%d] ")
   (setq ivy-use-virtual-buffers t) ;; Add recent files into completion list
+  (setq ivy-use-selectable-prompt t)
   (setq ivy-height 15)
-  (setq ivy-count-format "")
+  (setq ivy-dynamic-exhibit-delay-ms 200)
+  (setq ivy-extra-directories nil)
+  (setq ivy-switch-buffer-faces-alist nil)
   (setq ivy-initial-inputs-alist nil))
 ;; which-key
 (use-package which-key
+  :diminish which-key-mode
   :ensure t
   :config (which-key-mode 1))
 ;; Org-mode settings
 (use-package org
   :ensure t
+  :bind ("C-c a" . show-agenda-all)
   :config
   (setq org-agenda-span 'week)
   (setq org-src-fontify-natively t)
@@ -138,14 +146,7 @@
   (setq org-image-actual-width nil)
   (setq org-habit-graph-column 80)
   (setq org-agenda-repeating-timestamp-show-all nil)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0))
-  (custom-set-faces ;; Disable variable height on some themes
-   '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
-   '(org-level-5 ((t (:inherit outline-5 :height 1.0)))))
-  :bind ("C-c a" . show-agenda-all))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0)))
 (use-package org-bullets
   :ensure t
   :init
@@ -174,26 +175,18 @@
   :after powerline
   :init
   (require 'spaceline-config)
+  (spaceline-info-mode t)
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-toggle-buffer-size-off)
   (spaceline-emacs-theme))
 (use-package nyan-mode
   :ensure t
   :init (nyan-mode 1)
   :config (nyan-start-animation))
-;; Projectile
-(use-package projectile
-  :ensure t
-  :diminish projectile-mode
-  :init (projectile-mode 1))
-(use-package counsel-projectile
-  :ensure t
-  :after projectile)
-;; Yasnippet
-(use-package yasnippet
-  :ensure t
-  :init (yas-global-mode 1))
 ;; Beacon
 (use-package beacon
   :ensure t
+  :diminish beacon-mode
   :init (beacon-mode 1))
 ;; Miscellaneous
 (use-package exec-path-from-shell
@@ -201,6 +194,7 @@
   :init (exec-path-from-shell-initialize))
 (use-package whitespace
   :ensure t
+  :diminish whitespace-mode
   :config
   (setq whitespace-line-column 79)
   (setq whitespace-style '(lines trailing))
@@ -208,6 +202,19 @@
   (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; RSS reader
 (use-package elfeed :ensure t)
+(use-package lsp-mode
+  :ensure t
+  :config
+  (setq lsp-highlight-symbol-at-point nil))
+(use-package company-lsp
+  :ensure t
+  :config
+  (push 'company-lsp company-backends))
+(use-package cquery
+  :ensure t
+  :config
+  (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
+  (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable))))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
@@ -216,9 +223,14 @@
 ;;----------------------------------------------------------------------
 ;; Programming settings
 (setq compilation-read-command nil)
-(global-subword-mode 1)
+;; Subword
+(use-package subword
+  :ensure t
+  :diminish subword-mode
+  :config
+  (global-subword-mode 1))
 (global-auto-revert-mode 1)
-
+;; C/C++ mode
 (use-package cc-mode
   :ensure t
   :config
@@ -230,10 +242,14 @@
   (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
-
+;; Company
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0.1)
+  (global-company-mode))
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'show-agenda-all)
-(add-hook 'after-init-hook 'global-company-mode)
 (toggle-frame-fullscreen)
 
 (custom-set-variables
@@ -252,27 +268,7 @@
      org-irc
      org-mhe
      org-rmail
-     org-w3m)))
- '(package-selected-packages
-   (quote
-    (graphviz-dot-mode
-     yasnippet
-     which-key
-     use-package
-     spaceline
-     org-bullets
-     nyan-mode
-     markdown-mode
-     magit
-     glsl-mode
-     exec-path-from-shell
-     elfeed
-     doom-themes
-     diminish
-     cuda-mode
-     counsel-projectile
-     company
-     beacon))))
+     org-w3m))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
