@@ -83,8 +83,8 @@
   (setq doom-themes-enable-italic t))
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
-;; Disable bell
-(setq visible-bell nil)
+;; Enable bell
+(setq visible-bell t)
 ;; Reduce cursor movement lag
 (setq auto-window-vscroll nil)
 
