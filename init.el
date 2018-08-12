@@ -74,7 +74,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-20")
+(set-frame-font "SF Mono-16")
 (use-package doom-themes
   :ensure t
   :config
@@ -277,8 +277,11 @@
  '(package-selected-packages
    (quote
     (doom-modeline
+     powerline
+     counsel
      ivy-xref
      which-key
+     swiper
      use-package
      org-bullets
      markdown-mode
