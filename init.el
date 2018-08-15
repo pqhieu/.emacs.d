@@ -215,8 +215,7 @@
   :config
   (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
   (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable)))
-  (setq cquery-cache-dir ".cache/")
-  (setq cquery-sem-highlight-method 'font-lock))
+  (setq cquery-cache-dir ".cache/"))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
