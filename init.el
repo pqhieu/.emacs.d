@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-sourcerer t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t))
 ;; Set recenter command behaviour
@@ -215,6 +215,7 @@
   :config
   (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
   (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable)))
+  (setq cquery-sem-highlight-method 'font-lock)
   (setq cquery-cache-dir ".cache/"))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
