@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-sourcerer t)
+  (load-theme 'doom-tomorrow-night t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t))
 ;; Set recenter command behaviour
@@ -171,8 +171,10 @@
 (use-package dired
   :config
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-  (if (eq system-type 'gnu/linux)
-      (setq dired-listing-switches "-aBhl --group-directories-first"))
+  ;; Remember to install coreutils on OSX
+  (if (eq system-type 'darwin)
+      (setq insert-directory-program "gls" dired-use-ls-dired t))
+  (setq dired-listing-switches "-aBhl --group-directories-first")
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Modeline
