@@ -74,11 +74,11 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-16")
+(set-frame-font "SF Mono-20")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-city-lights t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t))
 ;; Set recenter command behaviour
