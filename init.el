@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-city-lights t)
+  (load-theme 'doom-tomorrow-night t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t))
 ;; Set recenter command behaviour
@@ -175,6 +175,7 @@
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
   (setq dired-listing-switches "-aBhl --group-directories-first")
+  (setq delete-by-moving-to-trash t)
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
 ;; Modeline
