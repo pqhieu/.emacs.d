@@ -74,13 +74,15 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-20")
+(set-frame-font "SF Mono-14")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-opera t)
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t))
+  (setq doom-themes-enable-italic t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Enable bell
@@ -186,7 +188,10 @@
 (use-package doom-modeline
   :ensure t
   :defer t
-  :hook (after-init . doom-modeline-init))
+  :hook (after-init . doom-modeline-init)
+  :config
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project)
+  (setq inhibit-compacting-font-caches t))
 ;; Beacon
 (use-package beacon
   :ensure t
