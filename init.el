@@ -74,11 +74,11 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-14")
+(set-frame-font "CMU Typewriter Text-16")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-opera t)
+  (load-theme 'doom-sourcerer t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -160,7 +160,7 @@
   :ensure t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode)
-  (setq org-bullets-bullet-list '("◉" "◎" "●" "✸")))
+  (setq org-bullets-bullet-list '("◉" "◎" "●")))
 ;; Magit
 (use-package magit
   :ensure t
