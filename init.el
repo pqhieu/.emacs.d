@@ -74,7 +74,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "CMU Typewriter Text-16")
+(set-frame-font "Source Code Pro-14")
 (use-package doom-themes
   :ensure t
   :config
