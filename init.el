@@ -179,7 +179,8 @@
   (setq dired-listing-switches "-aBhl --group-directories-first")
   (setq delete-by-moving-to-trash t)
   (put 'dired-find-alternate-file 'disabled nil)
-  (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))))
+  (define-key dired-mode-map (kbd "^")
+    (lambda () (interactive) (find-alternate-file ".."))))
 ;; Modeline
 (use-package powerline
   :ensure t
@@ -206,7 +207,7 @@
   :diminish whitespace-mode
   :config
   (setq whitespace-line-column 79)
-  (setq whitespace-style '(lines trailing))
+  (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; Autocompletion server
