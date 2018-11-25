@@ -155,7 +155,8 @@
   (setq org-image-actual-width nil)
   (setq org-habit-graph-column 80)
   (setq org-agenda-repeating-timestamp-show-all nil)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.0)))
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 1.0)))
 (use-package org-bullets
   :ensure t
   :init
@@ -191,6 +192,7 @@
   :defer t
   :hook (after-init . doom-modeline-init)
   :config
+  (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-buffer-file-name-style 'relative-from-project)
   (setq inhibit-compacting-font-caches t))
 ;; Beacon
