@@ -74,7 +74,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "Source Code Pro-14")
+(set-frame-font "SF Mono-14")
 (use-package doom-themes
   :ensure t
   :config
@@ -211,7 +211,7 @@
   (setq whitespace-line-column 79)
   (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'prog-mode-hook 'whitespace-mode))
+  (add-hook 'c-mode-hook 'whitespace-mode))
 ;; Autocompletion server
 (use-package lsp-mode
   :ensure t
@@ -221,13 +221,6 @@
   :ensure t
   :config
   (push 'company-lsp company-backends))
-(use-package cquery
-  :ensure t
-  :config
-  (add-hook 'c-mode-hook (lambda() (lsp-cquery-enable)))
-  (add-hook 'c++-mode-hook (lambda() (lsp-cquery-enable)))
-  (setq cquery-sem-highlight-method 'font-lock)
-  (setq cquery-cache-dir ".cache/"))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
@@ -275,33 +268,13 @@
  ;; If there is more than one, they won't work right.
  '(org-modules
    (quote
-    (org-bbdb
-     org-bibtex
-     org-docview
-     org-gnus
-     org-habit
-     org-info
-     org-irc
-     org-mhe
-     org-rmail
-     org-w3m)))
+    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m)))
  '(package-selected-packages
    (quote
-    (doom-modeline
-     powerline
-     counsel
-     ivy-xref
-     which-key
-     swiper
-     use-package
-     org-bullets
-     markdown-mode
-     magit
-     glsl-mode
-     exec-path-from-shell
-     doom-themes
-     diminish
-     cuda-mode
-     cquery
-     company-lsp
-     beacon))))
+    (doom-modeline powerline counsel ivy-xref which-key swiper use-package org-bullets markdown-mode magit glsl-mode exec-path-from-shell doom-themes diminish cuda-mode company-lsp beacon))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
