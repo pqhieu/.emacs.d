@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-sourcerer t)
+  (load-theme 'doom-opera t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -123,6 +123,19 @@
 (use-package ivy-xref
   :ensure t
   :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+(use-package ivy-bibtex
+  :ensure t
+  :bind (("C-c b" . ivy-bibtex))
+  :config
+  (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
+  (setq bibtex-completion-notes-path "~/Dropbox/notes.org")
+  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
+  (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
+  (setq bibtex-completion-notes-template-one-file
+   "** ${author-or-editor} (${year}) : ${title}
+  :PROPERTIES:
+  :PID: ${=key=}
+  :END:"))
 ;; which-key
 (use-package which-key
   :diminish which-key-mode
@@ -280,7 +293,8 @@
      org-w3m)))
  '(package-selected-packages
    (quote
-    (doom-modeline
+    (ivy-bibtex
+     doom-modeline
      powerline
      counsel
      ivy-xref
