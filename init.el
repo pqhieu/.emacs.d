@@ -74,11 +74,11 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-14")
+(set-frame-font "SF Mono-20")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-opera t)
+  (load-theme 'doom-vibrant t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -133,9 +133,9 @@
   (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
   (setq bibtex-completion-notes-template-one-file
    "** ${author-or-editor} (${year}) : ${title}
-  :PROPERTIES:
-  :PID: ${=key=}
-  :END:"))
+   :PROPERTIES:
+   :PID: ${=key=}
+   :END:"))
 ;; which-key
 (use-package which-key
   :diminish which-key-mode
