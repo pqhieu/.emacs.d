@@ -78,11 +78,13 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-opera t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
+(use-package jazz-theme
+  :ensure t
+  :config (load-theme 'jazz t))
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Enable bell
@@ -295,7 +297,8 @@
      org-w3m)))
  '(package-selected-packages
    (quote
-    (ivy-bibtex
+    (jazz-theme
+     ivy-bibtex
      doom-modeline
      powerline
      counsel
