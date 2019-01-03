@@ -295,8 +295,7 @@
      org-w3m)))
  '(package-selected-packages
    (quote
-    (jazz-theme
-     ivy-bibtex
+    (ivy-bibtex
      doom-modeline
      powerline
      counsel
