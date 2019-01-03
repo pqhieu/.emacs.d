@@ -224,9 +224,7 @@
   (setq whitespace-line-column 79)
   (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'c-mode-hook 'whitespace-mode)
-  (add-hook 'c++-mode-hook 'whitespace-mode)
-  (add-hook 'cuda-mode-hook 'whitespace-mode))
+  (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; Autocompletion server
 (use-package lsp-mode
   :ensure t
