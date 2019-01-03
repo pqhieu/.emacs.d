@@ -78,13 +78,11 @@
 (use-package doom-themes
   :ensure t
   :config
+  (load-theme doom-city-lights t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
   (doom-themes-org-config))
-(use-package jazz-theme
-  :ensure t
-  :config (load-theme 'jazz t))
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Enable bell
