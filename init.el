@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-city-lights t)
+  (load-theme 'doom-tomorrow-night t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
