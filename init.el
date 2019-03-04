@@ -74,7 +74,7 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "SF Mono-14")
+(set-frame-font "IBM Plex Mono-14")
 (use-package doom-themes
   :ensure t
   :config
@@ -190,7 +190,7 @@
   ;; Remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
-  (setq dired-listing-switches "-aBhl --group-directories-first")
+  (setq dired-listing-switches "-aBhlF --group-directories-first")
   (setq delete-by-moving-to-trash t)
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^")
