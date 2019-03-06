@@ -224,7 +224,8 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (add-hook 'prog-mode-hook 'whitespace-mode))
+  (add-hook 'prog-mode-hook 'whitespace-mode)
+  (add-hook 'mhtml-mode-hook (lambda () (whitespace-mode -1))))
 ;; Autocompletion server
 (use-package lsp-mode
   :ensure t
