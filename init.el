@@ -78,7 +78,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-opera t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -191,7 +191,6 @@
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
   (setq dired-listing-switches "-aBhlF --group-directories-first")
-  (setq delete-by-moving-to-trash t)
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^")
     (lambda () (interactive) (find-alternate-file ".."))))
@@ -221,7 +220,7 @@
   :ensure t
   :diminish whitespace-mode
   :config
-  (setq whitespace-line-column 80)
+  (setq whitespace-line-column 100)
   (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode)
