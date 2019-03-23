@@ -63,8 +63,8 @@
 ;; Disable splash screen, toolbar and scrollbar
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
-(blink-cursor-mode 0)
 (display-time-mode 1)
+(setq-default cursor-type 'bar)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Show column number
@@ -74,11 +74,11 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "IBM Plex Mono-14")
+(set-frame-font "IBM Plex Mono-15")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-opera t)
+  (load-theme 'doom-tomorrow-night t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -129,13 +129,7 @@
   :config
   (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
   (setq bibtex-completion-notes-path "~/Dropbox/notes.org")
-  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
-  (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
-  (setq bibtex-completion-notes-template-one-file
-   "** ${author-or-editor} (${year}) : ${title}
-   :PROPERTIES:
-   :PID: ${=key=}
-   :END:"))
+  (setq bibtex-completion-notes-symbol "✎"))
 ;; which-key
 (use-package which-key
   :diminish which-key-mode
@@ -293,7 +287,8 @@
      org-w3m)))
  '(package-selected-packages
    (quote
-    (ivy-bibtex
+    (auctex
+     ivy-bibtex
      doom-modeline
      powerline
      counsel
