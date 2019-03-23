@@ -214,7 +214,7 @@
   :ensure t
   :diminish whitespace-mode
   :config
-  (setq whitespace-line-column 100)
+  (setq whitespace-line-column 80)
   (setq whitespace-style (quote (face trailing tab-mark lines-tail)))
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode)
