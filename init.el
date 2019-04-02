@@ -287,7 +287,8 @@
      org-w3m)))
  '(package-selected-packages
    (quote
-    (auctex
+    (ccls
+     auctex
      ivy-bibtex
      doom-modeline
      powerline
