@@ -74,11 +74,11 @@
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
 ;; Set theme and font
-(set-frame-font "IBM Plex Mono-15")
+(set-frame-font "IBM Plex Mono-14")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-vibrant t)
+  (load-theme 'doom-tomorrow-night t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
@@ -129,7 +129,14 @@
   :config
   (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
   (setq bibtex-completion-notes-path "~/Dropbox/notes.org")
-  (setq bibtex-completion-notes-symbol "✎"))
+  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
+  (setq bibtex-completion-notes-symbol "✎")
+  (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
+  (setq bibtex-completion-notes-template-one-file
+   "** ${title} (${year})
+   :PROPERTIES:
+   :PID: ${=key=}
+   :END:"))
 ;; which-key
 (use-package which-key
   :diminish which-key-mode
