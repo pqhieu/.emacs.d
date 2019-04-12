@@ -240,6 +240,7 @@
   :ensure t
   :bind ("C-c r" . elfeed)
   :config
+  (setq elfeed-db-directory "~/Dropbox/.elfeed")
   (setq elfeed-feeds
         '(("https://www.inference.vc/rss/" blog)))
   (setq-default elfeed-search-filter "+unread"))
