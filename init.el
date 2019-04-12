@@ -235,6 +235,14 @@
   :ensure t
   :config
   (push 'company-lsp company-backends))
+;; RSS reader
+(use-package elfeed
+  :ensure t
+  :bind ("C-c r" . elfeed)
+  :config
+  (setq elfeed-feeds
+        '(("https://www.inference.vc/rss/" blog)))
+  (setq-default elfeed-search-filter "+unread"))
 ;; Keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
@@ -295,6 +303,7 @@
  '(package-selected-packages
    (quote
     (ccls
+     elfeed
      auctex
      ivy-bibtex
      doom-modeline
