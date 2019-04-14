@@ -73,16 +73,6 @@
 (setq-default uniquify-buffer-name-style 'forward)
 ;; Highligt corresponding parentheses
 (show-paren-mode 1)
-;; Set theme and font
-(set-frame-font "IBM Plex Mono-14")
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-tomorrow-night t)
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (doom-themes-visual-bell-config)
-  (doom-themes-org-config))
 ;; Set recenter command behaviour
 (setq recenter-positions '(top middle bottom))
 ;; Enable bell
@@ -280,6 +270,16 @@
   (setq company-lsp-cache-candidates nil)
   (setq company-idle-delay 0.1)
   (global-company-mode))
+;; Set theme and font
+(set-frame-font "IBM Plex Mono-14")
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-tomorrow-night t)
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-org-config))
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'show-agenda-all)
 (toggle-frame-fullscreen)
