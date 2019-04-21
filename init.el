@@ -64,7 +64,7 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (display-time-mode 1)
-(setq-default cursor-type 'bar)
+(blink-cursor-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Show column number
@@ -272,11 +272,11 @@
   (setq company-idle-delay 0.1)
   (global-company-mode))
 ;; Set theme and font
-(set-frame-font "IBM Plex Mono-14")
+(set-frame-font "SF Mono-14")
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-sourcerer t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
