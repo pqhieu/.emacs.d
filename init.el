@@ -12,7 +12,7 @@
 
 
 ;;----------------------------------------------------------------------
-;; Turn of garbage collection during startup
+;; Turn off garbage collection during startup
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 100000000)))
 
@@ -293,7 +293,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-sourcerer t)
+  (load-theme 'doom-city-lights t)
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (doom-themes-visual-bell-config)
