@@ -272,9 +272,9 @@
   :config
   (defun c-setup ()
     (c-set-offset 'innamespace [0])
-    (c-set-offset 'inextern-lang [0]))
-  (add-hook 'c++-mode-hook 'c-setup)
-  (add-hook 'c-mode-hook 'c-setup)
+    (c-set-offset 'inextern-lang [0])
+    (c-toggle-hungry-state 1))
+  (add-hook 'c-mode-common-hook 'c-setup)
   (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
