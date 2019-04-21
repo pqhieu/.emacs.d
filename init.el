@@ -10,6 +10,12 @@
 ;; I won't guarantee it will work on any computer or any Emacs version,
 ;; and will not hold any responsibility for it.
 
+
+;;----------------------------------------------------------------------
+;; Turn of garbage collection during startup
+(setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'after-init-hook (lambda () (setq gc-cons-threshold 100000000)))
+
 ;;----------------------------------------------------------------------
 ;; Package Initialisation
 ;; Start Emacs package manager
@@ -57,6 +63,7 @@
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
+(setq custom-file (make-temp-file ""))
 
 ;;----------------------------------------------------------------------
 ;; Display Settings
@@ -112,9 +119,11 @@
   (setq ivy-initial-inputs-alist nil))
 (use-package ivy-xref
   :ensure t
-  :init (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+  :defer t
+  :config (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 (use-package ivy-bibtex
   :ensure t
+  :defer t
   :bind (("C-c b" . ivy-bibtex))
   :config
   (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
@@ -131,6 +140,7 @@
 (use-package which-key
   :diminish which-key-mode
   :ensure t
+  :defer t
   :config (which-key-mode 1))
 ;; Org-mode settings
 (use-package org
@@ -202,6 +212,7 @@
 ;; Beacon
 (use-package beacon
   :ensure t
+  :defer t
   :diminish beacon-mode
   :init (beacon-mode 1))
 ;; Miscellaneous
@@ -210,6 +221,7 @@
   :init (exec-path-from-shell-initialize))
 (use-package whitespace
   :ensure t
+  :defer t
   :diminish whitespace-mode
   :config
   (setq whitespace-line-column 100)
@@ -220,15 +232,18 @@
 ;; Autocompletion server
 (use-package lsp-mode
   :ensure t
+  :defer t
   :config
   (setq lsp-highlight-symbol-at-point nil))
 (use-package company-lsp
   :ensure t
+  :defer t
   :config
   (push 'company-lsp company-backends))
 ;; RSS reader
 (use-package elfeed
   :ensure t
+  :defer t
   :bind ("C-c r" . elfeed)
   :config
   (setq elfeed-db-directory "~/Dropbox/.elfeed")
@@ -246,6 +261,7 @@
 ;; Subword
 (use-package subword
   :ensure t
+  :defer t
   :diminish subword-mode
   :config
   (global-subword-mode 1))
@@ -265,6 +281,7 @@
 ;; Company
 (use-package company
   :ensure t
+  :defer t
   :config
   (setq company-transformers nil)
   (setq company-lsp-async t)
@@ -284,50 +301,3 @@
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'show-agenda-all)
 (toggle-frame-fullscreen)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-modules
-   (quote
-    (org-bbdb
-     org-bibtex
-     org-docview
-     org-gnus
-     org-habit
-     org-info
-     org-irc
-     org-mhe
-     org-rmail
-     org-w3m)))
- '(package-selected-packages
-   (quote
-    (ccls
-     elfeed
-     auctex
-     ivy-bibtex
-     doom-modeline
-     powerline
-     counsel
-     ivy-xref
-     which-key
-     swiper
-     use-package
-     org-bullets
-     markdown-mode
-     magit
-     glsl-mode
-     exec-path-from-shell
-     doom-themes
-     diminish
-     cuda-mode
-     company-lsp
-     beacon))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
