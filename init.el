@@ -119,11 +119,9 @@
   (setq ivy-initial-inputs-alist nil))
 (use-package ivy-xref
   :ensure t
-  :defer t
   :config (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 (use-package ivy-bibtex
   :ensure t
-  :defer t
   :bind (("C-c b" . ivy-bibtex))
   :config
   (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
@@ -140,7 +138,6 @@
 (use-package which-key
   :diminish which-key-mode
   :ensure t
-  :defer t
   :config (which-key-mode 1))
 ;; Org-mode settings
 (use-package org
@@ -203,7 +200,6 @@
   (setq ns-use-srgb-colorspace nil))
 (use-package doom-modeline
   :ensure t
-  :defer t
   :hook (after-init . doom-modeline-init)
   :config
   (setq doom-modeline-major-mode-icon t)
@@ -212,7 +208,6 @@
 ;; Beacon
 (use-package beacon
   :ensure t
-  :defer t
   :diminish beacon-mode
   :init (beacon-mode 1))
 ;; Miscellaneous
@@ -221,7 +216,6 @@
   :init (exec-path-from-shell-initialize))
 (use-package whitespace
   :ensure t
-  :defer t
   :diminish whitespace-mode
   :config
   (setq whitespace-line-column 100)
@@ -232,18 +226,15 @@
 ;; Autocompletion server
 (use-package lsp-mode
   :ensure t
-  :defer t
   :config
   (setq lsp-highlight-symbol-at-point nil))
 (use-package company-lsp
   :ensure t
-  :defer t
   :config
   (push 'company-lsp company-backends))
 ;; RSS reader
 (use-package elfeed
   :ensure t
-  :defer t
   :bind ("C-c r" . elfeed)
   :config
   (setq elfeed-db-directory "~/Dropbox/.elfeed")
@@ -261,7 +252,6 @@
 ;; Subword
 (use-package subword
   :ensure t
-  :defer t
   :diminish subword-mode
   :config
   (global-subword-mode 1))
@@ -272,8 +262,7 @@
   :config
   (defun c-setup ()
     (c-set-offset 'innamespace [0])
-    (c-set-offset 'inextern-lang [0])
-    (c-toggle-hungry-state 1))
+    (c-set-offset 'inextern-lang [0]))
   (add-hook 'c-mode-common-hook 'c-setup)
   (add-hook 'cuda-mode-hook 'c-setup)
   (setq c-default-style "ellemtel")
@@ -281,7 +270,6 @@
 ;; Company
 (use-package company
   :ensure t
-  :defer t
   :config
   (setq company-transformers nil)
   (setq company-lsp-async t)
