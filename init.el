@@ -65,12 +65,12 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-14")
+(set-frame-font "Inconsolata-g-14")
 ;; Set theme
 (use-package kaolin-themes
   :ensure t
   :config
-  (load-theme 'kaolin-dark t))
+  (load-theme 'kaolin-mono-dark t))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
@@ -126,17 +126,29 @@
 (use-package org-bullets
   :ensure t
   :init
+  (setq org-bullets-bullet-list '("◉" "◎" "●"))
   (add-hook 'org-mode-hook 'org-bullets-mode))
 ;; Magit
 (use-package magit
   :ensure t
   :defer t
   :bind ("C-c g" . magit-status))
+;; Dired
+(use-package dired
+  :config
+  ;; remember to install coreutils on OSX
+  (if (eq system-type 'darwin)
+      (setq insert-directory-program "gls" dired-use-ls-dired t)))
+  (setq dired-listing-switches "-aBhlF --group-directories-first")
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
   :diminish beacon-mode
   :init (beacon-mode 1))
+;; Add executable path
+(use-package exec-path-from-shell
+  :ensure t
+  :init (exec-path-from-shell-initialize))
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
