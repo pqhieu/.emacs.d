@@ -50,6 +50,7 @@
 ;;----------------------------------------------------------------------
 ;; Display settings
 ;; Disable splash screen, toolbar and scrollbar
+(menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
