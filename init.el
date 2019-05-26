@@ -68,10 +68,15 @@
 ;; Set font
 (set-frame-font "Inconsolata-g-14")
 ;; Set theme
-(use-package kaolin-themes
+(use-package gruvbox-theme :ensure t)
+(use-package circadian
   :ensure t
   :config
-  (load-theme 'kaolin-light t))
+  (setq calendar-latitude 1.352083)
+  (setq calendar-longitude 103.819839)
+  (setq circadian-themes '((:sunrise . gruvbox-light-medium)
+                           (:sunset  . gruvbox-dark-medium)))
+  (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
