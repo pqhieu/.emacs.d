@@ -71,7 +71,7 @@
 (use-package kaolin-themes
   :ensure t
   :config
-  (load-theme 'kaolin-mono-dark t))
+  (load-theme 'kaolin-light t))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
