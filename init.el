@@ -118,7 +118,7 @@
   :config
   (setq org-ellipsis "▿")
   (setq org-pretty-entities t)
-  (setq org-agenda-files (list "~/Dropbox/gtd.org"))
+  (setq org-agenda-files (list "~/Dropbox/todo.org"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
