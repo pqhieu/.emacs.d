@@ -68,14 +68,14 @@
 ;; Set font
 (set-frame-font "SF Mono-14")
 ;; Set theme
-(use-package doom-themes :ensure t)
+(use-package gruvbox-theme :ensure t)
 (use-package circadian
   :ensure t
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-tomorrow-day)
-                           (:sunset  . doom-tomorrow-night)))
+  (setq circadian-themes '((:sunrise . gruvbox-light-hard)
+                           (:sunset  . gruvbox-dark-hard)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
