@@ -160,6 +160,13 @@
 (use-package exec-path-from-shell
   :ensure t
   :init (exec-path-from-shell-initialize))
+;; Modeline
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-init)
+  :config
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
