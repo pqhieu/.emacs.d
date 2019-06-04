@@ -79,7 +79,7 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-nord-light)
+  (setq circadian-themes '((:sunrise . doom-tomorrow-day)
                            (:sunset  . doom-tomorrow-night)))
   (circadian-setup))
 ;; Auto-revert buffers
@@ -167,6 +167,12 @@
   :config
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+;; Accounting
+(use-package ledger-mode
+  :ensure t
+  :mode ("\\.dat\\'"
+         "\\.ledger\\'")
+  :custom (ledger-clear-whole-transactions t))
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
