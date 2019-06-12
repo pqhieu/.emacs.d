@@ -61,25 +61,25 @@
 (column-number-mode 1)
 ;; Uniquify buffer names
 (setq-default uniquify-buffer-name-style 'forward)
-;; Highligt corresponding parentheses
+;; Highlight corresponding parentheses
 (show-paren-mode 1)
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Monaco-14")
+(set-frame-font "IBM Plex Mono Medium-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
+  (setq doom-themes-enable-italic nil)
   (doom-themes-org-config))
 (use-package circadian
   :ensure t
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-opera-light)
+  (setq circadian-themes '((:sunrise . doom-solarized-light)
                            (:sunset  . doom-tomorrow-night)))
   (circadian-setup))
 ;; Auto-revert buffers
@@ -147,6 +147,11 @@
 ;; Dired
 (use-package dired
   :config
+  ;; reuse dired buffer
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+  (put 'dired-find-alternate-file 'disabled nil)
+  (define-key dired-mode-map (kbd "^")
+    (lambda () (interactive) (find-alternate-file "..")))
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t)))
