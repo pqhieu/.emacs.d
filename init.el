@@ -61,7 +61,7 @@
 (column-number-mode 1)
 ;; Uniquify buffer names
 (setq-default uniquify-buffer-name-style 'forward)
-;; Highligt corresponding parentheses
+;; Highlight corresponding parentheses
 (show-paren-mode 1)
 ;; Disable bell
 (setq ring-bell-function 'ignore)
@@ -72,7 +72,7 @@
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic nil)
+  (setq doom-themes-enable-italic t)
   (doom-themes-org-config)
   (load-theme 'doom-tomorrow-night t))
 ;; Auto-revert buffers
@@ -140,6 +140,11 @@
 ;; Dired
 (use-package dired
   :config
+  ;; reuse dired buffer
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+  (put 'dired-find-alternate-file 'disabled nil)
+  (define-key dired-mode-map (kbd "^")
+    (lambda () (interactive) (find-alternate-file "..")))
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t)))
