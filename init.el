@@ -168,9 +168,15 @@
 ;; Accounting
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.dat\\'"
-         "\\.ledger\\'")
-  :custom (ledger-clear-whole-transactions t))
+  :mode ("\\.dat\\'")
+  :config
+  (setq ledger-clear-whole-transactions t)
+  (setq ledger-reports
+        (quote (("bal" "%(binary) -R -f %(ledger-file) bal")
+                ("reg" "%(binary) -R -f %(ledger-file) reg")
+                ("budget" "%(binary) -f %(ledger-file) bal ^assets:budget")
+                ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+                ("account" "%(binary) -f %(ledger-file) reg %(account)")))))
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
