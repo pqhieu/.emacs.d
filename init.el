@@ -66,7 +66,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Roboto Mono Medium-14")
+(set-frame-font "Monaco-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
