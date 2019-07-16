@@ -14,6 +14,7 @@
 ;; Package initialisation
 ;; Start Emacs package manager
 (require 'package)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
