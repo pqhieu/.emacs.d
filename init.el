@@ -67,15 +67,22 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Monaco-13")
+(set-frame-font "SF Mono-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (doom-themes-org-config)
-  (load-theme 'doom-tomorrow-night t))
+  (doom-themes-org-config))
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 1.352083)
+  (setq calendar-longitude 103.819839)
+  (setq circadian-themes '((:sunrise . doom-opera-light)
+                           (:sunset  . domm-tomorrow-night)))
+  (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
@@ -169,15 +176,9 @@
 ;; Accounting
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.dat\\'")
+  :mode ("\\.ledger\\'")
   :config
-  (setq ledger-clear-whole-transactions t)
-  (setq ledger-reports
-        (quote (("bal" "%(binary) -R -f %(ledger-file) bal")
-                ("reg" "%(binary) -R -f %(ledger-file) reg")
-                ("budget" "%(binary) -f %(ledger-file) bal ^assets:budget")
-                ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-                ("account" "%(binary) -f %(ledger-file) reg %(account)")))))
+  (setq ledger-clear-whole-transactions t))
 
 ;;----------------------------------------------------------------------
 ;; Programming settings
