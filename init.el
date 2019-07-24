@@ -80,8 +80,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-opera-light)
-                           (:sunset  . doom-tomorrow-night)))
+  (setq circadian-themes '((:sunrise . doom-tomorrow-night)
+                           (:sunset  . doom-sourcerer)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
@@ -114,10 +114,26 @@
   :config
   (ivy-mode 1)
   (setq ivy-count-format "[%d/%d] ")
+  (setq ivy-use-virtual-buffers t) ;; Add recent files into completion list
   (setq ivy-use-selectable-prompt t)
   (setq ivy-height 15)
   (setq ivy-switch-buffer-faces-alist nil) ;; remove '^' at the beginning
   (setq ivy-initial-inputs-alist nil))
+;; Bibtex
+(use-package ivy-bibtex
+  :ensure t
+  :bind (("C-c b" . ivy-bibtex))
+  :config
+  (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
+  (setq bibtex-completion-notes-path "~/Dropbox/notes.org")
+  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
+  (setq bibtex-completion-notes-symbol "✎")
+  (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
+  (setq bibtex-completion-notes-template-one-file
+   "* ${title} (${year})
+   :PROPERTIES:
+   :PID: ${=key=}
+   :END:"))
 ;; Org
 (use-package org
   :bind ("C-c a" . org-agenda-show-all)
