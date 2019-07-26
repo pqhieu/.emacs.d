@@ -80,8 +80,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-tomorrow-night)
-                           (:sunset  . doom-sourcerer)))
+  (setq circadian-themes '((:sunrise . doom-vibrant)
+                           (:sunset  . doom-tomorrow-night)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
