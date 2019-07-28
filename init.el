@@ -80,7 +80,7 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-vibrant)
+  (setq circadian-themes '((:sunrise . doom-tomorrow-night)
                            (:sunset  . doom-tomorrow-night)))
   (circadian-setup))
 ;; Auto-revert buffers
@@ -144,6 +144,8 @@
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
+  (setq org-tags-column -120)
+  (setq org-agenda-tags-column -120)
   ;; do not show scheduled/deadline if done
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
   (setq org-agenda-skip-deadline-if-done t)
