@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-14")
+(set-frame-font "Fira Code-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -93,6 +93,10 @@
   (interactive)
   (org-agenda nil "n")
   (delete-other-windows))
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 ;;----------------------------------------------------------------------
 ;; User-installed package settings
@@ -218,6 +222,17 @@
   (add-hook 'c-mode-common-hook 'c-setup)
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
+(use-package c++-mode :mode ("\\.h\\'"))
+;; Subword
+(use-package subword
+  :ensure t
+  :diminish subword-mode
+  :config
+  (global-subword-mode 1))
+
+;; Global keybindings
+(global-set-key (kbd "C-c w") 'kill-other-buffers)
+(global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'org-agenda-show-all)
