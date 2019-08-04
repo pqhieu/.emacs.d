@@ -234,6 +234,8 @@
   :ensure t
   :diminish company-mode
   :config
+  ;; disable prompt when adding local variables
+  (setq enable-local-variables :safe)
   (setq company-dabbrev-downcase 0)
   (setq company-idle-delay 0)
   (setq company-backends (delete 'company-semantic company-backends))
