@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Input Mono-14")
+(set-frame-font "IBM Plex Mono-20")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -234,6 +234,8 @@
   :ensure t
   :diminish company-mode
   :config
+  (setq company-dabbrev-downcase 0)
+  (setq company-idle-delay 0)
   (setq company-backends (delete 'company-semantic company-backends))
   (define-key c-mode-map  (kbd "C-<return>") 'company-complete)
   (define-key c++-mode-map  (kbd "C-<return>") 'company-complete)
