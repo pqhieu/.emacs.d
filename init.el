@@ -229,6 +229,15 @@
   :diminish subword-mode
   :config
   (global-subword-mode 1))
+;; Auto-completion
+(use-package company
+  :ensure t
+  :diminish company-mode
+  :config
+  (setq company-backends (delete 'company-semantic company-backends))
+  (define-key c-mode-map  (kbd "C-<return>") 'company-complete)
+  (define-key c++-mode-map  (kbd "C-<return>") 'company-complete)
+  (add-hook 'after-init-hook 'global-company-mode))
 
 ;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
