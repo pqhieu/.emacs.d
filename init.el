@@ -221,6 +221,9 @@
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
 (use-package c++-mode :mode ("\\.h\\'"))
+(use-package cuda-mode :ensure t)
+(use-package glsl-mode :ensure t)
+(use-package yaml-mode :ensure t)
 ;; Subword
 (use-package subword
   :ensure t
