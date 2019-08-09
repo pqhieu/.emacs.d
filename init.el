@@ -163,7 +163,6 @@
 ;; Magit
 (use-package magit
   :ensure t
-  :defer t
   :bind ("C-c g" . magit-status))
 ;; Dired
 (use-package dired
@@ -220,7 +219,6 @@
   (add-hook 'c-mode-common-hook 'c-setup)
   (setq c-default-style "ellemtel")
   (setq c-basic-offset 4))
-(use-package c++-mode :mode ("\\.h\\'"))
 (use-package cuda-mode :ensure t)
 (use-package glsl-mode :ensure t)
 (use-package yaml-mode :ensure t)
