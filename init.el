@@ -127,7 +127,7 @@
   (setq bibtex-completion-notes-symbol "✎")
   (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
   (setq bibtex-completion-notes-template-one-file
-   "* ${title} (${year})
+   "*** ${title} (${year})
    :PROPERTIES:
    :PID: ${=key=}
    :END:"))
