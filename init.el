@@ -73,7 +73,7 @@
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
+  (setq doom-themes-enable-italic nil)
   (doom-themes-org-config)
   (load-theme 'doom-tomorrow-night t))
 ;; Auto-revert buffers
