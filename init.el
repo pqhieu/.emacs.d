@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "IBM Plex Mono-14")
+(set-frame-font "SF Mono-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -141,8 +141,6 @@
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
-  (setq org-tags-column -77)
-  (setq org-agenda-tags-column -77)
   ;; do not show scheduled/deadline if done
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
   (setq org-agenda-skip-deadline-if-done t)
@@ -248,3 +246,4 @@
 
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'org-agenda-show-all)
+(toggle-frame-fullscreen)
