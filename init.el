@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "IBM Plex Mono-14")
+(set-frame-font "SF Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -174,8 +174,9 @@
     (lambda () (interactive) (find-alternate-file "..")))
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
-      (setq insert-directory-program "gls" dired-use-ls-dired t)))
-  (setq dired-listing-switches "-aBhlF --group-directories-first")
+      (setq insert-directory-program "gls" dired-use-ls-dired t))
+  (setq dired-listing-switches "-aBhlF --group-directories-first"))
+
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
