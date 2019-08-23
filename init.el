@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-13")
+(set-frame-font "IBM Plex Mono-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -249,3 +249,4 @@
 
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'org-agenda-show-all)
+(toggle-frame-fullscreen)
