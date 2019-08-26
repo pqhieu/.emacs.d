@@ -211,6 +211,8 @@
   ;; delete trailing whitespace when save
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
+;; Enable line numbers
+(add-hook 'prog-mode-hook 'linum-mode)
 ;; C/C++
 (use-package cc-mode
   :config
