@@ -42,7 +42,6 @@
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-always-indent 'complete)
-(setq-default fill-column 80)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -67,13 +66,13 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-14")
+(set-frame-font "Fantasque Sans Mono-15")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic nil)
+  (setq doom-themes-enable-italic t)
   (doom-themes-org-config)
   (load-theme 'doom-tomorrow-night t))
 ;; Auto-revert buffers
@@ -176,7 +175,6 @@
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
   (setq dired-listing-switches "-aBhlF --group-directories-first"))
-
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
@@ -251,4 +249,3 @@
 
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'org-agenda-show-all)
-(toggle-frame-fullscreen)
