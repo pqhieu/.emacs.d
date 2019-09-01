@@ -42,6 +42,7 @@
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-always-indent 'complete)
+(setq-default fill-column 78)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -243,9 +244,13 @@
   (define-key c++-mode-map  (kbd "C-<return>") 'company-complete)
   (add-hook 'after-init-hook 'global-company-mode))
 
+(add-hook 'tex-mode-hook 'visual-line-mode)
+(add-hook 'tex-mode-hook 'linum-mode)
+
 ;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
 ;; Show your agenda and make Emacs go fullscreen
 (add-hook 'after-init-hook 'org-agenda-show-all)
+(toggle-frame-fullscreen)
