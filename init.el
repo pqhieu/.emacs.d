@@ -14,7 +14,6 @@
 ;; Package initialisation
 ;; Start Emacs package manager
 (require 'package)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
@@ -67,7 +66,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Inconsolata-15")
+(set-frame-font "SF Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
