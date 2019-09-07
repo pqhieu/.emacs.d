@@ -66,7 +66,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Inconsolata-15")
+(set-frame-font "IBM Plex Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
