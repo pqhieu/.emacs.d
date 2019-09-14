@@ -66,7 +66,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Inconsolata-15")
+(set-frame-font "Fantasque Sans Mono-15")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -79,8 +79,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-tomorrow-day)
-                           (:sunset  . doom-tomorrow-night)))
+  (setq circadian-themes '((:sunrise . doom-opera-light)
+                           (:sunset  . doom-opera)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
