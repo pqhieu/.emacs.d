@@ -66,15 +66,22 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "IBM Plex Mono-13")
+(set-frame-font "Inconsolata-15")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (doom-themes-org-config)
-  (load-theme 'doom-tomorrow-night t))
+  (doom-themes-org-config))
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 1.352083)
+  (setq calendar-longitude 103.819839)
+  (setq circadian-themes '((:sunrise . doom-tomorrow-day)
+                           (:sunset  . doom-tomorrow-night)))
+  (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
