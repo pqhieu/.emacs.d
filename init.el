@@ -55,6 +55,7 @@
 (scroll-bar-mode 0)
 (blink-cursor-mode 0)
 (display-time-mode 1)
+(setq-default cursor-type 'bar)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 ;; Show column number
@@ -66,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Roboto Mono-13")
+(set-frame-font "IBM Plex Mono Medium-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
