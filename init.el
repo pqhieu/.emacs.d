@@ -41,7 +41,7 @@
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-always-indent 'complete)
-(setq-default fill-column 78)
+(setq-default fill-column 79)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "IBM Plex Mono Medium-13")
+(set-frame-font "Monaco-12")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -80,8 +80,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-tomorrow-day)
-                           (:sunset  . doom-tomorrow-night)))
+  (setq circadian-themes '((:sunrise . doom-peacock)
+                           (:sunset  . doom-city-lights)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
