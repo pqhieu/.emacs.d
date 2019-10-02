@@ -254,6 +254,9 @@
 (add-hook 'tex-mode-hook 'visual-line-mode)
 (add-hook 'tex-mode-hook 'linum-mode)
 
+(setq highlight-indent-guides-method 'character)
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+
 ;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
