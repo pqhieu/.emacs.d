@@ -81,7 +81,7 @@
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
   (setq circadian-themes '((:sunrise . doom-nord-light)
-                           (:sunset  . doom-tomorrow-night)))
+                           (:sunset  . doom-city-lights)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
@@ -260,6 +260,8 @@
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 ;; LaTeX
 (use-package auctex
+  :ensure t
+  :defer t
   :config
   ;; more sensible wrapping when writing
   (add-hook 'tex-mode-hook 'visual-line-mode))
