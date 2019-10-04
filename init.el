@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Monaco-12")
+(set-frame-font "Liberation Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -80,8 +80,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-peacock)
-                           (:sunset  . doom-sourcerer)))
+  (setq circadian-themes '((:sunrise . doom-city-lights)
+                           (:sunset  . doom-city-lights)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
@@ -218,7 +218,7 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
 ;; Enable line numbers
-(add-hook 'prog-mode-hook 'linum-mode)
+(global-linum-mode 1)
 ;; C/C++
 (use-package cc-mode
   :config
