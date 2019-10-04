@@ -80,8 +80,8 @@
   :config
   (setq calendar-latitude 1.352083)
   (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-city-lights)
-                           (:sunset  . doom-city-lights)))
+  (setq circadian-themes '((:sunrise . doom-nord-light)
+                           (:sunset  . doom-tomorrow-night)))
   (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
@@ -227,8 +227,9 @@
     (c-set-offset 'inextern-lang [0]))
   (add-hook 'c-mode-common-hook 'c-setup)
   (setq c-default-style "linux")
-  (setq c-basic-offset 4))
-(use-package cuda-mode :ensure t)
+  (setq c-basic-offset 4)
+  (add-to-list 'auto-mode-alist '("\\.cuh\\'" . c++-mode))
+  (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode)))
 (use-package glsl-mode :ensure t)
 (use-package yaml-mode :ensure t)
 ;; Subword
@@ -250,12 +251,18 @@
   (define-key c-mode-map  (kbd "C-<return>") 'company-complete)
   (define-key c++-mode-map  (kbd "C-<return>") 'company-complete)
   (add-hook 'after-init-hook 'global-company-mode))
-
-(add-hook 'tex-mode-hook 'visual-line-mode)
-(add-hook 'tex-mode-hook 'linum-mode)
-
-(setq highlight-indent-guides-method 'character)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;; Highlight tabs and spaces
+(use-package highlight-indent-guides
+  :ensure t
+  :diminish highlight-indent-guides-mode
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+;; LaTeX
+(use-package auctex
+  :config
+  ;; more sensible wrapping when writing
+  (add-hook 'tex-mode-hook 'visual-line-mode))
 
 ;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
