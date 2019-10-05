@@ -74,10 +74,10 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
   (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
-  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
