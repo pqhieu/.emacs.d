@@ -74,15 +74,11 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
+  (load-theme 'doom-city-lights t)
   (doom-themes-org-config))
-(use-package circadian
-  :ensure t
-  :config
-  (setq calendar-latitude 1.352083)
-  (setq calendar-longitude 103.819839)
-  (setq circadian-themes '((:sunrise . doom-moonlight)
-                           (:sunset . doom-moonlight)))
-  (circadian-setup))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
