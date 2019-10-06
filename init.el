@@ -76,6 +76,7 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
+  (set-face-attribute 'bold nil :weight 'medium)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
   (set-face-attribute 'font-lock-doc-face nil :slant 'italic))
