@@ -76,7 +76,6 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
-  (set-face-attribute 'bold nil :weight 'medium)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
   (set-face-attribute 'font-lock-doc-face nil :slant 'italic))
@@ -139,7 +138,7 @@
 (use-package org
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-ellipsis "▿")
+  (setq org-ellipsis "↲")
   (setq org-pretty-entities t)
   (setq org-agenda-files (list "~/Dropbox/todo.org"))
   (setq org-agenda-span 'week)
@@ -157,13 +156,14 @@
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
   (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-agenda-sorting-strategy
-        '((agenda todo-state-up priority-down))))
+        '((agenda todo-state-up priority-down)))
+  (set-face-attribute 'org-level-1 nil :background (face-background 'default)))
 ;; Org-bullets
 (use-package org-bullets
   :ensure t
+  :hook (org-mode . org-bullets-mode)
   :init
-  (setq org-bullets-bullet-list '("◉" "◎" "●"))
-  (add-hook 'org-mode-hook 'org-bullets-mode))
+  (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
 ;; Magit
 (use-package magit
   :ensure t
