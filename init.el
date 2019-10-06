@@ -157,7 +157,9 @@
   (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-agenda-sorting-strategy
         '((agenda todo-state-up priority-down)))
-  (set-face-attribute 'org-level-1 nil :background (face-background 'default)))
+  (set-face-background 'org-level-1 (face-background 'default))
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default)))
 ;; Org-bullets
 (use-package org-bullets
   :ensure t
