@@ -159,7 +159,8 @@
         '((agenda todo-state-up priority-down)))
   (set-face-background 'org-level-1 (face-background 'default))
   (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default)))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
 ;; Org-bullets
 (use-package org-bullets
   :ensure t
