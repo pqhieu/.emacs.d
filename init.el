@@ -67,7 +67,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Operator Mono-13")
+(set-frame-font "IBM Plex Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -78,7 +78,8 @@
   (doom-themes-org-config)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-doc-face nil :slant 'italic))
+  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-preprocessor-face nil :slant 'italic))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
@@ -232,6 +233,17 @@
   (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode)))
 (use-package glsl-mode :ensure t)
 (use-package yaml-mode :ensure t)
+(use-package clang-format
+  :ensure t
+  :config
+  (add-hook 'before-save-hook
+            (lambda ()
+              (when (member major-mode '(c-mode c++-mode glsl-mode))
+                (progn
+                  (when (locate-dominating-file "." ".clang-format")
+                    (clang-format-buffer))
+                  ;; Return nil, to continue saving.
+                  nil)))))
 ;; Subword
 (use-package subword
   :ensure t
