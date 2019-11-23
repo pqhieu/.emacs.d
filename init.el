@@ -74,7 +74,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-nord t)
   (doom-themes-org-config)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
@@ -271,9 +271,8 @@
   (setq highlight-indent-guides-method 'character)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 ;; LaTeX
-(use-package auctex
-  :ensure t
-  :defer t
+(use-package tex-mode
+  :ensure auctex
   :config
   ;; more sensible wrapping when writing
   (add-hook 'tex-mode-hook 'visual-line-mode))
