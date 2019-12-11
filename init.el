@@ -67,14 +67,14 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "IBM Plex Mono-13")
+(set-frame-font "Operator Mono-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-nord t)
+  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
   (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
   (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
@@ -126,15 +126,14 @@
   :bind (("C-c b" . ivy-bibtex))
   :config
   (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
-  (setq bibtex-completion-notes-path "~/Dropbox/notes.org")
-  (setq ivy-bibtex-default-action 'ivy-bibtex-edit-notes)
   (setq bibtex-completion-notes-symbol "✎")
-  (setq bibtex-completion-notes-key-pattern ":PID: +%s\\( \\|$\\)")
-  (setq bibtex-completion-notes-template-one-file
-   "** ${title} (${year})
-   :PROPERTIES:
-   :PID: ${=key=}
-   :END:"))
+  (setq bibtex-completion-cite-prompt-for-optional-arguments nil)
+  (setq bibtex-completion-format-citation-functions
+        '((org-mode . bibtex-completion-format-citation-org-title-link-to-PDF)
+          (latex-mode . bibtex-completion-format-citation-cite)
+          (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+          (default . bibtex-completion-format-citation-default)))
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 ;; Org
 (use-package org
   :bind ("C-c a" . org-agenda-show-all)
@@ -271,11 +270,13 @@
   (setq highlight-indent-guides-method 'character)
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 ;; LaTeX
-(use-package tex-mode
+(use-package latex
   :ensure auctex
   :config
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
   ;; more sensible wrapping when writing
-  (add-hook 'tex-mode-hook 'visual-line-mode))
+  (add-hook 'LaTeX-mode-hook 'visual-line-mode))
 
 ;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
