@@ -74,7 +74,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-moonlight t)
+  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
@@ -228,6 +228,10 @@
   (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode)))
 (use-package glsl-mode :ensure t)
 (use-package yaml-mode :ensure t)
+(use-package markdown-mode
+  :ensure t
+  :config
+  (setq markdown-fontify-code-blocks-natively t))
 (use-package clang-format
   :ensure t
   :config
