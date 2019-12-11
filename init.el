@@ -67,19 +67,15 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "Operator Mono-14")
+(set-frame-font "SF Mono-13")
 ;; Set theme
 (use-package doom-themes
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
+  (setq doom-themes-enable-italic nil)
   (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config)
-  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-preprocessor-face nil :slant 'italic))
+  (doom-themes-org-config))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
