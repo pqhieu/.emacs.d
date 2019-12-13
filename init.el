@@ -46,6 +46,7 @@
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq custom-file (make-temp-file ""))
+(setq display-time-day-and-date t)
 
 ;;----------------------------------------------------------------------
 ;; Display settings
