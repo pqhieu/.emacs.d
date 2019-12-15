@@ -179,7 +179,7 @@
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
-  (setq dired-listing-switches "-aBhlF --group-directories-first"))
+  (setq dired-listing-switches "-l --group-directories-first"))
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
