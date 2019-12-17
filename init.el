@@ -68,7 +68,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-13")
+(set-frame-font "Operator Mono-14")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -76,7 +76,11 @@
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-preprocessor-face nil :slant 'italic))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
@@ -179,7 +183,7 @@
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
-  (setq dired-listing-switches "-l --group-directories-first"))
+  (setq dired-listing-switches "-aBhlF --group-directories-first"))
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
