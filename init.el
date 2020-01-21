@@ -1,7 +1,7 @@
 ;;----------------------------------------------------------------------
-;; My Personal Emacs Configuration
+;; My personal Emacs configuration
 ;;
-;; Copyright (C) 2015-2019  Quang-Hieu Pham <pqhieu1192@gmail.com>
+;; Copyright (C) 2015-2020
 ;;
 ;; Author: Quang-Hieu Pham <pqhieu1192@gmail.com>
 ;;
