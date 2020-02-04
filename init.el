@@ -68,7 +68,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono-13")
+(set-frame-font "SF Mono:pixelsize=13:weight=semi-bold:slant=normal:width=normal:spacing=100:scalable=true")
 ;; Set theme
 (use-package doom-themes
   :ensure t
@@ -76,11 +76,7 @@
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config)
-  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-preprocessor-face nil :slant 'italic))
+  (doom-themes-org-config))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
 
@@ -115,9 +111,10 @@
          ("M-y" . counsel-yank-pop))
   :config
   (ivy-mode 1)
-  (setq ivy-count-format "[%d/%d] ")
+  (setq ivy-count-format "(%d/%d) ")
   (setq ivy-use-virtual-buffers t) ;; Add recent files into completion list
   (setq ivy-use-selectable-prompt t)
+  (setq ivy-display-style 'fancy)
   (setq ivy-height 15)
   (setq ivy-switch-buffer-faces-alist nil) ;; remove '^' at the beginning
   (setq ivy-initial-inputs-alist nil))
@@ -175,6 +172,10 @@
 ;; Dired
 (use-package dired
   :config
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-dwim-target t)
   ;; reuse dired buffer
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
   (put 'dired-find-alternate-file 'disabled nil)
@@ -183,7 +184,7 @@
   ;; remember to install coreutils on OSX
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
-  (setq dired-listing-switches "-aBhlF --group-directories-first"))
+  (setq dired-listing-switches "-aFhlv --group-directories-first"))
 ;; Beacon - highlight current line
 (use-package beacon
   :ensure t
