@@ -164,7 +164,7 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :init
-  (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
+  (setq org-bullets-bullet-list '("⓵" "⓶" "⓷" "⓸" "⓹" "⓺" "⓻" "⓼")))
 ;; Magit
 (use-package magit
   :ensure t
