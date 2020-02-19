@@ -116,7 +116,7 @@
   (setq ivy-use-selectable-prompt t)
   (setq ivy-display-style 'fancy)
   (setq ivy-height 15)
-  (setq ivy-switch-buffer-faces-alist nil) ;; remove '^' at the beginning
+  (setq ivy-switch-buffer-faces-alist nil) ;; Remove '^' at the beginning
   (setq ivy-initial-inputs-alist nil))
 ;; Bibtex
 (use-package ivy-bibtex
@@ -134,15 +134,34 @@
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 ;; Org
 (use-package org
-  :bind ("C-c a" . org-agenda-show-all)
   :config
   (setq org-ellipsis "↲")
   (setq org-pretty-entities t)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
+  (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
+  (setq org-tags-column -77)
+  ;; global effort estimate values
+  (setq org-global-properties
+        '(("Effort_ALL" .
+           "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
+  ;; Set default column view headings: Task Priority Effort Clock_Summary
+  (setq org-columns-default-format "%50ITEM %2PRIORITY %10Effort(EFFORT){:} %10CLOCKSUM")
+  (setq org-clock-into-drawer t)
+  (setq org-clock-persist t)
+  (org-clock-persistence-insinuate)
+  (setq org-clock-out-when-done t)
+  (set-face-background 'org-level-1 (face-background 'default))
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
+(use-package org-agenda
+  :bind ("C-c a" . org-agenda-show-all)
+  :config
   (setq org-agenda-files (list "~/Dropbox/todo.org"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
-  (setq org-tags-column -77)
   (setq org-agenda-tags-column -77)
   ;; do not show scheduled/deadline if done
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
@@ -150,15 +169,8 @@
   (setq org-agenda-skip-scheduled-if-done t)
   ;; do not show repeating task
   (setq org-agenda-repeating-timestamp-show-all nil)
-  (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-  (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-agenda-sorting-strategy
-        '((agenda todo-state-up priority-down)))
-  (set-face-background 'org-level-1 (face-background 'default))
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
+        '((agenda todo-state-up priority-down))))
 ;; Org-bullets
 (use-package org-bullets
   :ensure t
