@@ -135,7 +135,7 @@
 ;; Org
 (use-package org
   :config
-  (setq org-ellipsis "↲")
+  (setq org-ellipsis "⤵")
   (setq org-pretty-entities t)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
