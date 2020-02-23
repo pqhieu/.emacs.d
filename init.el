@@ -10,8 +10,6 @@
 ;; I won't guarantee it will work on any computer or any Emacs version,
 ;; and will not hold any responsibility for it.
 
-;;----------------------------------------------------------------------
-;; Package initialisation
 ;; Start Emacs package manager
 (require 'package)
 (add-to-list 'package-archives
@@ -28,8 +26,6 @@
 (setq use-package-verbose t)
 (use-package diminish :ensure t)
 
-;;----------------------------------------------------------------------
-;; General settings
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -48,8 +44,6 @@
 (setq custom-file (make-temp-file ""))
 (setq display-time-day-and-date t)
 
-;;----------------------------------------------------------------------
-;; Display settings
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
 (tool-bar-mode 0)
@@ -79,9 +73,8 @@
   (doom-themes-org-config))
 ;; Auto-revert buffers
 (global-auto-revert-mode 1)
+(global-linum-mode 1)
 
-;;----------------------------------------------------------------------
-;; User-defined functions
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
   (interactive)
@@ -92,13 +85,9 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
-;;----------------------------------------------------------------------
-;; User-installed package settings
-;; Swiper
 (use-package swiper
   :ensure t
   :bind (("C-s" . swiper)))
-;; Ivy
 (use-package counsel
   :ensure t
   :diminish ivy-mode
@@ -117,13 +106,13 @@
   (setq ivy-display-style 'fancy)
   (setq ivy-height 15)
   (setq ivy-switch-buffer-faces-alist nil) ;; Remove '^' at the beginning
-  (setq ivy-initial-inputs-alist nil))
-;; Bibtex
+  (setq ivy-initial-inputs-alist nil)
+  (setq counsel-find-file-ignore-regexp "\\(?:^Icon?\\)"))
 (use-package ivy-bibtex
   :ensure t
   :bind (("C-c b" . ivy-bibtex))
   :config
-  (setq bibtex-completion-bibliography '("~/Dropbox/ref.bib"))
+  (setq bibtex-completion-bibliography '("~/Dropbox/main.bib"))
   (setq bibtex-completion-notes-symbol "✎")
   (setq bibtex-completion-cite-prompt-for-optional-arguments nil)
   (setq bibtex-completion-format-citation-functions
@@ -132,7 +121,7 @@
           (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
           (default . bibtex-completion-format-citation-default)))
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
-;; Org
+
 (use-package org
   :config
   (setq org-ellipsis "⤵")
@@ -171,17 +160,15 @@
   (setq org-agenda-repeating-timestamp-show-all nil)
   (setq org-agenda-sorting-strategy
         '((agenda todo-state-up priority-down))))
-;; Org-bullets
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :init
   (setq org-bullets-bullet-list '("⓵" "⓶" "⓷" "⓸" "⓹" "⓺" "⓻" "⓼")))
-;; Magit
+
 (use-package magit
   :ensure t
   :bind ("C-c g" . magit-status))
-;; Dired
 (use-package dired
   :config
   (setq dired-recursive-copies 'always)
@@ -197,32 +184,25 @@
   (if (eq system-type 'darwin)
       (setq insert-directory-program "gls" dired-use-ls-dired t))
   (setq dired-listing-switches "-aFhlv --group-directories-first"))
-;; Beacon - highlight current line
 (use-package beacon
   :ensure t
   :diminish beacon-mode
   :init (beacon-mode 1))
-;; Add executable path
 (use-package exec-path-from-shell
   :ensure t
   :init (exec-path-from-shell-initialize))
-;; Modeline
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-init)
   :config
   (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
-;; Accounting
+  (setq doom-modeline-buffer-file-name-style 'auto))
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.ledger\\'")
+  :mode ("\\.dat\\'")
   :config
   (setq ledger-clear-whole-transactions t))
 
-;;----------------------------------------------------------------------
-;; Programming settings
-;; Whitespace
 (use-package whitespace
   :ensure t
   :diminish whitespace-mode
@@ -231,9 +211,6 @@
   ;; delete trailing whitespace when save
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (add-hook 'prog-mode-hook 'whitespace-mode))
-;; Enable line numbers
-(global-linum-mode 1)
-;; C/C++
 (use-package cc-mode
   :config
   (defun c-setup ()
@@ -244,30 +221,25 @@
   (setq c-basic-offset 4)
   (add-to-list 'auto-mode-alist '("\\.cuh\\'" . c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode)))
+(use-package clang-format :ensure t)
 (use-package glsl-mode :ensure t)
 (use-package yaml-mode :ensure t)
 (use-package markdown-mode
   :ensure t
   :config
   (setq markdown-fontify-code-blocks-natively t))
-(use-package clang-format
-  :ensure t
-  :config
-  (add-hook 'before-save-hook
-            (lambda ()
-              (when (member major-mode '(c-mode c++-mode glsl-mode))
-                (progn
-                  (when (locate-dominating-file "." ".clang-format")
-                    (clang-format-buffer))
-                  ;; Return nil, to continue saving.
-                  nil)))))
-;; Subword
 (use-package subword
   :ensure t
   :diminish subword-mode
   :config
   (global-subword-mode 1))
-;; Auto-completion
+(use-package highlight-indent-guides
+  :ensure t
+  :diminish highlight-indent-guides-mode
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
+
 (use-package company
   :ensure t
   :diminish company-mode
@@ -280,14 +252,7 @@
   (define-key c-mode-map  (kbd "C-<return>") 'company-complete)
   (define-key c++-mode-map  (kbd "C-<return>") 'company-complete)
   (add-hook 'after-init-hook 'global-company-mode))
-;; Highlight tabs and spaces
-(use-package highlight-indent-guides
-  :ensure t
-  :diminish highlight-indent-guides-mode
-  :config
-  (setq highlight-indent-guides-method 'character)
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
-;; LaTeX
+
 (use-package latex
   :ensure auctex
   :config
@@ -296,7 +261,6 @@
   ;; more sensible wrapping when writing
   (add-hook 'LaTeX-mode-hook 'visual-line-mode))
 
-;; Global keybindings
 (global-set-key (kbd "C-c w") 'kill-other-buffers)
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 
