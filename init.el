@@ -62,7 +62,8 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono:pixelsize=13:weight=semi-bold:slant=normal:width=normal:spacing=100:scalable=true")
+(set-frame-font "SF Mono:pixelsize=13:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+(setq-default line-spacing 0.2)
 ;; Set theme
 (use-package doom-themes
   :ensure t
