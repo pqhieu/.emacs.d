@@ -62,7 +62,7 @@
 ;; Disable bell
 (setq ring-bell-function 'ignore)
 ;; Set font
-(set-frame-font "SF Mono:pixelsize=13:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+(set-frame-font "IBM Plex Mono:pixelsize=13:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 (setq-default line-spacing 0.2)
 ;; Set theme
 (use-package doom-themes
@@ -149,6 +149,7 @@
   (set-face-background 'org-level-1 (face-background 'default))
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-block (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
