@@ -240,12 +240,6 @@
   :diminish subword-mode
   :config
   (global-subword-mode 1))
-(use-package highlight-indent-guides
-  :ensure t
-  :diminish highlight-indent-guides-mode
-  :config
-  (setq highlight-indent-guides-method 'character)
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode))
 
 (use-package company
   :ensure t
