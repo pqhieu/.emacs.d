@@ -22,8 +22,8 @@
 ;; Boston, MA 02110-1301, USA.
 
 ;; Reduce the frequency of garbage collection by making it happen on
-;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 50000000)
+;; each 100MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 100000000)
 (setq file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
 ;; Start Emacs package manager
@@ -74,6 +74,9 @@
 (add-hook 'prog-mode-hook #'subword-mode)
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
+;; Set default font and line spacing
+(add-to-list 'default-frame-alist '(font . "Atlas Typewriter-13"))
+(setq-default line-spacing 0.3)
 
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
@@ -84,9 +87,6 @@
 (require 'use-package)
 (require 'bind-key)
 (setq use-package-verbose t)
-;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Atlas Typewriter-13"))
-(setq-default line-spacing 0.3)
 ;; Uniquify buffer names
 (use-package uniquify
   :config
@@ -200,7 +200,7 @@
   :ensure t
   :config
   (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-color-icon t)
+  (setq doom-modeline-major-mode-icon nil)
   (setq doom-modeline-minor-modes nil))
 ;; Ivy -- interactive interfact for completion
 (use-package ivy
@@ -287,9 +287,15 @@
   (interactive)
   (org-agenda nil "n")
   (delete-other-windows))
+(defun idle-garbage-collect ()
+  "Reset gc-cons-threshold"
+  (setq gc-cons-threshold 800000)
+  (defun idle-garbage-collect ()
+    (garbage-collect)))
 
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c k") #'kill-other-buffers)
 (global-set-key (kbd "C-c f") #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
+(add-hook 'focus-out-hook #'idle-garbage-collect)
