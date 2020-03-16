@@ -30,7 +30,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+(setq package-enable-at-startup nil)
+(package-initialize nil)
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -142,12 +143,7 @@
   (org-clock-persistence-insinuate)
   (setq org-clock-out-when-done t)
   (setq org-latex-create-formula-image-program 'dvisvgm)
-  (setq org-preview-latex-image-directory "/tmp/ltximg")
-  (set-face-background 'org-level-1 (face-background 'default))
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-block (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
+  (setq org-preview-latex-image-directory "/tmp/ltximg"))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
@@ -195,7 +191,11 @@
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-block (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
 (use-package doom-modeline
   :ensure t
   :config
