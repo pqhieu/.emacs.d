@@ -189,7 +189,7 @@
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
+  (setq doom-themes-enable-italic nil)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
