@@ -76,9 +76,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Atlas Typewriter-13"))
+(add-to-list 'default-frame-alist '(font . "Linux Libertine Mono-13"))
 (setq-default line-spacing 0.3)
-
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -171,8 +170,8 @@
 (use-package whitespace
   :ensure t
   :config
-  (setq whitespace-line-column 88) ;; limit line length
-  (setq whitespace-style '(face tabs empty trailing lines-tail))
+  (setq whitespace-line-column 120) ;; limit line length
+  (setq whitespace-style '(face tabs trailing lines-tail))
   ;; Delete trailing whitespace when save
   (add-hook 'before-save-hook #'whitespace-cleanup)
   (add-hook 'prog-mode-hook #'whitespace-mode)
