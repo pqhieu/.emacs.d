@@ -76,8 +76,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Linux Libertine Mono-13"))
-(setq-default line-spacing 0.3)
+(add-to-list 'default-frame-alist '(font . "SF Mono-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
