@@ -76,7 +76,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "SF Mono-13"))
+(add-to-list 'default-frame-alist '(font . "IBM Plex Mono-13:italic"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -164,6 +164,10 @@
     (c-set-offset 'innamespace [0])
     (c-set-offset 'inextern-lang [0]))
   (add-hook 'c-mode-common-hook 'c-setup)
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (add-hook (make-local-variable 'before-save-hook)
+                        'clang-format-buffer)))
   (setq c-default-style "linux")
   (setq c-basic-offset 4))
 (use-package whitespace
@@ -187,8 +191,8 @@
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic nil)
-  (load-theme 'doom-tomorrow-night t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-moonlight t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
@@ -259,9 +263,19 @@
   (setq TeX-parse-self t))
 (use-package org-bullets
   :ensure t
-  :hook (org-mode . org-bullets-mode)
-  :init
-  (setq org-bullets-bullet-list '("⓵" "⓶" "⓷" "⓸" "⓹" "⓺" "⓻" "⓼")))
+  :hook (org-mode . org-bullets-mode))
+(use-package org-roam
+  :ensure t
+  :hook (after-init . org-roam-mode)
+  :config
+  (setq org-roam-directory "~/Dropbox/notes")
+  :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n b" . org-roam-switch-to-buffer)
+               ("C-c n g" . org-roam-graph-show))
+         :map org-mode-map
+         (("C-c n i" . org-roam-insert))))
 (use-package clang-format :ensure t :defer t)
 (use-package glsl-mode :ensure t :defer t)
 (use-package yaml-mode :ensure t :defer t)
