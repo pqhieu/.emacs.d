@@ -261,9 +261,6 @@
   :ensure auctex
   :config
   (setq TeX-parse-self t))
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . org-bullets-mode))
 (use-package org-roam
   :ensure t
   :hook (after-init . org-roam-mode)
