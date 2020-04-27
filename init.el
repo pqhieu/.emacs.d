@@ -73,6 +73,8 @@
 (show-paren-mode 1)
 ;; Handle camel case
 (add-hook 'prog-mode-hook #'subword-mode)
+;; Display date & time
+(display-time-mode 1)
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
