@@ -76,7 +76,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "IBM Plex Mono-13:italic"))
+(add-to-list 'default-frame-alist '(font . "Overpass Mono-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -116,6 +116,7 @@
   (setq delete-by-moving-to-trash t)
   (setq dired-dwim-target t)
   ;; Reuse current buffer by pressing 'a'
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
   (put 'dired-find-alternate-file 'disabled nil)
   (define-key dired-mode-map (kbd "^")
     (lambda () (interactive) (find-alternate-file "..")))
@@ -158,6 +159,11 @@
   (setq org-agenda-repeating-timestamp-show-all nil)
   (setq org-agenda-sorting-strategy
         '((agenda todo-state-up priority-down))))
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode)
+  :init
+  (setq org-bullets-bullet-list '("⓵" "⓶" "⓷" "⓸" "⓹" "⓺" "⓻" "⓼")))
 (use-package cc-mode
   :config
   (defun c-setup ()
@@ -174,7 +180,7 @@
   :ensure t
   :config
   (setq whitespace-line-column 120) ;; limit line length
-  (setq whitespace-style '(face tabs trailing lines-tail))
+  (setq whitespace-style '(face tabs trailing lines-tail empty))
   ;; Delete trailing whitespace when save
   (add-hook 'before-save-hook #'whitespace-cleanup)
   (add-hook 'prog-mode-hook #'whitespace-mode)
@@ -192,7 +198,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-moonlight t)
+  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
