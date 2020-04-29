@@ -78,7 +78,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Overpass Mono-13"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-g-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -199,7 +199,7 @@
   :ensure t
   :config
   (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
+  (setq doom-themes-enable-italic nil)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
