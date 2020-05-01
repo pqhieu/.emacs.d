@@ -78,7 +78,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Inconsolata-16"))
+(add-to-list 'default-frame-alist '(font . "SF Mono-12"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -253,7 +253,10 @@
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 (use-package magit
   :ensure t
-  :bind ("C-c g" . magit-status))
+  :bind ("C-c g" . magit-status)
+  :config
+  (setq split-width-threshold nil)
+  (setq split-height-threshold 0))
 (use-package company
   :ensure t
   :config
