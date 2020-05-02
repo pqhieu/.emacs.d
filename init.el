@@ -78,7 +78,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "SF Mono-12"))
+(add-to-list 'default-frame-alist '(font . "Roboto Mono-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -115,7 +115,7 @@
   (require 'dired-x)
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
-  (setq delete-by-moving-to-trash t)
+  (setq delete-by-moving-to-trash nil)
   (setq dired-dwim-target t)
   ;; Reuse current buffer by pressing 'a'
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
@@ -138,7 +138,8 @@
   (setq org-global-properties
         '(("Effort_ALL" .
            "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
-  (setq org-columns-default-format "%50ITEM %2PRIORITY %10Effort(EFFORT){:} %10CLOCKSUM")
+  (setq org-columns-default-format
+        "%50ITEM %2PRIORITY %10Effort(EFFORT){:} %10CLOCKSUM")
   (setq org-clock-into-drawer t)
   (setq org-clock-persist t)
   (org-clock-persistence-insinuate)
