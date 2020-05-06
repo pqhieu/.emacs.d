@@ -77,8 +77,8 @@
 (display-time-mode 1)
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
-;; Set default font and line spacing
-(add-to-list 'default-frame-alist '(font . "Lucida Sans Typewriter-13"))
+;; Set default font
+(add-to-list 'default-frame-alist '(font . "Dank Mono-14"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -203,6 +203,9 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-block (face-background 'default))
@@ -254,10 +257,7 @@
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 (use-package magit
   :ensure t
-  :bind ("C-c g" . magit-status)
-  :config
-  (setq split-width-threshold nil)
-  (setq split-height-threshold 0))
+  :bind ("C-c g" . magit-status))
 (use-package company
   :ensure t
   :config
