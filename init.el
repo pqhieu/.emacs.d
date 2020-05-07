@@ -57,7 +57,7 @@
 ;; Set tab width and its behavior
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq-default fill-column 80)
+(setq-default fill-column 72)
 (setq-default tab-always-indent 'complete)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
@@ -78,7 +78,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Dank Mono-14"))
+(add-to-list 'default-frame-alist '(font . "Dank Mono-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
