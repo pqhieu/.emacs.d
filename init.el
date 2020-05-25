@@ -78,7 +78,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Roboto Mono-13"))
+(add-to-list 'default-frame-alist '(font . "iA Writer Mono S-13"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -186,8 +186,7 @@
   (setq whitespace-style '(face tabs trailing lines-tail empty))
   ;; Delete trailing whitespace when save
   (add-hook 'before-save-hook #'whitespace-cleanup)
-  (add-hook 'prog-mode-hook #'whitespace-mode)
-  (add-hook 'text-mode-hook #'whitespace-mode))
+  (add-hook 'prog-mode-hook #'whitespace-mode))
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -269,7 +268,8 @@
   :defer t
   :ensure auctex
   :config
-  (setq TeX-parse-self t))
+  (setq TeX-parse-self t)
+  (setq font-latex-script-display (quote (nil))))
 (use-package org-roam
   :ensure t
   :hook (after-init . org-roam-mode)
