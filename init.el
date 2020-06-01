@@ -57,7 +57,7 @@
 ;; Set tab width and its behavior
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq-default fill-column 72)
+(setq-default fill-column 80)
 (setq-default tab-always-indent 'complete)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
@@ -78,7 +78,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "iA Writer Mono S-13"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata-15"))
+(setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -200,7 +201,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-city-lights t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
