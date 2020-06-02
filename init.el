@@ -47,7 +47,7 @@
 (setq-default auto-save-default nil)
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'box)
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
 ;; Better scrolling
@@ -78,8 +78,11 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Inconsolata-15"))
+(add-to-list 'default-frame-alist '(font . "Operator Mono-15"))
 (setq-default line-spacing 0.1)
+;; Load color theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'eink t)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -133,7 +136,6 @@
   (setq org-pretty-entities t)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-  (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-tags-column -77)
   ;; global effort estimate values
   (setq org-global-properties
@@ -195,23 +197,11 @@
   :config
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
-;; Load color theme
-(use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-city-lights t)
-  (doom-themes-org-config)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-block (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
 (use-package doom-modeline
   :ensure t
   :config
   (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-icon nil)
+  (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil))
 ;; Ivy -- interactive interfact for completion
 (use-package ivy
