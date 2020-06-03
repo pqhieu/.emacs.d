@@ -41,6 +41,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
+(setq default-frame-alist '((fullscreen . maximized)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -186,10 +187,10 @@
   :ensure t
   :config
   (setq whitespace-line-column 120) ;; limit line length
-  (setq whitespace-style '(face tabs trailing lines-tail empty))
+  (setq whitespace-style '(face tabs trailing empty))
   ;; Delete trailing whitespace when save
   (add-hook 'before-save-hook #'whitespace-cleanup)
-  (add-hook 'prog-mode-hook #'whitespace-mode))
+  (global-whitespace-mode t))
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -254,12 +255,14 @@
   (setq company-minimum-prefix-length 2)
   (setq company-tooltip-align-annotations t)
   (setq company-tooltip-flip-when-above t)
-  (global-company-mode))
+  (global-company-mode t))
 (use-package latex
   :defer t
   :ensure auctex
   :config
+  (setq TeX-auto-save t)
   (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
   (setq font-latex-script-display (quote (nil))))
 (use-package org-roam
   :ensure t
@@ -303,8 +306,6 @@
     (garbage-collect)))
 
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
-(global-set-key (kbd "C-c k") #'kill-other-buffers)
-(global-set-key (kbd "C-c f") #'toggle-frame-fullscreen)
-(add-hook 'after-init-hook #'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c w") #'kill-other-buffers)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
