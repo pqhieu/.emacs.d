@@ -81,9 +81,6 @@
 ;; Set default font
 (add-to-list 'default-frame-alist '(font . "Operator Mono-15"))
 (setq-default line-spacing 0.1)
-;; Load color theme
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'eink t)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -187,10 +184,10 @@
   :ensure t
   :config
   (setq whitespace-line-column 120) ;; limit line length
-  (setq whitespace-style '(face tabs trailing empty))
+  (setq whitespace-style '(face tabs trailing lines-tail empty))
   ;; Delete trailing whitespace when save
   (add-hook 'before-save-hook #'whitespace-cleanup)
-  (global-whitespace-mode t))
+  (add-hook 'prog-mode-hook #'whitespace-mode))
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -198,6 +195,21 @@
   :config
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
+;; Load color theme
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t)
+  (doom-themes-org-config)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
+  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-block (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
 (use-package doom-modeline
   :ensure t
   :config
