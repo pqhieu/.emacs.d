@@ -48,7 +48,7 @@
 (setq-default auto-save-default nil)
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type 'box)
+(setq-default cursor-type 'bar)
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
 ;; Better scrolling
@@ -79,8 +79,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Operator Mono-15"))
-(setq-default line-spacing 0.1)
+(add-to-list 'default-frame-alist '(font . "Triplicate T4c-15"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
