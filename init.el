@@ -51,10 +51,6 @@
 (setq-default cursor-type 'bar)
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
-;; Better scrolling
-(setq scroll-margin 0)
-(setq scroll-conservatively 100000)
-(setq scroll-preserve-screen-position 1)
 ;; Set tab width and its behavior
 (setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
