@@ -157,7 +157,7 @@
   ;; Do not show repeating task
   (setq org-agenda-repeating-timestamp-show-all nil)
   (setq org-agenda-sorting-strategy
-        '((agenda todo-state-up priority-down))))
+        '((agenda category-keep todo-state-up priority-down))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
