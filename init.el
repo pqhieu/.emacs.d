@@ -41,7 +41,6 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((fullscreen . maximized)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -76,6 +75,7 @@
 (setq custom-file (make-temp-file ""))
 ;; Set default font
 (add-to-list 'default-frame-alist '(font . "Triplicate T4c-15"))
+(setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -268,8 +268,7 @@
   :ensure auctex
   :config
   (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq-default TeX-master nil)
+  (setq TeX-parse-self nil)
   (setq font-latex-script-display (quote (nil))))
 (use-package org-roam
   :ensure t
@@ -314,5 +313,6 @@
 
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
+(add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
