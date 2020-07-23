@@ -55,18 +55,17 @@
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 80)
 (setq-default tab-always-indent 'complete)
+(setq-default truncate-lines nil)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; Show line and column numbers in mode line
-(line-number-mode t)
-(column-number-mode t)
+(line-number-mode 1)
+(column-number-mode 1)
 ;; Revert buffers automatically
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 ;; Display line numbers
-(global-display-line-numbers-mode t)
-;; Highlight corresponding parentheses
-(show-paren-mode 1)
+(global-display-line-numbers-mode 1)
 ;; Handle camel case
 (add-hook 'prog-mode-hook #'subword-mode)
 ;; Display date & time
@@ -74,7 +73,7 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Triplicate T4c-15"))
+(add-to-list 'default-frame-alist '(font . "iA Writer Mono S:pixelsize=15"))
 (setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
@@ -198,9 +197,6 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
-  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
-  (set-face-attribute 'font-lock-doc-face nil :slant 'italic)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-block (face-background 'default))
