@@ -32,6 +32,7 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
 (package-initialize nil)
+(add-to-list 'load-path "~/.emacs.d/lisp")
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -66,6 +67,8 @@
 (global-auto-revert-mode 1)
 ;; Display line numbers
 (global-display-line-numbers-mode 1)
+;; Highlight corresponding parentheses
+(show-paren-mode 1)
 ;; Handle camel case
 (add-hook 'prog-mode-hook #'subword-mode)
 ;; Display date & time
@@ -73,8 +76,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "iA Writer Mono S:pixelsize=15"))
-(setq-default line-spacing 0.1)
+(add-to-list 'default-frame-alist '(font . "SF Mono-15"))
+(setq-default line-spacing 0.2)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -128,6 +131,7 @@
   (setq org-pretty-entities t)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
+  (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-tags-column -77)
   ;; global effort estimate values
   (setq org-global-properties
@@ -306,6 +310,9 @@
   (setq gc-cons-threshold 800000)
   (defun idle-garbage-collect ()
     (garbage-collect)))
+
+(require 'beancount)
+(add-to-list 'auto-mode-alist '("\\.dat\\'" . beancount-mode))
 
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
