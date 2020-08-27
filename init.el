@@ -73,11 +73,8 @@
 (add-hook 'prog-mode-hook #'subword-mode)
 ;; Display date & time
 (display-time-mode 1)
-;; Disable all changes through customize
-(setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "SF Mono-15"))
-(setq-default line-spacing 0.2)
+(add-to-list 'default-frame-alist '(font . "Triplicate T4c-16"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -143,6 +140,7 @@
   (setq org-clock-persist t)
   (org-clock-persistence-insinuate)
   (setq org-clock-out-when-done t)
+  (setq org-pretty-entities nil)
   (setq org-latex-create-formula-image-program 'dvisvgm)
   (setq org-preview-latex-image-directory "/tmp/ltximg"))
 (use-package org-agenda
@@ -201,8 +199,8 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
+  ;; (set-face-background 'org-block-begin-line (face-background 'default))
+  ;; (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-block (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
 (use-package doom-modeline
@@ -275,6 +273,7 @@
   :hook (after-init . org-roam-mode)
   :config
   (setq org-roam-directory "~/Dropbox/notes")
+  (setq org-roam-db-location "~/.org-roam.db")
   :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
@@ -319,3 +318,16 @@
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-level-1 ((t (:inherit outline-1 :weight bold :height 1.25 :family "Triplicate C3c")))))
