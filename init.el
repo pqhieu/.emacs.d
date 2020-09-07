@@ -73,8 +73,10 @@
 (add-hook 'prog-mode-hook #'subword-mode)
 ;; Display date & time
 (display-time-mode 1)
+;; Disable all changes through customize
+(setq custom-file (make-temp-file ""))
 ;; Set default font
-(add-to-list 'default-frame-alist '(font . "Triplicate T4c-16"))
+(add-to-list 'default-frame-alist '(font . "iA Writer Mono S-18"))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -156,9 +158,9 @@
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-skip-scheduled-if-done t)
   ;; Do not show repeating task
-  (setq org-agenda-repeating-timestamp-show-all nil)
+  (setq org-agenda-show-future-repeats nil)
   (setq org-agenda-sorting-strategy
-        '((agenda category-keep todo-state-up priority-down))))
+        '((agenda todo-state-up priority-down))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
@@ -268,19 +270,6 @@
   (setq TeX-auto-save t)
   (setq TeX-parse-self nil)
   (setq font-latex-script-display (quote (nil))))
-(use-package org-roam
-  :ensure t
-  :hook (after-init . org-roam-mode)
-  :config
-  (setq org-roam-directory "~/Dropbox/notes")
-  (setq org-roam-db-location "~/.org-roam.db")
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n b" . org-roam-switch-to-buffer)
-               ("C-c n g" . org-roam-graph-show))
-         :map org-mode-map
-         (("C-c n i" . org-roam-insert))))
 (use-package clang-format :ensure t :defer t)
 (use-package glsl-mode :ensure t :defer t)
 (use-package yaml-mode :ensure t :defer t)
@@ -318,16 +307,3 @@
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit outline-1 :weight bold :height 1.25 :family "Triplicate C3c")))))
