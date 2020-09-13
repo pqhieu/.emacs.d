@@ -76,7 +76,7 @@
 ;; Set default font
 (set-face-font 'default "iA Writer Mono S-18")
 (set-face-font 'fixed-pitch "iA Writer Mono S-18")
-(set-face-font 'variable-pitch "iA Writer Duo S-18")
+(set-face-font 'variable-pitch "iA Writer Duospace-18")
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -162,9 +162,7 @@
         '((agenda todo-state-up priority-down))))
 (use-package org-bullets
   :ensure t
-  :hook (org-mode . org-bullets-mode)
-  :init
-  (setq org-bullets-bullet-list '("⓵" "⓶" "⓷" "⓸" "⓹" "⓺" "⓻" "⓼")))
+  :hook (org-mode . org-bullets-mode))
 (use-package cc-mode
   :config
   (defun c-setup ()
@@ -192,25 +190,6 @@
   :config
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
-;; Load color theme
-(use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-block (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
-(use-package doom-modeline
-  :ensure t
-  :config
-  (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-minor-modes nil))
-;; Ivy -- interactive interfact for completion
 (use-package ivy
   :ensure t
   :config
@@ -266,7 +245,7 @@
   :defer t
   :ensure auctex
   :config
-  (setq TeX-auto-save t)
+  (setq TeX-auto-save nil)
   (setq TeX-parse-self nil)
   (setq font-latex-script-display (quote (nil))))
 (use-package clang-format :ensure t :defer t)
@@ -280,6 +259,15 @@
   :ensure t
   :config
   (beacon-mode 1))
+(use-package org-journal
+  :ensure t
+  :config
+  (setq org-journal-dir "~/Dropbox/notes/")
+  (setq org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-file-format "%Y%m%d.org"))
+(require 'beancount)
+(add-to-list 'auto-mode-alist '("\\.dat\\'" . beancount-mode))
+(require 'elegance)
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -296,11 +284,9 @@
   (defun idle-garbage-collect ()
     (garbage-collect)))
 
-(require 'beancount)
-(add-to-list 'auto-mode-alist '("\\.dat\\'" . beancount-mode))
-
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
+(global-set-key (kbd "C-c c") #'calendar)
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
