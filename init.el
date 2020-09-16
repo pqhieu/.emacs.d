@@ -76,7 +76,7 @@
 ;; Set default font
 (set-face-font 'default "iA Writer Mono S-18")
 (set-face-font 'fixed-pitch "iA Writer Mono S-18")
-(set-face-font 'variable-pitch "iA Writer Duospace-18")
+(set-face-font 'variable-pitch "Concourse T3-20")
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -190,6 +190,25 @@
   :config
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
+;; Load color theme
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t)
+  (doom-themes-org-config)
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-block (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil))
+;; Ivy -- interactive interfact for completion
 (use-package ivy
   :ensure t
   :config
@@ -267,7 +286,6 @@
   (setq org-journal-file-format "%Y%m%d.org"))
 (require 'beancount)
 (add-to-list 'auto-mode-alist '("\\.dat\\'" . beancount-mode))
-(require 'elegance)
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
