@@ -32,10 +32,10 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
 (package-initialize nil)
-(add-to-list 'load-path "~/.emacs.d/lisp")
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
+(setq default-frame-alist (append (list '(internal-border-width . 24))))
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
 (tool-bar-mode 0)
@@ -48,7 +48,7 @@
 (setq-default auto-save-default nil)
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type '(bar . 1))
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
 ;; Set tab width and its behavior
@@ -56,7 +56,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 80)
 (setq-default tab-always-indent 'complete)
-(setq-default truncate-lines nil)
+(setq-default truncate-lines t)
 ;; Insert new line at EOF when save
 (setq-default require-final-newline t)
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -74,9 +74,9 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "iA Writer Mono S-18")
-(set-face-font 'fixed-pitch "iA Writer Mono S-18")
-(set-face-font 'variable-pitch "Concourse T3-20")
+(set-face-font 'default "Triplicate T4c-20")
+(set-face-font 'fixed-pitch "Triplicate T4c-20")
+(setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -99,10 +99,7 @@
 (use-package recentf
   :config
   (setq recentf-max-saved-items 500)
-  (setq recentf-max-menu-items 15)
-  ;; Disable recentf cleanup on Emacs start, because it can cause
-  ;; problems with remote files
-  (setq recentf-auto-cleanup 'never))
+  (setq recentf-max-menu-items 15))
 ;; Use Shift + arrow keys to switch between buffers
 (use-package windmove
   :config
@@ -143,7 +140,11 @@
   (setq org-clock-out-when-done t)
   (setq org-pretty-entities nil)
   (setq org-latex-create-formula-image-program 'dvisvgm)
-  (setq org-preview-latex-image-directory "/tmp/ltximg"))
+  (setq org-preview-latex-image-directory "/tmp/ltximg")
+  (setq org-fontify-whole-heading-line t)
+  (setq org-fontify-done-headline t)
+  (setq org-fontify-quote-and-verse-blocks t)
+  (setq org-src-fontify-natively t))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
@@ -159,7 +160,7 @@
   ;; Do not show repeating task
   (setq org-agenda-show-future-repeats nil)
   (setq org-agenda-sorting-strategy
-        '((agenda todo-state-up priority-down))))
+        '((agenda time-up todo-state-up priority-down))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode))
@@ -196,7 +197,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'doom-city-lights t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
@@ -284,8 +285,9 @@
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-file-format "%Y%m%d.org"))
-(require 'beancount)
-(add-to-list 'auto-mode-alist '("\\.dat\\'" . beancount-mode))
+(use-package ledger-mode
+  :ensure t
+  :init (ledger-clear-whole-transactions t))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -302,10 +304,13 @@
   (defun idle-garbage-collect ()
     (garbage-collect)))
 
+(org-babel-do-load-languages 'org-babel-load-languages
+                             '((emacs-lisp . t)
+                               (ledger . t)))
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 (global-set-key (kbd "C-c c") #'calendar)
+(global-set-key (kbd "C-c j") #'org-journal-new-entry)
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
-(add-hook 'text-mode-hook #'variable-pitch-mode)
