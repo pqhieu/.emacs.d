@@ -287,7 +287,7 @@
   (setq org-journal-file-format "%Y%m%d.org"))
 (use-package ledger-mode
   :ensure t
-  :init (ledger-clear-whole-transactions t))
+  :config (setq ledger-clear-whole-transactions t))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
