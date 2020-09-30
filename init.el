@@ -35,7 +35,6 @@
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
-(setq default-frame-alist (append (list '(internal-border-width . 24))))
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
 (tool-bar-mode 0)
@@ -74,9 +73,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Triplicate T4c-20")
-(set-face-font 'fixed-pitch "Triplicate T4c-20")
-(setq-default line-spacing 0.1)
+(set-face-font 'default "Nitti-20")
+(set-face-font 'fixed-pitch "Nitti-20")
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -144,7 +142,8 @@
   (setq org-fontify-whole-heading-line t)
   (setq org-fontify-done-headline t)
   (setq org-fontify-quote-and-verse-blocks t)
-  (setq org-src-fontify-natively t))
+  (setq org-src-fontify-natively t)
+  (setq org-src-preserve-indentation t))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
@@ -157,8 +156,6 @@
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-skip-scheduled-if-done t)
-  ;; Do not show repeating task
-  (setq org-agenda-show-future-repeats nil)
   (setq org-agenda-sorting-strategy
         '((agenda time-up todo-state-up priority-down))))
 (use-package org-bullets
@@ -197,7 +194,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-city-lights t)
+  (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
