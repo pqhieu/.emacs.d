@@ -73,8 +73,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Nitti-20")
-(set-face-font 'fixed-pitch "Nitti-20")
+(set-face-font 'default "iA Writer Mono S-18")
+(set-face-font 'fixed-pitch "iA Writer Mono S-18")
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
