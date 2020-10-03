@@ -62,6 +62,8 @@
 ;; Show line and column numbers in mode line
 (line-number-mode 1)
 (column-number-mode 1)
+;; Display line numbers
+(global-display-line-numbers-mode t)
 ;; Revert buffers automatically
 (global-auto-revert-mode 1)
 ;; Highlight corresponding parentheses
@@ -73,8 +75,10 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "iA Writer Mono S-18")
-(set-face-font 'fixed-pitch "iA Writer Mono S-18")
+(set-face-font 'default "Iosevka-20")
+(set-face-font 'fixed-pitch "Iosevka-20")
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -147,7 +151,6 @@
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-agenda-files (list "~/Dropbox/todo.org"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
@@ -281,6 +284,7 @@
   :config
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-enable-agenda-integration t)
   (setq org-journal-file-format "%Y%m%d.org"))
 (use-package ledger-mode
   :ensure t
