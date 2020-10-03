@@ -31,7 +31,7 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
-(package-initialize nil)
+(package-initialize)
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -148,9 +148,20 @@
   (setq org-fontify-quote-and-verse-blocks t)
   (setq org-src-fontify-natively t)
   (setq org-src-preserve-indentation t))
+(use-package org-journal
+  :ensure t
+  :demand
+  :bind ("C-c j" . org-journal-new-entry)
+  :config
+  (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-dir "~/Dropbox/notes/")
+  (setq org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-file-format "%Y%m%d.org"))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
+  :after org-journal
   :config
+  (setq org-agenda-files '("~/Dropbox/notes/"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
@@ -221,7 +232,7 @@
   (setq ivy-height 15))
 (use-package swiper
   :ensure t
-  :bind (("C-s" . swiper)))
+  :bind ("C-s" . swiper))
 (use-package counsel
   :after ivy
   :ensure t
@@ -279,13 +290,6 @@
   :ensure t
   :config
   (beacon-mode 1))
-(use-package org-journal
-  :ensure t
-  :config
-  (setq org-journal-dir "~/Dropbox/notes/")
-  (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-enable-agenda-integration t)
-  (setq org-journal-file-format "%Y%m%d.org"))
 (use-package ledger-mode
   :ensure t
   :config (setq ledger-clear-whole-transactions t))
@@ -311,7 +315,6 @@
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 (global-set-key (kbd "C-c c") #'calendar)
-(global-set-key (kbd "C-c j") #'org-journal-new-entry)
 (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
