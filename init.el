@@ -78,6 +78,8 @@
 (set-face-font 'default "iA Writer Mono S-18")
 (set-face-font 'fixed-pitch "iA Writer Mono S-18")
 (set-face-font 'variable-pitch "Concourse T4-20")
+(set-face-attribute 'bold nil :weight 'semibold)
+(setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 ;; Check for use-package and install if needed
@@ -210,8 +212,14 @@
   (setq modus-operandi-theme-faint-syntax t)
   (setq modus-operandi-theme-variable-pitch-headings t)
   (setq modus-operandi-theme-scale-headings t)
-  (setq modus-operandi-theme-mode-line '3d)
+  (setq modus-operandi-theme-fringes 'subtle)
   (load-theme 'modus-operandi t))
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil))
 ;; Ivy -- interactive interfact for completion
 (use-package ivy
   :ensure t
