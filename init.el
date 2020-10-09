@@ -75,8 +75,9 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka-20")
-(set-face-font 'fixed-pitch "Iosevka-20")
+(set-face-font 'default "iA Writer Mono S-18")
+(set-face-font 'fixed-pitch "iA Writer Mono S-18")
+(set-face-font 'variable-pitch "Concourse T4-20")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 ;; Check for use-package and install if needed
@@ -128,7 +129,6 @@
   (setq org-ellipsis "⤵")
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-  (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
   (setq org-tags-column -77)
   ;; global effort estimate values
   (setq org-global-properties
@@ -203,23 +203,15 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package doom-themes
+(use-package modus-operandi-theme
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-block (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
-(use-package doom-modeline
-  :ensure t
-  :config
-  (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-minor-modes nil))
+  (setq modus-operandi-theme-bold-constructs t)
+  (setq modus-operandi-theme-faint-syntax t)
+  (setq modus-operandi-theme-variable-pitch-headings t)
+  (setq modus-operandi-theme-scale-headings t)
+  (setq modus-operandi-theme-mode-line '3d)
+  (load-theme 'modus-operandi t))
 ;; Ivy -- interactive interfact for completion
 (use-package ivy
   :ensure t
