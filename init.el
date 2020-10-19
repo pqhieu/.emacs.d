@@ -157,6 +157,7 @@
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-file-header "#+STARTUP: showall")
   (setq org-journal-file-format "%Y%m%d.org"))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
