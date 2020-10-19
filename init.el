@@ -73,8 +73,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka-18")
-(set-face-font 'fixed-pitch "Iosevka-18")
+(set-face-font 'default "Iosevka:pixelsize=18:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka:pixelsize=18:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
@@ -153,7 +153,7 @@
   :bind ("C-c j" . org-journal-new-entry)
   :config
   (add-hook 'org-journal-mode-hook (lambda () (visual-line-mode 0)))
-  (setq org-journal-file-type 'weekly)
+  (setq org-journal-file-type 'daily)
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
