@@ -62,8 +62,6 @@
 ;; Show line and column numbers in mode line
 (line-number-mode 1)
 (column-number-mode 1)
-;; Display line numbers
-(global-display-line-numbers-mode t)
 ;; Revert buffers automatically
 (global-auto-revert-mode 1)
 ;; Highlight corresponding parentheses
@@ -75,10 +73,9 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "iA Writer Mono S-18")
-(set-face-font 'fixed-pitch "iA Writer Mono S-18")
-(set-face-font 'variable-pitch "Concourse T4-20")
-(set-face-attribute 'bold nil :weight 'semibold)
+(set-face-font 'default "Iosevka-18")
+(set-face-font 'fixed-pitch "Iosevka-18")
+(set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
@@ -142,7 +139,7 @@
   (setq org-clock-persist t)
   (org-clock-persistence-insinuate)
   (setq org-clock-out-when-done t)
-  (setq org-pretty-entities nil)
+  (setq org-pretty-entities t)
   (setq org-latex-create-formula-image-program 'dvisvgm)
   (setq org-preview-latex-image-directory "/tmp/ltximg")
   (setq org-fontify-whole-heading-line t)
@@ -155,6 +152,7 @@
   :demand
   :bind ("C-c j" . org-journal-new-entry)
   :config
+  (add-hook 'org-journal-mode-hook (lambda () (visual-line-mode 0)))
   (setq org-journal-file-type 'weekly)
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/")
@@ -210,10 +208,11 @@
   :ensure t
   :config
   (setq modus-operandi-theme-bold-constructs t)
+  (setq modus-operandi-theme-slanted-constructs nil)
   (setq modus-operandi-theme-faint-syntax t)
   (setq modus-operandi-theme-variable-pitch-headings t)
-  (setq modus-operandi-theme-scale-headings t)
-  (setq modus-operandi-theme-fringes 'subtle)
+  (setq modus-operandi-theme-fringes nil)
+  (setq modus-operandi-theme-headings '((t . rainbow)))
   (load-theme 'modus-operandi t))
 (use-package doom-modeline
   :ensure t
