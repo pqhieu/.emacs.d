@@ -32,6 +32,7 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
 (package-initialize)
+(add-to-list 'load-path "~/.emacs.d/lisp")
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -154,7 +155,7 @@
   :config
   (add-hook 'org-journal-mode-hook (lambda () (visual-line-mode 0)))
   (setq org-journal-file-type 'daily)
-  (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-enable-agenda-integration nil)
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
   (setq org-journal-file-header "#+STARTUP: showall")
@@ -292,9 +293,8 @@
   :ensure t
   :config
   (beacon-mode 1))
-(use-package ledger-mode
-  :ensure t
-  :config (setq ledger-clear-whole-transactions t))
+(require 'beancount)
+(add-hook 'beancount-mode-hook #'outline-minor-mode)
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -311,9 +311,6 @@
   (defun idle-garbage-collect ()
     (garbage-collect)))
 
-(org-babel-do-load-languages 'org-babel-load-languages
-                             '((emacs-lisp . t)
-                               (ledger . t)))
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 (global-set-key (kbd "C-c c") #'calendar)
