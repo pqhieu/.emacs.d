@@ -74,8 +74,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka:pixelsize=18:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka:pixelsize=18:width=expanded")
+(set-face-font 'default "Iosevka-18")
+(set-face-font 'fixed-pitch "Iosevka-18")
 (set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
@@ -213,6 +213,7 @@
   (setq modus-operandi-theme-bold-constructs t)
   (setq modus-operandi-theme-slanted-constructs nil)
   (setq modus-operandi-theme-faint-syntax t)
+  (setq modus-operandi-theme-scale-headings nil)
   (setq modus-operandi-theme-variable-pitch-headings t)
   (setq modus-operandi-theme-fringes nil)
   (setq modus-operandi-theme-headings '((t . rainbow)))
@@ -294,6 +295,7 @@
   :config
   (beacon-mode 1))
 (require 'beancount)
+(setq beancount-use-ido nil)
 (add-hook 'beancount-mode-hook #'outline-minor-mode)
 
 (defun kill-other-buffers ()
