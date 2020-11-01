@@ -74,8 +74,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka-18")
-(set-face-font 'fixed-pitch "Iosevka-18")
+(set-face-font 'default "Iosevka Fixed:pixelsize=18:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=18:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
@@ -150,22 +150,20 @@
   (setq org-src-preserve-indentation t))
 (use-package org-journal
   :ensure t
-  :demand
   :bind ("C-c j" . org-journal-new-entry)
   :config
   (add-hook 'org-journal-mode-hook (lambda () (visual-line-mode 0)))
-  (setq org-journal-file-type 'daily)
-  (setq org-journal-enable-agenda-integration nil)
+  (setq org-journal-file-type 'weekly)
+  (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-file-header "#+STARTUP: showall")
+  (setq org-journal-file-header "#+STARTUP: content")
   (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
   (setq org-journal-file-format "%Y%m%d.org"))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
-  :after org-journal
   :config
-  (setq org-agenda-files '("~/Dropbox/notes/"))
+  (setq org-agenda-files '("~/Dropbox/notes/" "~/Dropbox/agenda.org"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
@@ -178,7 +176,9 @@
         '((agenda time-up todo-state-up priority-down))))
 (use-package org-bullets
   :ensure t
-  :hook (org-mode . org-bullets-mode))
+  :hook (org-mode . org-bullets-mode)
+  :config
+  (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
 (use-package cc-mode
   :config
   (defun c-setup ()
