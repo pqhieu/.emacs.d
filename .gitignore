@@ -6,5 +6,7 @@ transient/
 projectile-bookmarks.eld
 recentf
 tramp
+bookmarks
+org-roam.db
 org-clock-save.el
 .org-id-locations
