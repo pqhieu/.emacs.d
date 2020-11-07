@@ -42,6 +42,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
+(setq default-frame-alist '((width . 120) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -151,7 +152,7 @@
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-agenda-files '("~/Dropbox/agenda.org"))
+  (setq org-agenda-files '("~/Dropbox/agenda.org" "~/Dropbox/notes/dailies/"))
   (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
@@ -299,9 +300,10 @@
   :ensure t
   :config
   (beacon-mode 1))
-(require 'beancount)
-(setq beancount-use-ido nil)
-(add-hook 'beancount-mode-hook #'outline-minor-mode)
+(use-package ledger-mode
+  :ensure t
+  :mode ("\\.dat\\'")
+  :config (setq ledger-clear-whole-transactions t))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -321,6 +323,5 @@
 (global-set-key (kbd "C-c \\") #'align-regexp) ;; align code based on regex
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 (global-set-key (kbd "C-c c") #'calendar)
-(add-hook 'after-init-hook #'toggle-frame-fullscreen)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
