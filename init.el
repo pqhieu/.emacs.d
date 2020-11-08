@@ -75,8 +75,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed Slab:pixelsize=18:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed Slab:pixelsize=18:width=expanded")
+(set-face-font 'default "Iosevka Fixed Curly:pixelsize=18:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Fixed Curly:pixelsize=18:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
@@ -148,12 +148,12 @@
   (setq org-fontify-done-headline t)
   (setq org-fontify-quote-and-verse-blocks t)
   (setq org-src-fontify-natively t)
+  (setq org-deadline-warning-days 7)
   (setq org-src-preserve-indentation t))
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
   (setq org-agenda-files '("~/Dropbox/agenda.org" "~/Dropbox/notes/dailies/"))
-  (setq org-agenda-span 'week)
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-tags-column -77)
@@ -162,20 +162,19 @@
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-hidden-separator "‌‌ ")
-  (setq org-agenda-block-separator (string-to-char " "))
-  (setq org-agenda-remove-tags t)
-  (setq org-agenda-breadcrumbs-separator " ❱ ")
-  (setq org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
+  (setq org-agenda-block-separator (string-to-char "-"))
   (setq org-agenda-custom-commands
-        '(("o" "Custom agenda"
-           ((agenda "" ((org-agenda-overriding-header "⚡ AGENDA:")
-                        (org-agenda-scheduled-leaders '("" ""))
-                        (org-agenda-time-grid (quote ((daily today) (0800 1200 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
-                        (org-agenda-todo-keyword-format "☐")))
-            (todo "NEXT|HOLD" ((org-agenda-overriding-header "⚡ TO DO:")
-                               (org-agenda-prefix-format "• %b")
-                               (org-agenda-todo-keyword-format "")
-                               (org-agenda-sorting-strategy '(tag-up priority-down)))))))))
+        '(("o" "My agenda"
+           ((tags "+TODO=\"TODO\"" ((org-agenda-overriding-header "❱ TODAY:\n")
+                                    (org-agenda-todo-keyword-format "")))
+            (agenda "" ((org-agenda-span 5)
+                        (org-agenda-start-day "+0d")
+                        (org-agenda-todo-keyword-format "")
+                        (org-agenda-overriding-header "❱ AGENDA:\n")
+                        (org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
+                        (org-agenda-time-grid '((daily today) (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+            (todo "NEXT|HOLD" ((org-agenda-overriding-header "❱ TO DO:\n")
+                               (org-agenda-todo-keyword-format ""))))))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
