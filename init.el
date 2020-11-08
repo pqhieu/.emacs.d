@@ -75,8 +75,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed:pixelsize=18:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=18:width=expanded")
+(set-face-font 'default "Iosevka Fixed Slab:pixelsize=18:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Fixed Slab:pixelsize=18:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-20")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
@@ -161,8 +161,21 @@
   (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-sorting-strategy
-        '((agenda time-up todo-state-up priority-down))))
+  (setq org-agenda-hidden-separator "‌‌ ")
+  (setq org-agenda-block-separator (string-to-char " "))
+  (setq org-agenda-remove-tags t)
+  (setq org-agenda-breadcrumbs-separator " ❱ ")
+  (setq org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
+  (setq org-agenda-custom-commands
+        '(("o" "Custom agenda"
+           ((agenda "" ((org-agenda-overriding-header "⚡ AGENDA:")
+                        (org-agenda-scheduled-leaders '("" ""))
+                        (org-agenda-time-grid (quote ((daily today) (0800 1200 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
+                        (org-agenda-todo-keyword-format "☐")))
+            (todo "NEXT|HOLD" ((org-agenda-overriding-header "⚡ TO DO:")
+                               (org-agenda-prefix-format "• %b")
+                               (org-agenda-todo-keyword-format "")
+                               (org-agenda-sorting-strategy '(tag-up priority-down)))))))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
@@ -312,7 +325,7 @@
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
   (interactive)
-  (org-agenda nil "n")
+  (org-agenda nil "o")
   (delete-other-windows))
 (defun idle-garbage-collect ()
   "Reset gc-cons-threshold"
