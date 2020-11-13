@@ -129,7 +129,7 @@
   :config
   (setq org-ellipsis "⤵")
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
   (setq org-tags-column -77)
   ;; global effort estimate values
   (setq org-global-properties
@@ -167,14 +167,13 @@
         '(("o" "My agenda"
            ((tags "+TODO=\"TODO\"" ((org-agenda-overriding-header "❱ TODAY:\n")
                                     (org-agenda-todo-keyword-format "")))
-            (agenda "" ((org-agenda-span 5)
-                        (org-agenda-start-day "+0d")
+            (agenda "" ((org-agenda-span 'week)
                         (org-agenda-todo-keyword-format "")
                         (org-agenda-overriding-header "❱ AGENDA:\n")
                         (org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
                         (org-agenda-time-grid '((daily today) (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-            (todo "NEXT|HOLD" ((org-agenda-overriding-header "❱ TO DO:\n")
-                               (org-agenda-todo-keyword-format ""))))))))
+            (tags "+TODO=\"NEXT\"" ((org-agenda-overriding-header "❱ TO DO:\n")
+                                    (org-agenda-todo-keyword-format ""))))))))
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode)
@@ -194,7 +193,7 @@
   :bind (("C-c n l" . org-roam)
          ("C-c n f" . org-roam-find-file)
          ("C-c n g" . org-roam-graph)
-         ("C-c n d" . org-roam-dailies-today)
+         ("C-c n d" . org-roam-dailies-capture-today)
          ("C-c n i" . org-roam-insert)
          ("C-c n I" . org-roam-insert-immediate)))
 (use-package cc-mode
@@ -314,8 +313,14 @@
   (beacon-mode 1))
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.dat\\'")
+  :mode ("\\.ledger\\'")
   :config (setq ledger-clear-whole-transactions t))
+(use-package highlight-indent-guides
+  :ensure t
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :config
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-responsive 'top))
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
