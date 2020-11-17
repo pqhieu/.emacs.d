@@ -75,9 +75,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed Curly:pixelsize=18:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed Curly:pixelsize=18:width=expanded")
-(set-face-font 'variable-pitch "Concourse T3-20")
+(set-face-font 'default "Iosevka Fixed-18")
+(set-face-font 'fixed-pitch "Iosevka Fixed-18")
 (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
@@ -224,17 +223,10 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package modus-operandi-theme
+(use-package gruvbox-theme
   :ensure t
   :config
-  (setq modus-operandi-theme-bold-constructs t)
-  (setq modus-operandi-theme-slanted-constructs nil)
-  (setq modus-operandi-theme-faint-syntax t)
-  (setq modus-operandi-theme-scale-headings nil)
-  (setq modus-operandi-theme-variable-pitch-headings t)
-  (setq modus-operandi-theme-fringes nil)
-  (setq modus-operandi-theme-headings '((t . rainbow)))
-  (load-theme 'modus-operandi t))
+  (load-theme 'gruvbox-dark-medium t))
 (use-package doom-modeline
   :ensure t
   :config
