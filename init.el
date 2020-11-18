@@ -75,12 +75,10 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka-17")
-(set-face-font 'fixed-pitch "Iosevka-17")
+(set-face-font 'default "Iosevka Fixed-17")
+(set-face-font 'fixed-pitch "Iosevka Fixed-17")
 (set-face-font 'variable-pitch "Concourse T3-18")
 (setq-default line-spacing 0.1)
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
