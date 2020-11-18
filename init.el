@@ -42,7 +42,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((width . 120) (height . 40)))
+(setq default-frame-alist '((width . 80) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -75,11 +75,12 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed-18")
-(set-face-font 'fixed-pitch "Iosevka Fixed-18")
-(setq-default line-spacing 0.1)
+(set-face-font 'default "SF Mono-15")
+(setq-default line-spacing 0.2)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -223,10 +224,13 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package gruvbox-theme
+(use-package doom-themes
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-medium t))
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-city-lights t)
+  (doom-themes-org-config))
 (use-package doom-modeline
   :ensure t
   :config
