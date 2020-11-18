@@ -42,7 +42,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((width . 80) (height . 40)))
+(setq default-frame-alist '((width . 120) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -75,12 +75,12 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "SF Mono-15")
-(setq-default line-spacing 0.2)
+(set-face-font 'default "Iosevka-17")
+(set-face-font 'fixed-pitch "Iosevka-17")
+(set-face-font 'variable-pitch "Concourse T3-18")
+(setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
@@ -224,13 +224,17 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package doom-themes
+(use-package modus-operandi-theme
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-city-lights t)
-  (doom-themes-org-config))
+  (setq modus-operandi-theme-bold-constructs t)
+  (setq modus-operandi-theme-slanted-constructs nil)
+  (setq modus-operandi-theme-faint-syntax t)
+  (setq modus-operandi-theme-scale-headings nil)
+  (setq modus-operandi-theme-variable-pitch-headings t)
+  (setq modus-operandi-theme-fringes nil)
+  (setq modus-operandi-theme-headings '((t . rainbow)))
+  (load-theme 'modus-operandi t))
 (use-package doom-modeline
   :ensure t
   :config
