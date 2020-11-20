@@ -229,10 +229,6 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t)
   (doom-themes-org-config))
-(use-package mixed-pitch
-  :ensure t
-  :hook (text-mode . mixed-pitch-mode)
-  :config (setq mixed-pitch-set-height t))
 (use-package doom-modeline
   :ensure t
   :config
