@@ -151,7 +151,7 @@
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-agenda-files '("~/Dropbox/agenda.org" "~/Dropbox/notes/dailies/"))
+  (setq org-agenda-files '("~/Dropbox/agenda.org"))
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-tags-column -77)
@@ -177,23 +177,18 @@
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
-(use-package org-roam
+(use-package org-journal
   :ensure t
-  :hook
-  (after-init . org-roam-mode)
+  :bind ("C-c j" . org-journal-new-entry)
   :config
-  (setq org-roam-directory "~/Dropbox/notes/")
-  (setq org-roam-dailies-capture-templates
-        '(("d" "daily" plain #'org-roam-capture--get-point ""
-           :immediate-finish t
-           :file-name "dailies/%<%Y%m%d>"
-           :head "#+TITLE: %<%Y-%m-%d>")))
-  :bind (("C-c n l" . org-roam)
-         ("C-c n f" . org-roam-find-file)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n d" . org-roam-dailies-capture-today)
-         ("C-c n i" . org-roam-insert)
-         ("C-c n I" . org-roam-insert-immediate)))
+  (add-hook 'org-journal-mode-hook (lambda () (visual-line-mode 0)))
+  (setq org-journal-file-type 'weekly)
+  (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-dir "~/Dropbox/notes/")
+  (setq org-journal-date-format "%A, %d %B %Y")
+  (setq org-journal-file-header "#+STARTUP: content")
+  (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
+  (setq org-journal-file-format "%Y%m%d.org"))
 (use-package cc-mode
   :config
   (defun c-setup ()
