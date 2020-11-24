@@ -42,7 +42,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((width . 80) (height . 40)))
+(setq default-frame-alist '((width . 100) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -75,8 +75,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed:pixelsize=15:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=15:width=expanded")
+(set-face-font 'default "iA Writer Mono S-15")
+(set-face-font 'fixed-pitch "iA Writer Mono S-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
 (setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
