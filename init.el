@@ -151,7 +151,7 @@
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-agenda-files '("~/Dropbox/agenda.org"))
+  (setq org-agenda-files '("~/Dropbox/agenda.org" "~/Dropbox/notes/"))
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-tags-column -77)
@@ -186,7 +186,7 @@
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/")
   (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-file-header "#+STARTUP: content")
+  (setq org-journal-file-header "#+STARTUP: content\n#+CATEGORY: DAILIES")
   (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
   (setq org-journal-file-format "%Y%m%d.org"))
 (use-package cc-mode
@@ -217,13 +217,17 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package doom-themes
+(use-package modus-operandi-theme
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config))
+  (setq modus-operandi-theme-bold-constructs t)
+  (setq modus-operandi-theme-slanted-constructs nil)
+  (setq modus-operandi-theme-faint-syntax t)
+  (setq modus-operandi-theme-scale-headings nil)
+  (setq modus-operandi-theme-variable-pitch-headings t)
+  (setq modus-operandi-theme-fringes nil)
+  (setq modus-operandi-theme-headings '((t . rainbow)))
+  (load-theme 'modus-operandi t))
 (use-package doom-modeline
   :ensure t
   :config
