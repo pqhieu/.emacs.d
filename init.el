@@ -42,7 +42,7 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((width . 100) (height . 40)))
+(setq default-frame-alist '((width . 80) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -217,17 +217,13 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package modus-operandi-theme
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-operandi-theme-bold-constructs t)
-  (setq modus-operandi-theme-slanted-constructs nil)
-  (setq modus-operandi-theme-faint-syntax t)
-  (setq modus-operandi-theme-scale-headings nil)
-  (setq modus-operandi-theme-variable-pitch-headings t)
-  (setq modus-operandi-theme-fringes nil)
-  (setq modus-operandi-theme-headings '((t . rainbow)))
-  (load-theme 'modus-operandi t))
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t)
+  (doom-themes-org-config))
 (use-package doom-modeline
   :ensure t
   :config
