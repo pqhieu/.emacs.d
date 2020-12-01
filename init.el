@@ -217,13 +217,17 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 ;; Load color theme
-(use-package doom-themes
+(use-package modus-operandi-theme
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t)
-  (doom-themes-org-config))
+  (setq modus-operandi-theme-bold-constructs t)
+  (setq modus-operandi-theme-slanted-constructs nil)
+  (setq modus-operandi-theme-faint-syntax t)
+  (setq modus-operandi-theme-scale-headings nil)
+  (setq modus-operandi-theme-variable-pitch-headings t)
+  (setq modus-operandi-theme-fringes nil)
+  (setq modus-operandi-theme-headings '((t . rainbow)))
+  (load-theme 'modus-operandi t))
 (use-package doom-modeline
   :ensure t
   :config
@@ -273,7 +277,18 @@
   (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation))
 (use-package magit
   :ensure t
-  :bind ("C-c g" . magit-status))
+  :bind ("C-c g" . magit-status)
+  :init
+  ;; Have magit-status go full screen and quit to previous
+  ;; configuration.  Taken from
+  ;; http://whattheemacsd.com/setup-magit.el-01.html#comment-748135498
+  ;; and http://irreal.org/blog/?p=2253
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+  (defadvice magit-quit-window (after magit-restore-screen activate)
+    (jump-to-register :magit-fullscreen)))
 (use-package company
   :ensure t
   :config
