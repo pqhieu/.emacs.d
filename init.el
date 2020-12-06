@@ -33,6 +33,7 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 (add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'cl)
 ;; Set personal information
 (setq user-full-name "Quang-Hieu Pham")
 (setq user-mail-address "pqhieu1192@gmail.com")
@@ -74,10 +75,10 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed:pixelsize=15:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=15:width=expanded")
+(set-face-font 'default "SF Mono-15")
+(set-face-font 'fixed-pitch "SF Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)
   (message "`use-package` not found. Installing...")
