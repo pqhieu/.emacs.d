@@ -42,7 +42,6 @@
 (scroll-bar-mode 0)
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
-(setq default-frame-alist '((width . 80) (height . 40)))
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -75,8 +74,8 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 ;; Set default font
-(set-face-font 'default "iA Writer Mono S-15")
-(set-face-font 'fixed-pitch "iA Writer Mono S-15")
+(set-face-font 'default "Iosevka Fixed:pixelsize=15:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=15:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-17")
 (setq-default line-spacing 0.1)
 ;; Check for use-package and install if needed
@@ -182,9 +181,13 @@
   :hook (after-init . org-roam-mode)
   :config
   (setq org-roam-directory "~/Dropbox/notes/")
+  (setq org-roam-capture-templates
+        '(("d" "default" plain #'org-roam-capture--get-point "%?"
+           :file-name "${slug}"
+           :unnarrowed t
+           :head "#+TITLE: ${title}\n#+STARTUP: content latexpreview\n#+ROAM_ALIAS:\n#+CREATED: %<%Y-%m-%d>")))
   (setq org-roam-dailies-capture-templates
         '(("d" "daily" plain #'org-roam-capture--get-point ""
-           :immediate-finish t
            :file-name "dailies/%<%Y%m%d>"
            :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: content\n#+CATEGORY: DAILIES")))
   :bind (("C-c n l" . org-roam)
@@ -323,7 +326,7 @@
   (beacon-mode 1))
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.ledger\\'")
+  :mode ("\\.dat\\'")
   :config (setq ledger-clear-whole-transactions t))
 (use-package highlight-indent-guides
   :ensure t
@@ -352,3 +355,4 @@
 (global-set-key (kbd "C-c c") #'calendar)
 (add-hook 'after-init-hook #'org-agenda-show-all)
 (add-hook 'focus-out-hook #'idle-garbage-collect)
+(add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
