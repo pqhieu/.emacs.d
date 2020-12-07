@@ -20,24 +20,21 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-;; Reduce the frequency of garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 100000000)
-(setq file-name-handler-alist-original file-name-handler-alist)
-(setq file-name-handler-alist nil)
-(defun idle-garbage-collect ()
-  "Reset gc-cons-threshold"
-  (setq gc-cons-threshold 800000)
-  (defun idle-garbage-collect ()
-    (garbage-collect)))
-(add-hook 'focus-out-hook #'idle-garbage-collect)
+;; Start Emacs package manager
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(setq package-enable-at-startup nil)
+(package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
+;; Check for use-package and install if needed
+(unless (package-installed-p 'use-package)
+  (message "`use-package` not found. Installing...")
+  (package-refresh-contents)
+  (package-install 'use-package))
+;; Config use-package
+(require 'use-package)
+(require 'bind-key)
+(setq use-package-verbose t)
 
-(require 'defaults)
-(require 'packages)
-(require 'agenda)
-(require 'completion)
-(require 'git)
-(require 'osx)
-(require 'themes)
+(provide 'packages)

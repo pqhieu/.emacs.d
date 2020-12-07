@@ -20,24 +20,23 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-;; Reduce the frequency of garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 100000000)
-(setq file-name-handler-alist-original file-name-handler-alist)
-(setq file-name-handler-alist nil)
-(defun idle-garbage-collect ()
-  "Reset gc-cons-threshold"
-  (setq gc-cons-threshold 800000)
-  (defun idle-garbage-collect ()
-    (garbage-collect)))
-(add-hook 'focus-out-hook #'idle-garbage-collect)
+(use-package modus-themes
+  :ensure t
+  :config
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-faint-syntax t)
+  (setq modus-themes-scale-headings nil)
+  (setq modus-themes-variable-pitch-headings t)
+  (setq modus-themes-fringes nil)
+  (setq modus-themes-headings '((t . rainbow)))
+  (load-theme 'modus-operandi t))
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil))
 
-(require 'defaults)
-(require 'packages)
-(require 'agenda)
-(require 'completion)
-(require 'git)
-(require 'osx)
-(require 'themes)
+(provide 'themes)

@@ -20,24 +20,11 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-;; Reduce the frequency of garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 100000000)
-(setq file-name-handler-alist-original file-name-handler-alist)
-(setq file-name-handler-alist nil)
-(defun idle-garbage-collect ()
-  "Reset gc-cons-threshold"
-  (setq gc-cons-threshold 800000)
-  (defun idle-garbage-collect ()
-    (garbage-collect)))
-(add-hook 'focus-out-hook #'idle-garbage-collect)
+;; Load shell environment variables
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
-(require 'defaults)
-(require 'packages)
-(require 'agenda)
-(require 'completion)
-(require 'git)
-(require 'osx)
-(require 'themes)
+(provide 'osx)
