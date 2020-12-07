@@ -27,7 +27,12 @@
   (setq doom-themes-enable-italic t)
   (setq doom-gruvbox-dark-variant "hard")
   (load-theme 'doom-gruvbox t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  (require 'org)
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  ;; (set-face-background 'org-block (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
 
 (use-package doom-modeline
   :ensure t

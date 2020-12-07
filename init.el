@@ -25,6 +25,7 @@
 (setq gc-cons-threshold 100000000)
 (setq file-name-handler-alist-original file-name-handler-alist)
 (setq file-name-handler-alist nil)
+
 (defun idle-garbage-collect ()
   "Reset gc-cons-threshold"
   (setq gc-cons-threshold 800000)
@@ -34,8 +35,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
-(require 'defaults)
 (require 'packages)
+(require 'defaults)
 (require 'agenda)
 (require 'completion)
 (require 'git)

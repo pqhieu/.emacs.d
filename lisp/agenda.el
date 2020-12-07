@@ -29,6 +29,7 @@
 (use-package org
   :hook (after-init . org-agenda-show-all)
   :config
+  (require 'org)
   (setq org-ellipsis "⤵")
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
   (setq org-tags-column -77)
