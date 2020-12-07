@@ -33,11 +33,10 @@
                         'clang-format-buffer)))
   (setq c-default-style "linux")
   (setq c-basic-offset 4))
-(use-package clang-format :ensure t :defer t)
+(use-package clang-format :ensure t)
 
 ;; LaTeX
 (use-package latex
-  :defer t
   :ensure auctex
   :config
   (setq TeX-auto-save nil)
@@ -45,7 +44,7 @@
   (setq font-latex-script-display (quote (nil))))
 
 ;; YAML
-(use-package yaml-mode :ensure t :defer t)
+(use-package yaml-mode :ensure t)
 
 ;; Markdown
 (use-package markdown-mode

@@ -89,7 +89,7 @@
   :hook (org-journal-mode . (lambda () (visual-line-mode 0)))
   :bind ("C-c j" . org-journal-new-entry)
   :config
-  (setq org-journal-file-type 'weekly)
+  (setq org-journal-file-type 'daily)
   (setq org-journal-enable-agenda-integration t)
   (setq org-journal-dir "~/Dropbox/notes/dailies/")
   (setq org-journal-date-format "%A, %d %B %Y")
