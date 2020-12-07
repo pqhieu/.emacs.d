@@ -42,3 +42,4 @@
 (require 'git)
 (require 'osx)
 (require 'themes)
+(require 'languages)

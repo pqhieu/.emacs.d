@@ -58,3 +58,5 @@
   :ensure t
   :mode ("\\.dat\\'")
   :config (setq ledger-clear-whole-transactions t))
+
+(provide 'languages)
