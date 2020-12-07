@@ -20,17 +20,14 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs nil)
-  (setq modus-themes-faint-syntax t)
-  (setq modus-themes-scale-headings nil)
-  (setq modus-themes-variable-pitch-headings t)
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . rainbow)))
-  (load-theme 'modus-operandi t))
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (setq doom-gruvbox-dark-variant "hard")
+  (load-theme 'doom-gruvbox t)
+  (doom-themes-org-config))
 
 (use-package doom-modeline
   :ensure t
