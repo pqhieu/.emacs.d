@@ -10,3 +10,4 @@ bookmarks
 org-roam.db
 org-clock-save.el
 .org-id-locations
+package-quickstart.el

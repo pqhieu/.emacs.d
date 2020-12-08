@@ -87,13 +87,16 @@
 (use-package org-journal
   :ensure t
   :hook (org-journal-mode . (lambda () (visual-line-mode 0)))
-  :bind ("C-c j" . org-journal-new-entry)
+  :bind ("C-c C-j" . org-journal-new-entry)
   :config
   (setq org-journal-file-type 'daily)
   (setq org-journal-enable-agenda-integration t)
+  (setq org-journal-date-prefix "#+TITLE:")
+  (setq org-journal-time-prefix "* ")
   (setq org-journal-dir "~/Dropbox/notes/dailies/")
   (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-file-header "#+TITLE: %Y-%m-%d\n#+STARTUP: content\n#+CATEGORY: DAILIES")
+  (setq org-journal-carryover-delete-empty-journal 'always)
+  (setq org-journal-file-header "#+STARTUP: content\n#+CATEGORY: DAILIES")
   (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
   (setq org-journal-file-format "%Y%m%d.org"))
 

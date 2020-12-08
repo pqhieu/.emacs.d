@@ -20,27 +20,13 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-;; Reduce the frequency of garbage collection by making it happen on
-;; each 100MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 100000000)
-(setq file-name-handler-alist-original file-name-handler-alist)
-(setq file-name-handler-alist nil)
+(use-package elfeed
+  :ensure t
+  :bind ("C-c f" . elfeed)
+  :config
+  (setq elfeed-feeds
+        '(("https://www.reddit.com/r/machinelearning.rss" work)
+          ("https://www.reddit.com/r/manga.rss?limit=10" hobbies)
+          ("https://www.reddit.com/r/soccer.rss" hobbies))))
 
-(defun idle-garbage-collect ()
-  "Reset gc-cons-threshold"
-  (setq gc-cons-threshold 800000)
-  (defun idle-garbage-collect ()
-    (garbage-collect)))
-(add-hook 'focus-out-hook #'idle-garbage-collect)
-
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
-(require 'packages)
-(require 'defaults)
-(require 'agenda)
-(require 'completion)
-(require 'git)
-(require 'osx)
-(require 'languages)
-(require 'rss)
-(require 'themes)
+(provide 'rss)
