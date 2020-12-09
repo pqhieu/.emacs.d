@@ -25,8 +25,9 @@
   :bind ("C-c f" . elfeed)
   :config
   (setq elfeed-feeds
-        '(("https://www.reddit.com/r/machinelearning.rss" work)
-          ("https://www.reddit.com/r/manga.rss?limit=10" hobbies)
-          ("https://www.reddit.com/r/soccer.rss" hobbies))))
+        '(("https://www.reddit.com/.rss?feed=e1a96a0b0c1e874d25a5eb3d4065aa9bd51f35b1&user=CaiCuoc")
+          ("https://mangadex.org/rss/follows/8TwG7hQXrCAHM9t6DScUyqzF4mZdkPap?h=1" manga)
+          ("https://news.ycombinator.com/rss" tech)))
+  (setq elfeed-search-filter "@1-week-ago +unread "))
 
 (provide 'rss)
