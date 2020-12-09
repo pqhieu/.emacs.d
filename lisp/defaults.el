@@ -83,8 +83,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed-15")
-(set-face-font 'fixed-pitch "Iosevka Fixed-15")
+(set-face-font 'default "Iosevka Fixed:pixelsize=15:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=15:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-17")
 (setq-default line-spacing 0.1)
 
