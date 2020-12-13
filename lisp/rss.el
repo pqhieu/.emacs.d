@@ -22,7 +22,7 @@
 
 (use-package elfeed
   :ensure t
-  :bind ("C-c f" . elfeed)
+  :bind ("C-c C-f" . elfeed)
   :config
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=e1a96a0b0c1e874d25a5eb3d4065aa9bd51f35b1&user=CaiCuoc")

@@ -30,7 +30,6 @@
 (setq frame-inhibit-implied-resize t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
 
 ;; Check for use-package and install if needed
 (unless (package-installed-p 'use-package)

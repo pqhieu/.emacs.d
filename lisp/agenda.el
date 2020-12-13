@@ -32,7 +32,7 @@
   (require 'org)
   (setq org-ellipsis "⤵")
   (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-  (setq org-todo-keyword-faces '(("NEXT" . "#b8bb26")))
+  ;; (setq org-todo-keyword-faces '(("NEXT" . "#b8bb26")))
   (setq org-tags-column -77)
   (setq org-global-properties
         '(("Effort_ALL" .

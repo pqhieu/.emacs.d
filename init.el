@@ -35,8 +35,8 @@
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
-(require 'packages)
 (require 'defaults)
+(require 'packages)
 (require 'agenda)
 (require 'completion)
 (require 'git)

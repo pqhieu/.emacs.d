@@ -39,6 +39,8 @@
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 
+(display-time-mode 1)
+
 ;; Disable backup and auto-saving
 (setq-default make-backup-files nil)
 (setq-default backup-inhibited t)
@@ -83,10 +85,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka Fixed:pixelsize=15:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Fixed:pixelsize=15:width=expanded")
+(set-face-font 'default "SF Mono-15")
+(set-face-font 'fixed-pitch "SF Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 (setq x-underline-at-descent-line t)
 
@@ -117,11 +119,12 @@
     (setq insert-directory-program "gls" dired-use-ls-dired t))
 (setq dired-listing-switches "-aFhlv --group-directories-first")
 
+(require 'whitespace)
 (setq whitespace-line-column 120)
 (setq whitespace-style '(face tabs trailing lines-tail empty))
 ;; Delete trailing whitespace when save
 (add-hook 'before-save-hook #'whitespace-cleanup)
-(add-hook 'prog-mode-hook #'whitespace-mode)
+(global-whitespace-mode 1)
 
 (defun kill-other-buffers ()
   "Kill all other buffers."
