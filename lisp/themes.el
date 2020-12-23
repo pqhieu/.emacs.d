@@ -22,12 +22,22 @@
 
 (use-package doom-themes
   :ensure t
-  :after org
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (setq doom-gruvbox-dark-variant "hard")
-  (load-theme 'doom-city-lights t))
+  (load-theme 'doom-tomorrow-night t))
+
+;; (use-package modus-themes
+;;   :ensure t
+;;   :config
+;;   (setq modus-themes-bold-constructs t)
+;;   (setq modus-themes-slanted-constructs nil)
+;;   (setq modus-themes-faint-syntax t)
+;;   (setq modus-themes-scale-headings nil)
+;;   (setq modus-themes-variable-pitch-headings t)
+;;   (setq modus-themes-fringes nil)
+;;   (setq modus-themes-headings '((t . rainbow)))
+;;   (load-theme 'modus-operandi t))
 
 (use-package doom-modeline
   :ensure t

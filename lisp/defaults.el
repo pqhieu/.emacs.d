@@ -39,6 +39,8 @@
 (setq-default inhibit-splash-screen t)
 (setq-default initial-scratch-message nil)
 
+(setq frame-title-format nil)
+
 (display-time-mode 1)
 
 ;; Disable backup and auto-saving
@@ -48,7 +50,7 @@
 
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type '(bar . 1))
+(setq-default cursor-type 'bar)
 
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
@@ -88,7 +90,7 @@
 (set-face-font 'default "SF Mono-15")
 (set-face-font 'fixed-pitch "SF Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.1)
 
 (setq x-underline-at-descent-line t)
 

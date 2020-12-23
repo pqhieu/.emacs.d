@@ -91,7 +91,7 @@
   :config
   (setq org-journal-file-type 'daily)
   (setq org-journal-enable-agenda-integration t)
-  (setq org-journal-date-prefix "#+TITLE:")
+  (setq org-journal-date-prefix "#+TITLE: ")
   (setq org-journal-time-prefix "* ")
   (setq org-journal-dir "~/Dropbox/notes/dailies/")
   (setq org-journal-date-format "%A, %d %B %Y")
