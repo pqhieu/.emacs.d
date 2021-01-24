@@ -56,7 +56,7 @@
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
   :config
-  (setq org-agenda-files '("~/Dropbox/agenda.org" "~/Dropbox/notes/dailies/"))
+  (setq org-agenda-files '("~/Documents/agenda.org" "~/Documents/notes/dailies/"))
   (setq org-agenda-todo-ignore-scheduled (quote all))
   (setq org-agenda-todo-ignore-timestamp (quote all))
   (setq org-agenda-tags-column -77)
@@ -84,20 +84,18 @@
   :config
   (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
 
-(use-package org-journal
+(use-package org-roam
   :ensure t
-  :hook (org-journal-mode . (lambda () (visual-line-mode 0)))
-  :bind ("C-c C-j" . org-journal-new-entry)
+  :hook (after-init . org-roam-mode)
+  :bind (("C-c d" . org-roam-dailies-find-today)
+         ("C-c n" . org-roam-find-file))
   :config
-  (setq org-journal-file-type 'daily)
-  (setq org-journal-enable-agenda-integration t)
-  (setq org-journal-date-prefix "#+TITLE: ")
-  (setq org-journal-time-prefix "* ")
-  (setq org-journal-dir "~/Dropbox/notes/dailies/")
-  (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-carryover-delete-empty-journal 'always)
-  (setq org-journal-file-header "#+STARTUP: content\n#+CATEGORY: DAILIES")
-  (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
-  (setq org-journal-file-format "%Y%m%d.org"))
+  (setq org-roam-directory "~/Documents/notes")
+  (setq org-roam-dailies-directory "dailies/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "daily" plain (function org-roam-capture--get-point) ""
+           :immediate-finish t
+           :file-name "dailies/%<%Y%m%d>"
+           :head "#+STARTUP: content\n#+CATEGORY: DAILIES\n#+TITLE: %<%A, %d %B %Y>"))))
 
 (provide 'agenda)

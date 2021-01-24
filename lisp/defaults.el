@@ -87,8 +87,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "SF Mono-15")
-(set-face-font 'fixed-pitch "SF Mono-15")
+(set-face-font 'default "Rec Mono Semicasual-15")
+(set-face-font 'fixed-pitch "Rec Mono Semicasual-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
 (setq-default line-spacing 0.1)
 
@@ -126,7 +126,7 @@
 (setq whitespace-style '(face tabs trailing lines-tail empty))
 ;; Delete trailing whitespace when save
 (add-hook 'before-save-hook #'whitespace-cleanup)
-(global-whitespace-mode 1)
+(add-hook 'programming-mode-hook #'whitespace-mode)
 
 (defun kill-other-buffers ()
   "Kill all other buffers."

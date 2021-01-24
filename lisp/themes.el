@@ -27,18 +27,6 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t))
 
-;; (use-package modus-themes
-;;   :ensure t
-;;   :config
-;;   (setq modus-themes-bold-constructs t)
-;;   (setq modus-themes-slanted-constructs nil)
-;;   (setq modus-themes-faint-syntax t)
-;;   (setq modus-themes-scale-headings nil)
-;;   (setq modus-themes-variable-pitch-headings t)
-;;   (setq modus-themes-fringes nil)
-;;   (setq modus-themes-headings '((t . rainbow)))
-;;   (load-theme 'modus-operandi t))
-
 (use-package doom-modeline
   :ensure t
   :config
@@ -57,9 +45,9 @@
   (set-face-attribute 'outline-8 nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-document-title nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-headline-done nil :family "Concourse T3" :weight 'normal :height 170)
-  (set-face-attribute 'org-todo nil :family "SF Mono" :weight 'normal :height 150)
-  (set-face-attribute 'org-done nil :family "SF Mono" :weight 'normal :height 150)
-  (set-face-attribute 'ivy-org nil :family "SF Mono" :weight 'normal :height 150)
+  (set-face-attribute 'org-todo nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
+  (set-face-attribute 'org-done nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
+  (set-face-attribute 'ivy-org nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
