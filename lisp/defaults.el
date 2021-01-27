@@ -87,10 +87,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Rec Mono Semicasual-15")
-(set-face-font 'fixed-pitch "Rec Mono Semicasual-15")
+(set-face-font 'default "SF Mono-15")
+(set-face-font 'fixed-pitch "SF Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
-(setq-default line-spacing 0.1)
 
 (setq x-underline-at-descent-line t)
 

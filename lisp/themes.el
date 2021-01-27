@@ -25,7 +25,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t))
+  (load-theme 'doom-city-lights t))
 
 (use-package doom-modeline
   :ensure t
@@ -45,9 +45,9 @@
   (set-face-attribute 'outline-8 nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-document-title nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-headline-done nil :family "Concourse T3" :weight 'normal :height 170)
-  (set-face-attribute 'org-todo nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
-  (set-face-attribute 'org-done nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
-  (set-face-attribute 'ivy-org nil :family "Rec Mono Semicasual" :weight 'normal :height 150)
+  (set-face-attribute 'org-todo nil :family "SF Mono" :weight 'normal :height 150)
+  (set-face-attribute 'org-done nil :family "SF Mono" :weight 'normal :height 150)
+  (set-face-attribute 'ivy-org nil :family "SF Mono" :weight 'normal :height 150)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
