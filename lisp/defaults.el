@@ -87,9 +87,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "SF Mono-15")
-(set-face-font 'fixed-pitch "SF Mono-15")
+(set-face-font 'default "DM Mono-15")
+(set-face-font 'fixed-pitch "DM Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
+;; (setq-default line-spacing 0.1)
 
 (setq x-underline-at-descent-line t)
 
@@ -132,5 +133,12 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (ledger . t)))
+
+(add-hook 'after-init-hook #'toggle-frame-fullscreen)
 
 (provide 'defaults)
