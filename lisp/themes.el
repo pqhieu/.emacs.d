@@ -20,17 +20,12 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs nil)
-  (setq modus-themes-faint-syntax t)
-  (setq modus-themes-scale-headings nil)
-  (setq modus-themes-variable-pitch-headings t)
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . rainbow)))
-  (load-theme 'modus-operandi t))
+  (setq doom-themes-enable-bold t)
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t))
 
 (use-package doom-modeline
   :ensure t
@@ -38,5 +33,31 @@
   (doom-modeline-mode 1)
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil))
+
+(with-eval-after-load 'org
+  (set-face-attribute 'outline-1 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-2 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-3 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-4 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-5 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-6 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-7 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'outline-8 nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'org-document-title nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'org-headline-done nil :family "Concourse T3" :weight 'normal :height 170)
+  (set-face-attribute 'org-todo nil :family "DM Mono" :weight 'normal :height 150)
+  (set-face-attribute 'org-done nil :family "DM Mono" :weight 'normal :height 150)
+  (set-face-attribute 'ivy-org nil :family "DM Mono" :weight 'normal :height 150)
+  (set-face-background 'org-block-begin-line (face-background 'default))
+  (set-face-background 'org-block-end-line (face-background 'default))
+  (set-face-background 'org-ellipsis (face-background 'default)))
+
+(with-eval-after-load 'font-latex
+  (set-face-attribute 'font-latex-sectioning-0-face nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'font-latex-sectioning-1-face nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'font-latex-sectioning-2-face nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'font-latex-sectioning-3-face nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'font-latex-sectioning-4-face nil :family "Concourse T3" :weight 'bold :height 170)
+  (set-face-attribute 'font-latex-sectioning-5-face nil :family "Concourse T3" :weight 'bold :height 170))
 
 (provide 'themes)

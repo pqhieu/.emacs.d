@@ -82,7 +82,7 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :config
-  (setq org-bullets-bullet-list '("" "" "" "" "" "" "" "")))
+  (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
 
 (use-package org-roam
   :ensure t

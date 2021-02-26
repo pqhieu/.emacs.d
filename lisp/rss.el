@@ -27,6 +27,7 @@
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc")
           ("https://mangadex.org/rss/follows/8TwG7hQXrCAHM9t6DScUyqzF4mZdkPap?h=1" manga)
+          ("https://www.jendrikillner.com/tags/weekly/index.xml" graphics)
           ("https://news.ycombinator.com/rss" tech)))
   (setq elfeed-search-filter "@1-week-ago +unread "))
 
