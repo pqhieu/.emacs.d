@@ -88,9 +88,8 @@
 
 ;; Set default font
 (set-face-font 'default "DM Mono-15")
-(set-face-font 'fixed-pitch "DM MOno-15")
+(set-face-font 'fixed-pitch "DM Mono-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
-;; (setq-default line-spacing 0.1)
 
 (setq x-underline-at-descent-line t)
 

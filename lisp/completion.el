@@ -32,6 +32,12 @@
   (setq ivy-display-style 'fancy)
   (setq ivy-height 15))
 
+(use-package ivy-rich
+  :ensure t
+  :config
+  (ivy-rich-mode 1)
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
+
 (use-package swiper
   :ensure t
   :bind ("C-s" . swiper))
