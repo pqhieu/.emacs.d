@@ -51,7 +51,9 @@
   (setq org-fontify-quote-and-verse-blocks t)
   (setq org-src-fontify-natively t)
   (setq org-deadline-warning-days 7)
-  (setq org-src-preserve-indentation t))
+  (setq org-src-preserve-indentation t)
+  (add-to-list 'org-modules 'org-habit t)
+  (setq org-habit-graph-column 60))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda-show-all)
@@ -66,15 +68,23 @@
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-hidden-separator "‌‌ ")
   (setq org-agenda-block-separator (string-to-char "-"))
+  (setq org-agenda-sorting-strategy
+        '((agenda time-up priority-down habit-down category-keep)
+          (todo priority-down category-keep)
+          (tags priority-down category-keep)
+          (search category-keep)))
   (setq org-agenda-custom-commands
         '(("o" "My agenda"
            ((tags "+TODO=\"TODO\"" ((org-agenda-overriding-header "❱ TODAY:\n")
                                     (org-agenda-todo-keyword-format "")))
             (agenda "" ((org-agenda-span 'week)
                         (org-agenda-todo-keyword-format "")
+                        (org-agenda-scheduled-leaders '(""))
                         (org-agenda-overriding-header "❱ AGENDA:\n")
                         (org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
-                        (org-agenda-time-grid '((daily today) (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+                        (org-agenda-time-grid
+                         '((daily today remove-match)
+                           (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
             (tags "+TODO=\"NEXT\"" ((org-agenda-overriding-header "❱ TO DO:\n")
                                     (org-agenda-todo-keyword-format ""))))))))
 
