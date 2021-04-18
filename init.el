@@ -168,7 +168,7 @@
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-(global-set-key (kbd "C-c w") #'kill-other-buffers)
+(global-set-key (kbd "C-c C-w") #'kill-other-buffers)
 
 (require 'org)
 (setq org-ellipsis "⤵")
@@ -202,7 +202,7 @@
 
 (require 'org-agenda)
 (setq org-agenda-span 'week)
-(setq org-agenda-files '("~/Documents/agenda.org" "~/Documents/notes/dailies/"))
+(setq org-agenda-files '("~/Documents/agenda.org"))
 (setq org-agenda-todo-ignore-scheduled (quote all))
 (setq org-agenda-todo-ignore-timestamp (quote all))
 (setq org-agenda-tags-column -77)
@@ -235,7 +235,7 @@
   (org-agenda nil "o")
   (delete-other-windows))
 (add-hook 'after-init-hook #'org-agenda-show-all)
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(global-set-key (kbd "C-c C-a") #'org-agenda-show-all)
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -253,7 +253,7 @@
 (use-package org-journal
   :ensure t
   :hook (org-journal-mode . (lambda () (visual-line-mode 0)))
-  :bind ("C-c d" . org-journal-new-entry)
+  :bind ("C-c C-j" . org-journal-new-entry)
   :config
   (setq org-journal-file-type 'daily)
   (setq org-journal-enable-agenda-integration t)
