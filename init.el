@@ -168,7 +168,7 @@
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
-(global-set-key (kbd "C-c C-w") #'kill-other-buffers)
+(global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
 (setq org-ellipsis "⤵")
@@ -194,6 +194,7 @@
 (setq org-deadline-warning-days 7)
 (setq org-src-preserve-indentation t)
 (setq org-habit-graph-column 60)
+(setq org-log-into-drawer t)
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -214,14 +215,13 @@
 (setq org-agenda-block-separator (string-to-char "-"))
 (setq org-agenda-sorting-strategy
       '((agenda time-up priority-down habit-down category-keep)
-        (todo priority-down category-keep)
+        (todo todo-state-up priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
          ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-todo-keyword-format "")
-                      (org-agenda-scheduled-leaders '(""))
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
                       (org-agenda-time-grid
@@ -235,7 +235,7 @@
   (org-agenda nil "o")
   (delete-other-windows))
 (add-hook 'after-init-hook #'org-agenda-show-all)
-(global-set-key (kbd "C-c C-a") #'org-agenda-show-all)
+(global-set-key (kbd "C-c a") #'org-agenda-show-all)
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -326,11 +326,12 @@
 
 (use-package elfeed
   :ensure t
-  :bind ("C-c C-r" . elfeed)
+  :bind ("C-c f" . elfeed)
   :config
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc" news)
           ("https://www.jendrikillner.com/tags/weekly/index.xml" graphics)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZ4AMrDcNrfy3X6nsU8-rPg" finance)
           ("https://news.ycombinator.com/rss" news)))
   (setq elfeed-search-filter "@1-week-ago +unread "))
 
