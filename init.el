@@ -124,9 +124,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "DM Mono-15")
-(set-face-font 'fixed-pitch "DM Mono-15")
+(set-face-font 'default "Triplicate T4c-15")
+(set-face-font 'fixed-pitch "Triplicate T4c-15")
 (set-face-font 'variable-pitch "Concourse T3-17")
+(setq-default line-spacing 0.1)
 
 (setq x-underline-at-descent-line t)
 
@@ -206,6 +207,7 @@
 (setq org-agenda-files '("~/Documents/agenda.org"))
 (setq org-agenda-todo-ignore-scheduled (quote all))
 (setq org-agenda-todo-ignore-timestamp (quote all))
+(setq org-agenda-start-on-weekday 0)  ;; Start org-agenda on Sunday
 (setq org-agenda-tags-column -77)
 ;; Do not show scheduled/deadline if done
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
@@ -332,6 +334,7 @@
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc" news)
           ("https://www.jendrikillner.com/tags/weekly/index.xml" graphics)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZ4AMrDcNrfy3X6nsU8-rPg" finance)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCvJJ_dzjViJCoLf5uKUTwoA" finance)
           ("https://news.ycombinator.com/rss" news)))
   (setq elfeed-search-filter "@1-week-ago +unread "))
 
@@ -378,7 +381,7 @@
   :config
   (setq doom-themes-enable-bold t)
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t))
+  (load-theme 'doom-nord t))
 
 (use-package doom-modeline
   :ensure t
@@ -398,9 +401,9 @@
   (set-face-attribute 'outline-8 nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-document-title nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'org-headline-done nil :family "Concourse T3" :weight 'normal :height 170)
-  (set-face-attribute 'org-todo nil :family "DM Mono" :weight 'normal :height 150)
-  (set-face-attribute 'org-done nil :family "DM Mono" :weight 'normal :height 150)
-  (set-face-attribute 'ivy-org nil :family "DM Mono" :weight 'normal :height 150)
+  (set-face-attribute 'org-todo nil :family "Triplicate T4c" :weight 'normal :height 150)
+  (set-face-attribute 'org-done nil :family "Triplicate T4c" :weight 'normal :height 150)
+  (set-face-attribute 'ivy-org nil :family "Triplicate T4c" :weight 'normal :height 150)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
@@ -412,3 +415,11 @@
   (set-face-attribute 'font-latex-sectioning-3-face nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'font-latex-sectioning-4-face nil :family "Concourse T3" :weight 'bold :height 170)
   (set-face-attribute 'font-latex-sectioning-5-face nil :family "Concourse T3" :weight 'bold :height 170))
+
+(defun set-buffer-face-mode-variable ()
+   ;; Set variable font face in current buffer
+   (interactive)
+   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 150))
+   (buffer-face-mode))
+
+(add-hook 'prog-mode-hook 'set-buffer-face-mode-variable)
