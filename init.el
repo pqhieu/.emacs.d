@@ -87,7 +87,7 @@
 
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 'hbar)
 
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
@@ -124,12 +124,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Triplicate T4c-15")
-(set-face-font 'fixed-pitch "Triplicate T4c-15")
-(set-face-font 'variable-pitch "Concourse T3-17")
-(setq-default line-spacing 0.1)
-
-(setq x-underline-at-descent-line t)
+(set-face-font 'default "Comic Mono-14")
+(set-face-font 'fixed-pitch "Comic Mono-14")
+(set-face-font 'variable-pitch "Concourse 3-15")
+(setq-default line-spacing 0.15)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -175,7 +173,7 @@
 (setq org-ellipsis "⤵")
 (setq org-tags-column -77)
 (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-(setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
+;; (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
 (setq org-global-properties
       '(("Effort_ALL" .
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
@@ -194,7 +192,9 @@
 (setq org-src-fontify-natively t)
 (setq org-deadline-warning-days 7)
 (setq org-src-preserve-indentation t)
-(setq org-habit-graph-column 60)
+(setq org-habit-graph-column 70)
+(setq org-habit-preceding-days 6)
+(setq org-habit-following-days 2)
 (setq org-log-into-drawer t)
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
@@ -207,12 +207,12 @@
 (setq org-agenda-files '("~/Documents/agenda.org"))
 (setq org-agenda-todo-ignore-scheduled (quote all))
 (setq org-agenda-todo-ignore-timestamp (quote all))
-(setq org-agenda-start-on-weekday 0)  ;; Start org-agenda on Sunday
 (setq org-agenda-tags-column -77)
 ;; Do not show scheduled/deadline if done
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-show-future-repeats 'next)
 (setq org-agenda-hidden-separator "‌‌ ")
 (setq org-agenda-block-separator (string-to-char "-"))
 (setq org-agenda-sorting-strategy
@@ -331,10 +331,11 @@
   :bind ("C-c f" . elfeed)
   :config
   (setq elfeed-feeds
-        '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc" news)
+        '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
           ("https://www.jendrikillner.com/tags/weekly/index.xml" graphics)
+          ("https://www.inference.vc/rss/" ml)
+          ("https://lilianweng.github.io/lil-log/feed.xml" ml)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZ4AMrDcNrfy3X6nsU8-rPg" finance)
-          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCvJJ_dzjViJCoLf5uKUTwoA" finance)
           ("https://news.ycombinator.com/rss" news)))
   (setq elfeed-search-filter "@1-week-ago +unread "))
 
@@ -376,12 +377,22 @@
   :mode ("\\.dat\\'")
   :config (setq ledger-clear-whole-transactions t))
 
-(use-package doom-themes
+(use-package modus-themes
   :ensure t
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-nord t))
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-faint-syntax t)
+  (setq modus-themes-scale-headings nil)
+  (setq modus-themes-variable-pitch-headings t)
+  (setq modus-themes-fringes nil)
+  (setq modus-themes-headings '((t . rainbow)))
+  (setq modus-themes-org-agenda
+        '((header-block . (variable-pitch))
+          (header-date . (grayscale bold-all))
+          (scheduled . rainbow)
+          (habit . simplified)))
+  (load-theme 'modus-operandi t))
 
 (use-package doom-modeline
   :ensure t
@@ -389,37 +400,3 @@
   (doom-modeline-mode 1)
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil))
-
-(with-eval-after-load 'org
-  (set-face-attribute 'outline-1 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-2 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-3 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-4 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-5 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-6 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-7 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'outline-8 nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'org-document-title nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'org-headline-done nil :family "Concourse T3" :weight 'normal :height 170)
-  (set-face-attribute 'org-todo nil :family "Triplicate T4c" :weight 'normal :height 150)
-  (set-face-attribute 'org-done nil :family "Triplicate T4c" :weight 'normal :height 150)
-  (set-face-attribute 'ivy-org nil :family "Triplicate T4c" :weight 'normal :height 150)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
-
-(with-eval-after-load 'font-latex
-  (set-face-attribute 'font-latex-sectioning-0-face nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'font-latex-sectioning-1-face nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'font-latex-sectioning-2-face nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'font-latex-sectioning-3-face nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'font-latex-sectioning-4-face nil :family "Concourse T3" :weight 'bold :height 170)
-  (set-face-attribute 'font-latex-sectioning-5-face nil :family "Concourse T3" :weight 'bold :height 170))
-
-(defun set-buffer-face-mode-variable ()
-   ;; Set variable font face in current buffer
-   (interactive)
-   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 150))
-   (buffer-face-mode))
-
-(add-hook 'prog-mode-hook 'set-buffer-face-mode-variable)
