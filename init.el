@@ -124,10 +124,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Comic Mono-14")
-(set-face-font 'fixed-pitch "Comic Mono-14")
+(set-face-font 'default "Triplicate T4s-15")
+(set-face-font 'fixed-pitch "Triplicate T4s-15")
 (set-face-font 'variable-pitch "Concourse 3-15")
-(setq-default line-spacing 0.15)
+(setq-default line-spacing 0.1)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -225,7 +225,7 @@
          ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-todo-keyword-format "")
                       (org-agenda-overriding-header "❱ AGENDA:\n")
-                      (org-agenda-current-time-string "◀┈┈┈┈┈┈┈┈ now")
+                      (org-agenda-current-time-string "←┈┈┈┈┈┈┈┈ now")
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
