@@ -124,9 +124,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "SF Mono-12")
-(set-face-font 'fixed-pitch "SF Mono-12")
-(set-face-font 'variable-pitch "Concourse 3-13")
+(set-face-font 'default "Atlas Typewriter-13")
+(set-face-font 'fixed-pitch "Atlas Typewriter-13")
+(set-face-font 'variable-pitch "Concourse 3-14")
+(setq-default line-spacing 0.2)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -230,6 +231,21 @@
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "TODO|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
 
+(use-package deft
+  :ensure t
+  :custom
+  (deft-extensions '("org" "md" "txt"))
+  (deft-directory "~/Documents/notes")
+  (deft-use-filename-as-title t))
+
+(use-package zetteldeft
+  :ensure t
+  :after deft
+  :config (zetteldeft-set-classic-keybindings)
+  :init
+  (setq zetteldeft-id-format "%Y%m%d%H%M%S")
+  (setq zetteldeft-id-regex "[0-9]\\{14\\}"))
+
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
   (interactive)
@@ -250,22 +266,6 @@
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
-
-(use-package org-journal
-  :ensure t
-  :hook (org-journal-mode . (lambda () (visual-line-mode 0)))
-  :bind ("C-c C-j" . org-journal-new-entry)
-  :config
-  (setq org-journal-file-type 'daily)
-  (setq org-journal-enable-agenda-integration t)
-  (setq org-journal-date-prefix "#+TITLE: ")
-  (setq org-journal-time-prefix "* ")
-  (setq org-journal-dir "~/Documents/notes/dailies/")
-  (setq org-journal-date-format "%A, %d %B %Y")
-  (setq org-journal-carryover-delete-empty-journal 'always)
-  (setq org-journal-file-header "#+STARTUP: content\n#+CATEGORY: DAILIES")
-  (setq org-journal-skip-carryover-drawers (list "LOGBOOK"))
-  (setq org-journal-file-format "%Y%m%d.org"))
 
 (use-package magit
   :ensure t
@@ -399,3 +399,16 @@
   (doom-modeline-mode 1)
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil))
+
+ (defun set-buffer-face-mode-variable ()
+   "Set a variable font in current buffer"
+   (interactive)
+   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 130))
+   (buffer-face-mode))
+
+(dolist (hook
+         '(prog-mode-hook
+           org-mode-hook
+           latex-mode-hook
+           elfeed-show-mode-hook))
+  (add-hook hook 'set-buffer-face-mode-variable))
