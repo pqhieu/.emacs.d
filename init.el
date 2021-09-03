@@ -196,6 +196,7 @@
 (setq org-habit-preceding-days 6)
 (setq org-habit-following-days 2)
 (setq org-log-into-drawer t)
+(setq org-list-demote-modify-bullet (quote (("+" . "-") ("-" . "*"))))
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -265,7 +266,7 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :config
-  (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
+  (setq org-bullets-bullet-list '("◉" "○" "✱" "✿" "●" "➤")))
 
 (use-package magit
   :ensure t
