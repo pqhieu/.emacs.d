@@ -124,10 +124,11 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Atlas Typewriter-13")
-(set-face-font 'fixed-pitch "Atlas Typewriter-13")
-(set-face-font 'variable-pitch "Concourse 3-14")
-(setq-default line-spacing 0.2)
+(set-face-font 'default "Iosevka SS15-13:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka SS15-13:width=expanded")
+(set-face-font 'variable-pitch "Iosevka Aile-13")
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -399,17 +400,18 @@
   :config
   (doom-modeline-mode 1)
   (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-minor-modes nil))
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
- (defun set-buffer-face-mode-variable ()
-   "Set a variable font in current buffer"
-   (interactive)
-   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 130))
-   (buffer-face-mode))
+;; (defun set-buffer-face-mode-variable ()
+;;   "Set a variable font in current buffer"
+;;   (interactive)
+;;   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 130))
+;;   (buffer-face-mode))
 
-(dolist (hook
-         '(prog-mode-hook
-           org-mode-hook
-           latex-mode-hook
-           elfeed-show-mode-hook))
-  (add-hook hook 'set-buffer-face-mode-variable))
+;; (dolist (hook
+;;          '(prog-mode-hook
+;;            org-mode-hook
+;;            latex-mode-hook
+;;            elfeed-show-mode-hook))
+;;   (add-hook hook 'set-buffer-face-mode-variable))
