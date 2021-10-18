@@ -124,9 +124,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka SS15-13:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka SS15-13:width=expanded")
-(set-face-font 'variable-pitch "Iosevka Aile-13")
+(set-face-font 'default "Iosevka Custom-13")
+(set-face-font 'fixed-pitch "Iosevka Custom-13")
+(set-face-font 'variable-pitch "Overpass-13")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
@@ -235,10 +235,11 @@
 
 (use-package deft
   :ensure t
-  :custom
-  (deft-extensions '("org" "md" "txt"))
-  (deft-directory "~/Documents/notes")
-  (deft-use-filename-as-title t))
+  :init
+  (setq deft-extensions '("org" "md" "txt"))
+  (setq deft-directory "~/Documents/notes")
+  (setq deft-auto-save-interval 0)
+  (setq deft-use-filename-as-title t))
 
 (use-package zetteldeft
   :ensure t
@@ -333,12 +334,12 @@
   :config
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
-          ("https://www.jendrikillner.com/tags/weekly/index.xml" graphics)
-          ("https://www.inference.vc/rss/" ml)
-          ("https://lilianweng.github.io/lil-log/feed.xml" ml)
-          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZ4AMrDcNrfy3X6nsU8-rPg" finance)
-          ("https://news.ycombinator.com/rss" news)))
-  (setq elfeed-search-filter "@1-week-ago +unread "))
+          ("https://www.jendrikillner.com/tags/weekly/index.xml" blog graphics)
+          ("https://www.inference.vc/rss/" blog ml)
+          ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
+          ("https://news.ycombinator.com/rss" news tech)
+          ("https://danluu.com/atom.xml" blog tech))
+  (setq elfeed-search-filter "@1-week-ago +unread ")))
 
 ;; C/C++
 (use-package cc-mode
