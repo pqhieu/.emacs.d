@@ -338,8 +338,8 @@
           ("https://www.inference.vc/rss/" blog ml)
           ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
           ("https://news.ycombinator.com/rss" news tech)
-          ("https://danluu.com/atom.xml" blog tech))
-  (setq elfeed-search-filter "@1-week-ago +unread ")))
+          ("https://danluu.com/atom.xml" blog tech)))
+  (setq elfeed-search-filter "@1-week-ago +unread "))
 
 ;; C/C++
 (use-package cc-mode
@@ -396,23 +396,8 @@
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
-(use-package doom-modeline
+(use-package nano-modeline
   :ensure t
   :config
-  (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
-
-;; (defun set-buffer-face-mode-variable ()
-;;   "Set a variable font in current buffer"
-;;   (interactive)
-;;   (setq buffer-face-mode-face '(:family "Iosevka Aile" :height 130))
-;;   (buffer-face-mode))
-
-;; (dolist (hook
-;;          '(prog-mode-hook
-;;            org-mode-hook
-;;            latex-mode-hook
-;;            elfeed-show-mode-hook))
-;;   (add-hook hook 'set-buffer-face-mode-variable))
+  (setq nano-modeline-position 'bottom)
+  (nano-modeline-mode 1))
