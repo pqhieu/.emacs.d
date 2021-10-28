@@ -124,9 +124,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka Custom-13")
-(set-face-font 'fixed-pitch "Iosevka Custom-13")
-(set-face-font 'variable-pitch "Overpass-13")
+(set-face-font 'default "iA Writer Mono S-13")
+(set-face-font 'fixed-pitch "iA Writer Mono S-13")
+(set-face-font 'variable-pitch "Concourse 3-14")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
@@ -175,6 +175,7 @@
 (setq org-tags-column -77)
 (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
 ;; (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
+(setq org-hide-emphasis-markers t)
 (setq org-global-properties
       '(("Effort_ALL" .
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
@@ -336,9 +337,9 @@
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
           ("https://www.jendrikillner.com/tags/weekly/index.xml" blog graphics)
           ("https://www.inference.vc/rss/" blog ml)
+          ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
           ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
-          ("https://news.ycombinator.com/rss" news tech)
-          ("https://danluu.com/atom.xml" blog tech)))
+          ("https://news.ycombinator.com/rss" news tech)))
   (setq elfeed-search-filter "@1-week-ago +unread "))
 
 ;; C/C++
