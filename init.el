@@ -124,8 +124,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "iA Writer Mono S-13")
-(set-face-font 'fixed-pitch "iA Writer Mono S-13")
+(set-face-font 'default "Iosevka Custom-13")
+(set-face-font 'fixed-pitch "Iosevka Custom-13")
 (set-face-font 'variable-pitch "Concourse 3-14")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
@@ -299,6 +299,7 @@
   :ensure t
   :config
   (ivy-rich-mode 1)
+  (setq ivy-rich-path-style 'abbrev)
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package swiper
@@ -337,6 +338,7 @@
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
           ("https://www.jendrikillner.com/tags/weekly/index.xml" blog graphics)
           ("https://www.inference.vc/rss/" blog ml)
+          ("https://ciechanow.ski/atom.xml" blog)
           ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
           ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
           ("https://news.ycombinator.com/rss" news tech)))
