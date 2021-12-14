@@ -186,6 +186,7 @@
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
 (setq org-pretty-entities t)
+(plist-put org-format-latex-options :scale 0.8)
 (setq org-latex-create-formula-image-program 'dvisvgm)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-fontify-whole-heading-line t)
@@ -387,11 +388,10 @@
   :config
   (setq modus-themes-bold-constructs t)
   (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-mixed-fonts t)
   (setq modus-themes-faint-syntax t)
-  (setq modus-themes-scale-headings nil)
-  (setq modus-themes-variable-pitch-headings t)
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . rainbow)))
+  (setq modus-themes-headings '((t . (variable-pitch rainbow))))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (grayscale bold-all))
