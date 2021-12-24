@@ -127,8 +127,8 @@
 (set-face-font 'default "Iosevka Custom-13")
 (set-face-font 'fixed-pitch "Iosevka Custom-13")
 (set-face-font 'variable-pitch "Concourse 3-14")
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
+;; (if (fboundp 'mac-auto-operator-composition-mode)
+;;     (mac-auto-operator-composition-mode))
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -219,6 +219,7 @@
 (setq org-agenda-show-future-repeats 'next)
 (setq org-agenda-hidden-separator "‌‌ ")
 (setq org-agenda-block-separator (string-to-char "-"))
+(setq org-fontify-done-headline nil)
 (setq org-agenda-sorting-strategy
       '((agenda time-up priority-down habit-down category-keep)
         (todo todo-state-up priority-down category-keep)
@@ -388,9 +389,10 @@
   :config
   (setq modus-themes-bold-constructs t)
   (setq modus-themes-slanted-constructs nil)
-  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-mixed-fonts nil)
   (setq modus-themes-faint-syntax t)
   (setq modus-themes-fringes nil)
+  (setq modus-themes-mode-line '(borderless))
   (setq modus-themes-headings '((t . (variable-pitch rainbow))))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
@@ -399,8 +401,10 @@
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
-(use-package nano-modeline
+(use-package doom-modeline
   :ensure t
   :config
-  (setq nano-modeline-position 'bottom)
-  (nano-modeline-mode 1))
+  (doom-modeline-mode 1)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
