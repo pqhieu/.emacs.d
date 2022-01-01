@@ -127,8 +127,6 @@
 (set-face-font 'default "Iosevka Custom-13")
 (set-face-font 'fixed-pitch "Iosevka Custom-13")
 (set-face-font 'variable-pitch "Concourse 3-14")
-;; (if (fboundp 'mac-auto-operator-composition-mode)
-;;     (mac-auto-operator-composition-mode))
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -271,7 +269,7 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :config
-  (setq org-bullets-bullet-list '("◉" "○" "✱" "✿" "●" "➤")))
+  (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
 
 (use-package magit
   :ensure t
@@ -321,24 +319,12 @@
          ("M-y" . counsel-yank-pop))
   :config (setq counsel-find-file-ignore-regexp "\\(?:^Icon?\\)"))
 
-(use-package company
-  :ensure t
-  :config
-  (setq company-idle-delay 0.5)
-  (setq company-show-numbers t)
-  (setq company-tooltip-limit 10)
-  (setq company-minimum-prefix-length 2)
-  (setq company-tooltip-align-annotations t)
-  (setq company-tooltip-flip-when-above t)
-  (global-company-mode t))
-
 (use-package elfeed
   :ensure t
   :bind ("C-c f" . elfeed)
   :config
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
-          ("https://www.jendrikillner.com/tags/weekly/index.xml" blog graphics)
           ("https://www.inference.vc/rss/" blog ml)
           ("https://ciechanow.ski/atom.xml" blog)
           ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
