@@ -126,7 +126,7 @@
 ;; Set default font
 (set-face-font 'default "Iosevka Custom-13")
 (set-face-font 'fixed-pitch "Iosevka Custom-13")
-(set-face-font 'variable-pitch "Charter-14")
+(set-face-font 'variable-pitch "Concourse T3-14")
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -171,8 +171,8 @@
 (require 'org)
 (setq org-ellipsis "⤵")
 (setq org-tags-column -77)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
-;; (setq org-todo-keyword-faces '(("NEXT" . "#8abeb7")))
+(setq org-todo-keywords '((sequence "TODO(t)" "READ(r)" "NEXT(n)" "|" "DONE(d)")))
+(setq org-todo-keyword-faces '(("NEXT" . '(warning org-todo))))
 (setq org-hide-emphasis-markers t)
 (setq org-global-properties
       '(("Effort_ALL" .
@@ -185,6 +185,7 @@
 (setq org-clock-out-when-done t)
 (setq org-pretty-entities t)
 (setq org-latex-create-formula-image-program 'dvisvgm)
+(plist-put org-format-latex-options :scale 0.8)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-fontify-whole-heading-line t)
 (setq org-fontify-done-headline t)
@@ -226,13 +227,12 @@
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
          ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-todo-keyword-format "")
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "TODO|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
+          (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
 
 (use-package deft
   :ensure t
@@ -270,6 +270,10 @@
   :hook (org-mode . org-bullets-mode)
   :config
   (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
+
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode))
 
 (use-package magit
   :ensure t
@@ -320,15 +324,22 @@
   :config (setq counsel-find-file-ignore-regexp "\\(?:^Icon?\\)"))
 
 (use-package company
-   :ensure t
-   :config
-   (setq company-idle-delay 0.5)
-   (setq company-show-numbers t)
-   (setq company-tooltip-limit 10)
-   (setq company-minimum-prefix-length 2)
-   (setq company-tooltip-align-annotations t)
-   (setq company-tooltip-flip-when-above t)
-   (global-company-mode t))
+  :ensure t
+  :config
+  (setq company-idle-delay 0.5)
+  (setq company-show-numbers t)
+  (setq company-tooltip-limit 10)
+  (setq company-minimum-prefix-length 2)
+  (setq company-tooltip-align-annotations t)
+  (setq company-tooltip-flip-when-above t)
+  (global-company-mode t))
+
+(use-package company-posframe
+  :ensure t
+  :config
+  (setq company-posframe-show-indicator nil)
+  (setq company-tooltip-minimum-width 40)
+  (company-posframe-mode t))
 
 (use-package elfeed
   :ensure t
@@ -366,9 +377,6 @@
   (setq TeX-parse-self nil)
   (setq font-latex-script-display (quote (nil))))
 
-;; YAML
-(use-package yaml-mode :ensure t)
-
 ;; Markdown
 (use-package markdown-mode
   :ensure t
@@ -397,40 +405,10 @@
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
-(use-package nano-modeline
+(use-package doom-modeline
    :ensure t
    :config
-   (setq nano-modeline-position 'bottom)
-   (nano-modeline-mode 1))
-
-(defun set-buffer-face-mode-variable ()
-    ;; Set variable font face in current buffer
-    (interactive)
-    (setq buffer-face-mode-face '(:family "Charter" :height 130))
-    (buffer-face-mode))
-(add-hook 'org-mode-hook 'set-buffer-face-mode-variable)
-(add-hook 'LaTeX-mode-hook 'set-buffer-face-mode-variable)
-
-(with-eval-after-load 'org
-  (set-face-attribute 'org-level-1 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-2 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-3 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-4 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-5 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-6 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-7 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-level-8 nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-document-title nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'org-headline-done nil :family "Charter" :weight 'normal :height 140)
-  (set-face-attribute 'org-todo nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-done nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'ivy-org nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-priority nil :family "Iosevka Custom" :height 130))
-
-(with-eval-after-load 'font-latex
-  (set-face-attribute 'font-latex-sectioning-0-face nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-1-face nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-2-face nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-3-face nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-4-face nil :family "Charter" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-5-face nil :family "Charter" :weight 'bold :height 140))
+   (doom-modeline-mode 1)
+   (setq doom-modeline-major-mode-icon t)
+   (setq doom-modeline-minor-modes nil)
+   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
