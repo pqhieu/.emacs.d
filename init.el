@@ -127,6 +127,8 @@
 (set-face-font 'default "Iosevka Custom-13")
 (set-face-font 'fixed-pitch "Iosevka Custom-13")
 (set-face-font 'variable-pitch "Concourse T3-14")
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -169,11 +171,14 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(setq org-ellipsis "⤵")
+(setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-todo-keywords '((sequence "TODO(t)" "READ(r)" "NEXT(n)" "|" "DONE(d)")))
 (setq org-todo-keyword-faces '(("NEXT" . '(warning org-todo))))
 (setq org-hide-emphasis-markers t)
+(setq org-hide-leading-stars t)
+(setq org-pretty-entities t)
+(setq org-pretty-entities-include-sub-superscripts nil)
 (setq org-global-properties
       '(("Effort_ALL" .
          "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
@@ -183,7 +188,6 @@
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
-(setq org-pretty-entities t)
 (setq org-latex-create-formula-image-program 'dvisvgm)
 (plist-put org-format-latex-options :scale 0.8)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
@@ -198,11 +202,34 @@
 (setq org-habit-following-days 1)
 (setq org-log-into-drawer t)
 (setq org-list-demote-modify-bullet (quote (("+" . "-") ("-" . "*"))))
+;; Increase sub-item indentation
+(setq org-list-indent-offset 1)
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
    (ledger . t)))
+
+;; See discussion in https://www.reddit.com/r/emacs/comments/o04it0/share_your_prettifysymbolsalist/
+(defun prettify-org-keywords ()
+  (interactive)
+  "Beautify org mode keywords."
+  (setq prettify-symbols-alist
+        (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
+                '(("#+header:" . "☰")
+                  ("#+begin_src" . "╦")
+                  ("#+end_src" . "╩")
+                  ("#+begin_comment" . "✎")
+                  ("#+end_comment" . "✎")
+                  ("#+begin_quote" . "»")
+                  ("#+end_quote" . "«")
+                  ("[ ]" . "")
+                  ("[X]" . "")
+                  ("SCHEDULED:" . "")
+                  ("DEADLINE:" . "")
+                  ("CLOSED:" . ""))))
+  (prettify-symbols-mode 1))
+(add-hook 'org-mode-hook #'prettify-org-keywords)
 
 (require 'org-agenda)
 (setq org-agenda-span 'week)
@@ -234,6 +261,24 @@
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
 
+(use-package org-superstar
+  :ensure t
+  :hook (org-mode . org-superstar-mode)
+  :config
+  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
+  (setq org-superstar-prettify-item-bullets t)
+  (setq org-superstar-item-bullet-alist
+        '((?* . ?•)
+          (?+ . ?•)
+          (?- . ?•)))
+  (setq inhibit-compacting-font-caches t))
+
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode)
+  :config
+  (setq org-appear-autoentities t))
+
 (use-package deft
   :ensure t
   :init
@@ -264,16 +309,6 @@
   :init
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
-
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . org-bullets-mode)
-  :config
-  (setq org-bullets-bullet-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧")))
-
-(use-package org-appear
-  :ensure t
-  :hook (org-mode . org-appear-mode))
 
 (use-package magit
   :ensure t
