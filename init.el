@@ -54,6 +54,10 @@
 ;; Config use-package
 (require 'use-package)
 (require 'bind-key)
+(setq use-package-always-defer nil)
+(setq use-package-always-ensure nil)
+(setq use-package-expand-minimally nil)
+(setq use-package-minimum-reported-time 0)
 (setq use-package-verbose t)
 
 ;; Set personal information
@@ -179,11 +183,6 @@
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
 (setq org-pretty-entities-include-sub-superscripts nil)
-(setq org-global-properties
-      '(("Effort_ALL" .
-         "0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00 0:00")))
-(setq org-columns-default-format
-      "%50ITEM %2PRIORITY %10Effort(EFFORT){:} %10CLOCKSUM")
 (setq org-clock-into-drawer t)
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
@@ -194,14 +193,16 @@
 (setq org-fontify-whole-heading-line t)
 (setq org-fontify-done-headline t)
 (setq org-fontify-quote-and-verse-blocks t)
-(setq org-src-fontify-natively t)
 (setq org-deadline-warning-days 7)
+(setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
+(setq org-src-window-setup 'other-window)
 (setq org-habit-graph-column 70)
 (setq org-habit-preceding-days 13)
 (setq org-habit-following-days 1)
+(setq org-log-done 'time)
 (setq org-log-into-drawer t)
-(setq org-list-demote-modify-bullet (quote (("+" . "-") ("-" . "*"))))
+(setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
 (add-to-list 'org-modules 'org-habit t)
@@ -210,7 +211,6 @@
  '((emacs-lisp . t)
    (ledger . t)))
 
-;; See discussion in https://www.reddit.com/r/emacs/comments/o04it0/share_your_prettifysymbolsalist/
 (defun prettify-org-keywords ()
   (interactive)
   "Beautify org mode keywords."
@@ -261,6 +261,14 @@
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
 
+(defun org-agenda-show-all ()
+  "Show both agenda and todo list."
+  (interactive)
+  (org-agenda nil "o")
+  (delete-other-windows))
+(add-hook 'after-init-hook #'org-agenda-show-all)
+(global-set-key (kbd "C-c a") #'org-agenda-show-all)
+
 (use-package org-superstar
   :ensure t
   :hook (org-mode . org-superstar-mode)
@@ -294,14 +302,6 @@
   :init
   (setq zetteldeft-id-format "%Y%m%d%H%M%S")
   (setq zetteldeft-id-regex "[0-9]\\{14\\}"))
-
-(defun org-agenda-show-all ()
-  "Show both agenda and todo list."
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
-(add-hook 'after-init-hook #'org-agenda-show-all)
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
