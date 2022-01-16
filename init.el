@@ -128,8 +128,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka Custom-13")
-(set-face-font 'fixed-pitch "Iosevka Custom-13")
+(set-face-font 'default "Iosevka Custom-13:width=expanded")
+(set-face-font 'fixed-pitch "Iosevka Custom-13:width=expanded")
 (set-face-font 'variable-pitch "Concourse T3-14")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
@@ -177,6 +177,7 @@
 (require 'org)
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
+(setq org-adapt-indentation t)
 (setq org-todo-keywords '((sequence "TODO(t)" "READ(r)" "NEXT(n)" "|" "DONE(d)")))
 (setq org-todo-keyword-faces '(("NEXT" . '(warning org-todo))))
 (setq org-hide-emphasis-markers t)
@@ -187,8 +188,6 @@
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
-(setq org-latex-create-formula-image-program 'dvisvgm)
-(plist-put org-format-latex-options :scale 0.8)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-fontify-whole-heading-line t)
 (setq org-fontify-done-headline t)
@@ -247,7 +246,7 @@
 (setq org-agenda-block-separator (string-to-char "-"))
 (setq org-fontify-done-headline nil)
 (setq org-agenda-sorting-strategy
-      '((agenda time-up priority-down habit-down category-keep)
+      '((agenda time-up todo-state-up priority-down habit-down category-keep)
         (todo todo-state-up priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep)))
@@ -286,6 +285,9 @@
   :hook (org-mode . org-appear-mode)
   :config
   (setq org-appear-autoentities t))
+
+(use-package org-fragtog
+  :hook (org-mode . org-fragtog-mode))
 
 (use-package deft
   :ensure t
