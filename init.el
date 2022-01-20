@@ -128,9 +128,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-font 'default "Iosevka Custom-13:width=expanded")
-(set-face-font 'fixed-pitch "Iosevka Custom-13:width=expanded")
-(set-face-font 'variable-pitch "Concourse T3-14")
+(set-face-font 'default "Iosevka Custom-13")
+(set-face-font 'fixed-pitch "Iosevka Custom-13")
+(set-face-font 'variable-pitch "ETBembo-14")
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
@@ -178,8 +178,7 @@
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "TODO(t)" "READ(r)" "NEXT(n)" "|" "DONE(d)")))
-(setq org-todo-keyword-faces '(("NEXT" . '(warning org-todo))))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -229,6 +228,8 @@
                   ("CLOSED:" . ""))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
+(add-hook 'org-mode-hook #'variable-pitch-mode)
+(add-hook 'org-mode-hook #'org-indent-mode)
 
 (require 'org-agenda)
 (setq org-agenda-span 'week)
@@ -287,6 +288,7 @@
   (setq org-appear-autoentities t))
 
 (use-package org-fragtog
+  :ensure t
   :hook (org-mode . org-fragtog-mode))
 
 (use-package deft
@@ -449,3 +451,17 @@
    (setq doom-modeline-major-mode-icon t)
    (setq doom-modeline-minor-modes nil)
    (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+
+(require 'org-indent)
+(with-eval-after-load 'org
+  (set-face-attribute 'org-indent nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-block nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-code nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-special-keyword nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-property-value nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-table nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-tag nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-todo nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-done nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'ivy-org nil :family "Iosevka Custom" :weight 'normal :height 130)
+  (set-face-attribute 'org-priority nil :family "Iosevka Custom" :height 130))
