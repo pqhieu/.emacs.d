@@ -1,5 +1,5 @@
 ;; Quang-Hieu's personal Emacs configuration
-;; Copyright (C) 2015-2021
+;; Copyright (C) 2015-2022
 ;;
 ;; Author: Quang-Hieu Pham <pqhieu1192@gmail.com>
 ;;
@@ -89,6 +89,11 @@
 (setq-default backup-inhibited t)
 (setq-default auto-save-default nil)
 
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
 (setq-default cursor-type 'hbar)
@@ -127,12 +132,14 @@
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 
-;; Set default font
-(set-face-font 'default "Iosevka Custom-13")
-(set-face-font 'fixed-pitch "Iosevka Custom-13")
-(set-face-font 'variable-pitch "ETBembo-14")
+;; Set default fon
+(set-face-attribute 'default nil :family "SF Mono" :height 130 :weight 'semi-bold)
+(set-face-attribute 'fixed-pitch nil :family "SF Mono" :height 130 :weight 'semi-bold)
+(set-face-attribute 'variable-pitch nil :family "Equity Text A" :height 140 :weight 'semi-bold)
+(setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
+(setq x-underline-at-descent-line t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -183,7 +190,7 @@
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
 (setq org-pretty-entities-include-sub-superscripts nil)
-(setq org-clock-into-drawer t)
+(setq org-clock-into-drawer nil)
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
@@ -201,6 +208,7 @@
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
+(setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
 (add-to-list 'org-modules 'org-habit t)
@@ -214,60 +222,29 @@
   "Beautify org mode keywords."
   (setq prettify-symbols-alist
         (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-                '(("#+header:" . "☰")
-                  ("#+begin_src" . "╦")
-                  ("#+end_src" . "╩")
+                '(("#+begin_src" . "")
+                  ("#+end_src" . "")
                   ("#+begin_comment" . "✎")
                   ("#+end_comment" . "✎")
-                  ("#+begin_quote" . "»")
-                  ("#+end_quote" . "«")
+                  ("#+begin_quote" . "❝")
+                  ("#+end_quote" . "❞")
+                  ("#+begin_example" . "")
+                  ("#+end_example" . "")
                   ("[ ]" . "")
-                  ("[X]" . "")
-                  ("SCHEDULED:" . "")
-                  ("DEADLINE:" . "")
-                  ("CLOSED:" . ""))))
+		  ("[X]" . "")
+		  ("[-]" . "❍")
+                  ("clock:" . "")
+                  ("scheduled:" . "")
+                  ("deadline:" . "")
+                  ("closed:" . "")
+                  ("#+results:" . "")
+                  ("#+startup:" . "")
+		  ("#+tags:" . "")
+		  ("#+author:" . ""))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'variable-pitch-mode)
 (add-hook 'org-mode-hook #'org-indent-mode)
-
-(require 'org-agenda)
-(setq org-agenda-span 'week)
-(setq org-agenda-start-on-weekday 0)
-(setq org-agenda-files '("~/Documents/todo.org"))
-(setq org-agenda-todo-ignore-scheduled (quote all))
-(setq org-agenda-todo-ignore-timestamp (quote all))
-(setq org-agenda-tags-column -77)
-;; Do not show scheduled/deadline if done
-(setq org-agenda-skip-deadline-prewarning-if-scheduled t)
-(setq org-agenda-skip-deadline-if-done t)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-show-future-repeats 'next)
-(setq org-agenda-hidden-separator "‌‌ ")
-(setq org-agenda-block-separator (string-to-char "-"))
-(setq org-fontify-done-headline nil)
-(setq org-agenda-sorting-strategy
-      '((agenda time-up todo-state-up priority-down habit-down category-keep)
-        (todo todo-state-up priority-down category-keep)
-        (tags priority-down category-keep)
-        (search category-keep)))
-(setq org-agenda-custom-commands
-      '(("o" "My agenda"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-overriding-header "❱ AGENDA:\n")
-                      (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                      (org-agenda-time-grid
-                       '((daily today remove-match)
-                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
-
-(defun org-agenda-show-all ()
-  "Show both agenda and todo list."
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
-(add-hook 'after-init-hook #'org-agenda-show-all)
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
 
 (use-package org-superstar
   :ensure t
@@ -294,10 +271,11 @@
 (use-package deft
   :ensure t
   :init
-  (setq deft-extensions '("org" "md" "txt"))
+  (setq deft-extensions '("org"))
   (setq deft-directory "~/Documents/notes")
   (setq deft-auto-save-interval 0)
-  (setq deft-use-filename-as-title t))
+  (setq deft-use-filename-as-title nil)
+  (setq deft-use-filter-string-for-filename nil))
 
 (use-package zetteldeft
   :ensure t
@@ -452,16 +430,15 @@
    (setq doom-modeline-minor-modes nil)
    (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
-(require 'org-indent)
 (with-eval-after-load 'org
-  (set-face-attribute 'org-indent nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-block nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-code nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-special-keyword nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-property-value nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-table nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-tag nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-todo nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-done nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'ivy-org nil :family "Iosevka Custom" :weight 'normal :height 130)
-  (set-face-attribute 'org-priority nil :family "Iosevka Custom" :height 130))
+  (set-face-attribute 'org-block nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-code nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-special-keyword nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-property-value nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-table nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-tag nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-todo nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-done nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'ivy-org nil :family "SF Mono" :weight 'semi-bold :height 130)
+  (set-face-attribute 'org-checkbox nil :family "SF Mono" :weight 'semi-bold :height 130 :box nil :background nil)
+  (set-face-attribute 'org-priority nil :family "SF Mono" :weight 'semi-bold :height 130))
