@@ -3,7 +3,7 @@ elpa/
 eshell/
 url/
 transient/
-projectile-bookmarks.eld
+eln-cache/
 recentf
 tramp
 bookmarks
@@ -11,3 +11,4 @@ org-roam.db
 org-clock-save.el
 .org-id-locations
 package-quickstart.el
+*.elc

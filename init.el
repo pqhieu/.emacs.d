@@ -119,6 +119,7 @@
 
 ;; Revert buffers automatically
 (global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
 
 ;; Highlight corresponding parentheses
 (show-paren-mode 1)
@@ -129,17 +130,20 @@
 ;; Use pixel scrolling instead of character scrolling
 (pixel-scroll-mode 1)
 
+;; Enable line numbers
+(add-hook 'prog-mode-hook 'linum-mode)
+
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 
-;; Set default fon
-(set-face-attribute 'default nil :family "SF Mono" :height 130 :weight 'semi-bold)
-(set-face-attribute 'fixed-pitch nil :family "SF Mono" :height 130 :weight 'semi-bold)
-(set-face-attribute 'variable-pitch nil :family "Equity Text A" :height 140 :weight 'semi-bold)
-(setq-default line-spacing 0.1)
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
+;; Set default font
+(set-face-attribute 'default nil :family "Iosevka" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
+;; (if (fboundp 'mac-auto-operator-composition-mode)
+;;     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
+(setq-default line-spacing 0.10)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -167,6 +171,7 @@
 (if (eq system-type 'darwin)
     (setq insert-directory-program "gls" dired-use-ls-dired t))
 (setq dired-listing-switches "-aFhlv --group-directories-first")
+(require 'dired-x)
 
 (require 'whitespace)
 (setq whitespace-line-column 120)
@@ -188,7 +193,7 @@
 (setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
-(setq org-pretty-entities t)
+(setq org-pretty-entities nil)
 (setq org-pretty-entities-include-sub-superscripts nil)
 (setq org-clock-into-drawer nil)
 (setq org-clock-persist t)
@@ -196,11 +201,12 @@
 (setq org-clock-out-when-done t)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-fontify-whole-heading-line t)
-(setq org-fontify-done-headline t)
+(setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
 (setq org-deadline-warning-days 7)
 (setq org-src-fontify-natively t)
-(setq org-src-preserve-indentation t)
+(setq org-src-preserve-indentation nil)
+(setq org-edit-src-content-indentation 2)
 (setq org-src-window-setup 'other-window)
 (setq org-habit-graph-column 70)
 (setq org-habit-preceding-days 13)
@@ -215,36 +221,62 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
+   (R . t)
    (ledger . t)))
+(setq org-confirm-babel-evaluate nil)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 
 (defun prettify-org-keywords ()
   (interactive)
   "Beautify org mode keywords."
   (setq prettify-symbols-alist
         (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-                '(("#+begin_src" . "")
-                  ("#+end_src" . "")
-                  ("#+begin_comment" . "✎")
-                  ("#+end_comment" . "✎")
-                  ("#+begin_quote" . "❝")
-                  ("#+end_quote" . "❞")
-                  ("#+begin_example" . "")
-                  ("#+end_example" . "")
-                  ("[ ]" . "")
+                '(("[ ]" . "")
 		  ("[X]" . "")
 		  ("[-]" . "❍")
                   ("clock:" . "")
                   ("scheduled:" . "")
                   ("deadline:" . "")
-                  ("closed:" . "")
-                  ("#+results:" . "")
-                  ("#+startup:" . "")
-		  ("#+tags:" . "")
-		  ("#+author:" . ""))))
+                  ("closed:" . ""))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'variable-pitch-mode)
 (add-hook 'org-mode-hook #'org-indent-mode)
+
+(require 'org-agenda)
+ (setq org-agenda-span 'week)
+ (setq org-agenda-todo-ignore-scheduled (quote all))
+ (setq org-agenda-todo-ignore-timestamp (quote all))
+ (setq org-agenda-tags-column -77)
+ ;; Do not show scheduled/deadline if done
+ (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+ (setq org-agenda-skip-deadline-if-done t)
+ (setq org-agenda-skip-scheduled-if-done t)
+ (setq org-agenda-show-future-repeats 'next)
+ (setq org-agenda-hidden-separator "‌‌ ")
+ (setq org-agenda-block-separator (string-to-char "-"))
+ (setq org-fontify-done-headline nil)
+ (setq org-agenda-sorting-strategy
+       '((agenda time-up todo-state-up priority-down habit-down category-keep)
+         (todo todo-state-up priority-down category-keep)
+         (tags priority-down category-keep)
+         (search category-keep)))
+ (setq org-agenda-custom-commands
+       '(("o" "My agenda"
+          ((agenda "" ((org-agenda-span 'week)
+                       (org-agenda-overriding-header "❱ AGENDA:\n")
+                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
+                       (org-agenda-time-grid
+                        '((daily today remove-match)
+                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+           (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
+
+ (defun org-agenda-show-all ()
+   "Show both agenda and todo list."
+   (interactive)
+   (org-agenda nil "o")
+   (delete-other-windows))
+ (global-set-key (kbd "C-c a") #'org-agenda-show-all)
 
 (use-package org-superstar
   :ensure t
@@ -272,7 +304,7 @@
   :ensure t
   :init
   (setq deft-extensions '("org"))
-  (setq deft-directory "~/Documents/notes")
+  (setq deft-directory "~/Documents/Notes")
   (setq deft-auto-save-interval 0)
   (setq deft-use-filename-as-title nil)
   (setq deft-use-filter-string-for-filename nil))
@@ -366,6 +398,7 @@
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
           ("https://www.inference.vc/rss/" blog ml)
           ("https://ciechanow.ski/atom.xml" blog)
+          ("https://danluu.com/atom.xml" blog)
           ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
           ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
           ("https://news.ycombinator.com/rss" news tech)))
@@ -431,14 +464,14 @@
    (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
 (with-eval-after-load 'org
-  (set-face-attribute 'org-block nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-code nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-special-keyword nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-property-value nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-table nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-tag nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-todo nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-done nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'ivy-org nil :family "SF Mono" :weight 'semi-bold :height 130)
-  (set-face-attribute 'org-checkbox nil :family "SF Mono" :weight 'semi-bold :height 130 :box nil :background nil)
-  (set-face-attribute 'org-priority nil :family "SF Mono" :weight 'semi-bold :height 130))
+  (set-face-attribute 'org-block nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-code nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-special-keyword nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-property-value nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-table nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-tag nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-todo nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-done nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'ivy-org nil :family "Iosevka" :weight 'normal :height 130)
+  (set-face-attribute 'org-checkbox nil :family "Iosevka" :weight 'normal :height 130 :box nil :background nil)
+  (set-face-attribute 'org-priority nil :family "Iosevka" :weight 'normal :height 130))
