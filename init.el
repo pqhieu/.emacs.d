@@ -139,9 +139,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :family "Iosevka" :height 130 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
-;; (if (fboundp 'mac-auto-operator-composition-mode)
-;;     (mac-auto-operator-composition-mode))
+(set-face-attribute 'variable-pitch nil :family "Iosevka Quasi" :height 130 :weight 'normal)
 (setq x-underline-at-descent-line t)
 (setq-default line-spacing 0.10)
 
