@@ -140,6 +140,8 @@
 (set-face-attribute 'default nil :family "Iosevka" :height 130 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 130 :weight 'normal)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Quasi" :height 130 :weight 'normal)
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
 (setq-default line-spacing 0.10)
 
@@ -185,13 +187,14 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
+(setq org-agenda-files '("~/Documents/gtd.org"))
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
-(setq org-pretty-entities nil)
+(setq org-pretty-entities t)
 (setq org-pretty-entities-include-sub-superscripts nil)
 (setq org-clock-into-drawer nil)
 (setq org-clock-persist t)
@@ -204,7 +207,7 @@
 (setq org-deadline-warning-days 7)
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation nil)
-(setq org-edit-src-content-indentation 2)
+(setq org-edit-src-content-indentation 0)
 (setq org-src-window-setup 'other-window)
 (setq org-habit-graph-column 70)
 (setq org-habit-preceding-days 13)
@@ -242,39 +245,40 @@
 (add-hook 'org-mode-hook #'org-indent-mode)
 
 (require 'org-agenda)
- (setq org-agenda-span 'week)
- (setq org-agenda-todo-ignore-scheduled (quote all))
- (setq org-agenda-todo-ignore-timestamp (quote all))
- (setq org-agenda-tags-column -77)
- ;; Do not show scheduled/deadline if done
- (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
- (setq org-agenda-skip-deadline-if-done t)
- (setq org-agenda-skip-scheduled-if-done t)
- (setq org-agenda-show-future-repeats 'next)
- (setq org-agenda-hidden-separator "‌‌ ")
- (setq org-agenda-block-separator (string-to-char "-"))
- (setq org-fontify-done-headline nil)
- (setq org-agenda-sorting-strategy
-       '((agenda time-up todo-state-up priority-down habit-down category-keep)
-         (todo todo-state-up priority-down category-keep)
-         (tags priority-down category-keep)
-         (search category-keep)))
- (setq org-agenda-custom-commands
-       '(("o" "My agenda"
-          ((agenda "" ((org-agenda-span 'week)
-                       (org-agenda-overriding-header "❱ AGENDA:\n")
-                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                       (org-agenda-time-grid
-                        '((daily today remove-match)
-                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-           (todo "TODO|READ|NEXT" ((org-agenda-overriding-header "❱ TODO:\n")))))))
+(setq org-agenda-span 'week)
+(setq org-agenda-todo-ignore-scheduled (quote all))
+(setq org-agenda-todo-ignore-timestamp (quote all))
+(setq org-agenda-tags-column -77)
+;; Do not show scheduled/deadline if done
+(setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-show-future-repeats 'next)
+(setq org-agenda-hidden-separator "‌‌ ")
+(setq org-agenda-block-separator (string-to-char "-"))
+(setq org-fontify-done-headline nil)
+(setq org-agenda-sorting-strategy
+      '((agenda time-up todo-state-up priority-down habit-down category-keep)
+        (todo todo-state-up priority-down category-keep)
+        (tags priority-down category-keep)
+        (search category-keep)))
+(setq org-agenda-custom-commands
+      '(("o" "My agenda"
+         ((agenda "" ((org-agenda-span 'week)
+                      (org-agenda-overriding-header "❱ AGENDA:\n")
+                      (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
+                      (org-agenda-time-grid
+                       '((daily today remove-match)
+                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+          (todo "TODO|NEXT" ((org-agenda-overriding-header "❱ BACKLOG:\n")))))))
 
- (defun org-agenda-show-all ()
-   "Show both agenda and todo list."
-   (interactive)
-   (org-agenda nil "o")
-   (delete-other-windows))
- (global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(defun org-agenda-show-all ()
+  "Show both agenda and todo list."
+  (interactive)
+  (org-agenda nil "o")
+  (delete-other-windows))
+(global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(add-hook 'after-init-hook #'org-agenda-show-all)
 
 (use-package org-superstar
   :ensure t
@@ -454,12 +458,12 @@
   (load-theme 'modus-operandi t))
 
 (use-package doom-modeline
-   :ensure t
-   :config
-   (doom-modeline-mode 1)
-   (setq doom-modeline-major-mode-icon t)
-   (setq doom-modeline-minor-modes nil)
-   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+  :ensure t
+  :config
+  (doom-modeline-mode 1)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
 (with-eval-after-load 'org
   (set-face-attribute 'org-block nil :family "Iosevka" :weight 'normal :height 130)
