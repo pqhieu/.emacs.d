@@ -137,13 +137,13 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Quasi" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 140 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 140 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
-(setq-default line-spacing 0.10)
+;; (setq-default line-spacing 0.10)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -306,7 +306,7 @@
   :ensure t
   :init
   (setq deft-extensions '("org"))
-  (setq deft-directory "~/Documents/Notes")
+  (setq deft-directory "~/Documents/brain/notes")
   (setq deft-auto-save-interval 0)
   (setq deft-use-filename-as-title nil)
   (setq deft-use-filter-string-for-filename nil))
@@ -399,6 +399,7 @@
   (setq elfeed-feeds
         '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
           ("https://www.inference.vc/rss/" blog ml)
+          ("http://blog.samaltman.com/posts.atom" blog tech)
           ("https://ciechanow.ski/atom.xml" blog)
           ("https://danluu.com/atom.xml" blog)
           ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
@@ -465,15 +466,33 @@
   (setq doom-modeline-minor-modes nil)
   (setq doom-modeline-buffer-file-name-style 'relative-from-project))
 
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/Documents/brain")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
+
 (with-eval-after-load 'org
-  (set-face-attribute 'org-block nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-code nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-special-keyword nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-property-value nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-table nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-tag nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-todo nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-done nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'ivy-org nil :family "Iosevka" :weight 'normal :height 130)
-  (set-face-attribute 'org-checkbox nil :family "Iosevka" :weight 'normal :height 130 :box nil :background nil)
-  (set-face-attribute 'org-priority nil :family "Iosevka" :weight 'normal :height 130))
+  (set-face-attribute 'org-block nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-code nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-special-keyword nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-property-value nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-table nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-tag nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-todo nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-done nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'ivy-org nil :family "Iosevka" :weight 'normal :height 140)
+  (set-face-attribute 'org-checkbox nil :family "Iosevka" :weight 'normal :height 140 :box nil :background nil)
+  (set-face-attribute 'org-priority nil :family "Iosevka" :weight 'normal :height 140))
