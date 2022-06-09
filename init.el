@@ -137,9 +137,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka" :height 140 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka" :height 140 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Aile" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 140 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
@@ -187,7 +187,6 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(setq org-agenda-files '("~/Documents/gtd.org"))
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
@@ -278,7 +277,6 @@
   (org-agenda nil "o")
   (delete-other-windows))
 (global-set-key (kbd "C-c a") #'org-agenda-show-all)
-(add-hook 'after-init-hook #'org-agenda-show-all)
 
 (use-package org-superstar
   :ensure t
@@ -301,23 +299,6 @@
 (use-package org-fragtog
   :ensure t
   :hook (org-mode . org-fragtog-mode))
-
-(use-package deft
-  :ensure t
-  :init
-  (setq deft-extensions '("org"))
-  (setq deft-directory "~/Documents/brain/notes")
-  (setq deft-auto-save-interval 0)
-  (setq deft-use-filename-as-title nil)
-  (setq deft-use-filter-string-for-filename nil))
-
-(use-package zetteldeft
-  :ensure t
-  :after deft
-  :config (zetteldeft-set-classic-keybindings)
-  :init
-  (setq zetteldeft-id-format "%Y%m%d%H%M%S")
-  (setq zetteldeft-id-regex "[0-9]\\{14\\}"))
 
 ;; Load shell environment variables
 (use-package exec-path-from-shell
@@ -446,7 +427,7 @@
   :ensure t
   :config
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-slanted-constructs t)
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-faint-syntax t)
   (setq modus-themes-fringes nil)
@@ -458,13 +439,12 @@
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
-(use-package doom-modeline
+(use-package nano-modeline
   :ensure t
   :config
-  (doom-modeline-mode 1)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-buffer-file-name-style 'relative-from-project))
+  (setq nano-modeline-prefix-padding t)
+  (setq nano-modeline-position 'bottom)
+  (nano-modeline-mode 1))
 
 (use-package org-roam
   :ensure t
@@ -483,16 +463,3 @@
   (org-roam-db-autosync-mode)
   ;; If using org-roam-protocol
   (require 'org-roam-protocol))
-
-(with-eval-after-load 'org
-  (set-face-attribute 'org-block nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-code nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-special-keyword nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-property-value nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-table nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-tag nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-todo nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-done nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'ivy-org nil :family "Iosevka" :weight 'normal :height 140)
-  (set-face-attribute 'org-checkbox nil :family "Iosevka" :weight 'normal :height 140 :box nil :background nil)
-  (set-face-attribute 'org-priority nil :family "Iosevka" :weight 'normal :height 140))
