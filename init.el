@@ -137,13 +137,12 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'semi-light)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'semi-light)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 140 :weight 'semi-light)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
-;; (setq-default line-spacing 0.10)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -187,15 +186,27 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
+(setq org-directory "~/Documents/org")
+(setq org-agenda-files (list "inbox.org" "gtd.org"))
+(setq org-capture-templates
+      `(("i" "Inbox" entry  (file "inbox.org")
+         ,(concat "* TODO %?\n"
+                  "/Entered on/ %U"))))
+(define-key global-map (kbd "C-c c") 'org-capture)
+(defun org-capture-inbox ()
+  (interactive)
+  (call-interactively 'org-store-link)
+  (org-capture nil "i"))
+(define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "TODO(t)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
 (setq org-pretty-entities-include-sub-superscripts nil)
-(setq org-clock-into-drawer nil)
+(setq org-clock-into-drawer t)
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
@@ -217,6 +228,9 @@
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
+(setq org-refile-targets '(("gtd.org" :level . 2)))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -244,7 +258,6 @@
 (add-hook 'org-mode-hook #'org-indent-mode)
 
 (require 'org-agenda)
-(setq org-agenda-span 'week)
 (setq org-agenda-todo-ignore-scheduled (quote all))
 (setq org-agenda-todo-ignore-timestamp (quote all))
 (setq org-agenda-tags-column -77)
@@ -256,6 +269,7 @@
 (setq org-agenda-hidden-separator "‌‌ ")
 (setq org-agenda-block-separator (string-to-char "-"))
 (setq org-fontify-done-headline nil)
+(setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
       '((agenda time-up todo-state-up priority-down habit-down category-keep)
         (todo todo-state-up priority-down category-keep)
@@ -266,10 +280,26 @@
          ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                      (org-deadline-warning-days 0)
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "TODO|NEXT" ((org-agenda-overriding-header "❱ BACKLOG:\n")))))))
+          (todo "NEXT" ((org-agenda-overriding-header "❱ TASKS:\n")
+                        (org-agenda-prefix-format " • [%e] ")
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))))
+          (agenda nil ((org-agenda-span 'day)
+                       (org-agenda-entry-types '(:deadline))
+                       (org-deadline-warning-days 60)
+                       (org-agenda-time-grid nil)
+                       (org-agenda-format-date "")
+                       (org-agenda-prefix-format " • %?-12t% s")
+                       (org-agenda-overriding-header "❱ DEADLINES:")))
+          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
+                              (org-agenda-prefix-format " • ")))
+          (tags-todo "gtd/TODO|HOLD" ((org-agenda-overriding-header "❱ BACKLOG:\n")
+                                      (org-agenda-prefix-format " • [%e] ")))
+          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")))))))
 
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
@@ -277,6 +307,7 @@
   (org-agenda nil "o")
   (delete-other-windows))
 (global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(add-hook 'after-init-hook #'org-agenda-show-all)
 
 (use-package org-superstar
   :ensure t
@@ -431,11 +462,10 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-faint-syntax t)
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (variable-pitch rainbow))))
+  (setq modus-themes-headings '((t . (variable-pitch))))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (grayscale bold-all))
-          (scheduled . rainbow)
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
@@ -449,17 +479,13 @@
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/Documents/brain")
+  (org-roam-directory "~/Documents/notes")
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
          ("C-c n g" . org-roam-graph)
          ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
+         ("C-c n c" . org-roam-capture))
   :config
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+  (org-roam-db-autosync-mode))
