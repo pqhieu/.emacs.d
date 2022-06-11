@@ -187,7 +187,7 @@
 
 (require 'org)
 (setq org-directory "~/Documents/org")
-(setq org-agenda-files (list "inbox.org" "gtd.org"))
+(setq org-agenda-files (list "inbox.org" "gtd.org" "agenda.org"))
 (setq org-capture-templates
       `(("i" "Inbox" entry  (file "inbox.org")
          ,(concat "* TODO %?\n"
@@ -280,8 +280,9 @@
          ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                       (org-deadline-warning-days 0)
+                      (org-agenda-prefix-format "   %-12s%?-12t ")
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
@@ -290,7 +291,7 @@
                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
-                       (org-deadline-warning-days 60)
+                       (org-deadline-warning-days 30)
                        (org-agenda-time-grid nil)
                        (org-agenda-format-date "")
                        (org-agenda-prefix-format " • %?-12t% s")
@@ -299,7 +300,8 @@
                               (org-agenda-prefix-format " • ")))
           (tags-todo "gtd/TODO|HOLD" ((org-agenda-overriding-header "❱ BACKLOG:\n")
                                       (org-agenda-prefix-format " • [%e] ")))
-          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")))))))
+          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
+                                       (org-agenda-prefix-format " • ")))))))
 
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
