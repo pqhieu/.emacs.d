@@ -137,9 +137,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'semi-light)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'semi-light)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 140 :weight 'semi-light)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
@@ -211,7 +211,7 @@
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
-(setq org-fontify-whole-heading-line t)
+(setq org-fontify-whole-heading-line nil)
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
 (setq org-deadline-warning-days 7)
@@ -268,7 +268,6 @@
 (setq org-agenda-show-future-repeats 'next)
 (setq org-agenda-hidden-separator "‌‌ ")
 (setq org-agenda-block-separator (string-to-char "-"))
-(setq org-fontify-done-headline nil)
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
       '((agenda time-up todo-state-up priority-down habit-down category-keep)
@@ -462,7 +461,7 @@
   (setq modus-themes-bold-constructs t)
   (setq modus-themes-slanted-constructs t)
   (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-faint-syntax t)
+  (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
   (setq modus-themes-headings '((t . (variable-pitch))))
   (setq modus-themes-org-agenda
@@ -491,3 +490,16 @@
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+
+(with-eval-after-load 'org
+  (set-face-attribute 'org-block nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-code nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-special-keyword nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-tag nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-todo nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-done nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-checkbox nil :family "Iosevka Proper" :weight 'normal :height 140 :box nil :background nil)
+  (set-face-attribute 'org-priority nil :family "Iosevka Proper" :weight 'normal :height 140))
