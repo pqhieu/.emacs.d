@@ -139,7 +139,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 150 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
@@ -254,7 +254,6 @@
                   ("closed:" . ""))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
-(add-hook 'org-mode-hook #'variable-pitch-mode)
 (add-hook 'org-mode-hook #'org-indent-mode)
 
 (require 'org-agenda)
