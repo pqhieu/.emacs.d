@@ -270,8 +270,8 @@
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
       '((agenda time-up todo-state-up priority-down habit-down category-keep)
-        (todo todo-state-up priority-down category-keep)
-        (tags priority-down category-keep)
+        (todo todo-state-up priority-down effort-down category-keep)
+        (tags todo-state-up priority-down effort-down category-keep)
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
@@ -462,10 +462,11 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (variable-pitch))))
+  (setq modus-themes-headings '((t . (variable-pitch bold))))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
-          (header-date . (grayscale bold-all))
+          (header-date . (accented grayscale bold-all))
+          (scheduled . uniform)
           (habit . simplified)))
   (load-theme 'modus-operandi t))
 
