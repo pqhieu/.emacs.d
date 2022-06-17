@@ -137,8 +137,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 140 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "DM Mono" :height 140 :weight 'semi-light)
+(set-face-attribute 'fixed-pitch nil :family "DM Mono" :height 140 :weight 'semi-light)
 (set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 150 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
@@ -294,10 +294,10 @@
                        (org-agenda-format-date "")
                        (org-agenda-prefix-format " • %?-12t% s")
                        (org-agenda-overriding-header "❱ DEADLINES:")))
-          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
-                              (org-agenda-prefix-format " • ")))
           (tags-todo "gtd/TODO|HOLD" ((org-agenda-overriding-header "❱ BACKLOG:\n")
                                       (org-agenda-prefix-format " • [%e] ")))
+          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
+                              (org-agenda-prefix-format " • ")))
           (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
                                        (org-agenda-prefix-format " • ")))))))
 
@@ -458,7 +458,7 @@
   :ensure t
   :config
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-slanted-constructs nil)
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
@@ -492,14 +492,14 @@
   (org-roam-db-autosync-mode))
 
 (with-eval-after-load 'org
-  (set-face-attribute 'org-block nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-code nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-special-keyword nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-tag nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-todo nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-done nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 140)
-  (set-face-attribute 'org-checkbox nil :family "Iosevka Proper" :weight 'normal :height 140 :box nil :background nil)
-  (set-face-attribute 'org-priority nil :family "Iosevka Proper" :weight 'normal :height 140))
+  (set-face-attribute 'org-block nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-code nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-special-keyword nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-property-value nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-table nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-tag nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-todo nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-done nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'ivy-org nil :family "DM Mono" :weight 'semi-light :height 140)
+  (set-face-attribute 'org-checkbox nil :family "DM Mono" :weight 'semi-light :height 140 :box nil :background nil)
+  (set-face-attribute 'org-priority nil :family "DM Mono" :weight 'semi-light :height 140))
