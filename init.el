@@ -285,7 +285,7 @@
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "NEXT" ((org-agenda-overriding-header "❱ TASKS:\n")
-                        (org-agenda-prefix-format " • [%e] ")
+                        (org-agenda-prefix-format " • ")
                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
@@ -295,7 +295,7 @@
                        (org-agenda-prefix-format " • %?-12t% s")
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (tags-todo "gtd/TODO|HOLD" ((org-agenda-overriding-header "❱ BACKLOG:\n")
-                                      (org-agenda-prefix-format " • [%e] ")))
+                                      (org-agenda-prefix-format " • ")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
           (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
@@ -313,7 +313,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
+  (setq org-superstar-headline-bullets-list '("◉"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -462,7 +462,7 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (variable-pitch bold))))
+  (setq modus-themes-headings '((t . (rainbow variable-pitch bold))))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (accented grayscale bold-all))
@@ -502,6 +502,7 @@
   (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 140)
   (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 140)
   (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 140)
+  (set-face-attribute 'org-agenda-structure nil :family "Concourse T3" :weight 'bold :height 150)
   (set-face-background 'org-block-begin-line (face-background 'default))
   (set-face-background 'org-block-end-line (face-background 'default))
   (set-face-background 'org-ellipsis (face-background 'default)))
