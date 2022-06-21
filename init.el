@@ -201,7 +201,7 @@
 (setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "WAIT(w)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -283,7 +283,7 @@
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "NEXT" ((org-agenda-overriding-header "❱ TASKS:\n")
+          (todo "NEXT" ((org-agenda-overriding-header "❱ TODAY:\n")
                         (org-agenda-prefix-format " • ")
                         (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))))
           (agenda nil ((org-agenda-span 'day)
@@ -293,8 +293,6 @@
                        (org-agenda-format-date "")
                        (org-agenda-prefix-format " • %?-12t% s")
                        (org-agenda-overriding-header "❱ DEADLINES:")))
-          (tags-todo "gtd/TODO|HOLD" ((org-agenda-overriding-header "❱ BACKLOG:\n")
-                                      (org-agenda-prefix-format " • ")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
           (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
@@ -465,7 +463,7 @@
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (accented grayscale bold-all))
-          (scheduled . uniform)
+          (scheduled . traffic-light)
           (habit . nil)))
   (load-theme 'modus-operandi t))
 
