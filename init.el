@@ -1,7 +1,7 @@
-;; Quang-Hieu's personal Emacs configuration
+;; Personal Emacs configuration
 ;; Copyright (C) 2015-2022
 ;;
-;; Author: Quang-Hieu Pham <pqhieu1192@gmail.com>
+;; Author: Pham Quang Hieu <pqhieu1192@gmail.com>
 ;;
 ;; License:
 ;;
@@ -61,7 +61,7 @@
 (setq use-package-verbose t)
 
 ;; Set personal information
-(setq user-full-name "Quang-Hieu Pham")
+(setq user-full-name "Pham Quang Hieu")
 (setq user-mail-address "pqhieu1192@gmail.com")
 
 (setq default-frame-alist
@@ -460,11 +460,14 @@
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
   (setq modus-themes-headings '((t . (rainbow variable-pitch bold))))
+  (setq modus-themes-links '(underline faint))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (accented grayscale bold-all))
           (scheduled . traffic-light)
           (habit . nil)))
+  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-variable-pitch-ui nil)
   (load-theme 'modus-operandi t))
 
 (use-package nano-modeline
@@ -493,16 +496,11 @@
   (set-face-attribute 'org-done nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-checkbox nil :family "Iosevka Proper" :weight 'normal :height 130 :box nil :background nil)
   (set-face-attribute 'org-priority nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-block nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-code nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-special-keyword nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-agenda-structure nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-background 'org-block-begin-line (face-background 'default))
-  (set-face-background 'org-block-end-line (face-background 'default))
-  (set-face-background 'org-ellipsis (face-background 'default)))
+  (set-face-attribute 'org-agenda-structure nil :family "Concourse T3" :weight 'bold :height 140))
 
 (with-eval-after-load 'font-latex
   (set-face-attribute 'font-latex-sectioning-0-face nil :family "Concourse T3" :weight 'bold :height 140)
