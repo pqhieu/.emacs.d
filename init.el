@@ -464,7 +464,7 @@
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
           (header-date . (accented grayscale bold-all))
-          (scheduled . traffic-light)
+          (scheduled . uniform)
           (habit . nil)))
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-variable-pitch-ui nil)
