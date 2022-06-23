@@ -139,7 +139,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "SF Compact" :height 130 :weight 'normal)
 ;; (if (fboundp 'mac-auto-operator-composition-mode)
 ;;     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
@@ -459,7 +459,7 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (rainbow variable-pitch bold))))
+  (setq modus-themes-headings '((t . (rainbow variable-pitch semibold))))
   (setq modus-themes-links '(underline faint))
   (setq modus-themes-org-agenda
         '((header-block . (variable-pitch))
@@ -500,12 +500,12 @@
   (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-agenda-structure nil :family "Concourse T3" :weight 'bold :height 140))
+  (set-face-attribute 'org-agenda-structure nil :family "SF Compact" :weight 'bold :height 130))
 
 (with-eval-after-load 'font-latex
-  (set-face-attribute 'font-latex-sectioning-0-face nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-1-face nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-2-face nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-3-face nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-4-face nil :family "Concourse T3" :weight 'bold :height 140)
-  (set-face-attribute 'font-latex-sectioning-5-face nil :family "Concourse T3" :weight 'bold :height 140))
+  (set-face-attribute 'font-latex-sectioning-0-face nil :family "SF Compact" :weight 'semibold :height 130)
+  (set-face-attribute 'font-latex-sectioning-1-face nil :family "SF Compact" :weight 'semibold :height 130)
+  (set-face-attribute 'font-latex-sectioning-2-face nil :family "SF Compact" :weight 'semibold :height 130)
+  (set-face-attribute 'font-latex-sectioning-3-face nil :family "SF Compact" :weight 'semibold :height 130)
+  (set-face-attribute 'font-latex-sectioning-4-face nil :family "SF Compact" :weight 'semibold :height 130)
+  (set-face-attribute 'font-latex-sectioning-5-face nil :family "SF Compact" :weight 'semibold :height 130))
