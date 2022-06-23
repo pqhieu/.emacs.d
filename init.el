@@ -140,8 +140,8 @@
 (set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
 (set-face-attribute 'variable-pitch nil :family "Concourse T3" :height 140 :weight 'normal)
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
+;; (if (fboundp 'mac-auto-operator-composition-mode)
+;;     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line t)
 
 ;; Uniquify buffer names
@@ -295,8 +295,8 @@
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
-          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                       (org-agenda-prefix-format " • ")))))))
+          (tags "CLOSED>=\"<-1w>\"" ((org-agenda-overriding-header "❱ DONE:\n")
+                                     (org-agenda-prefix-format " • ")))))))
 
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
@@ -455,7 +455,7 @@
   :ensure t
   :config
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-slanted-constructs t)
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
