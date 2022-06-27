@@ -190,7 +190,7 @@
 (setq org-agenda-files (list "inbox.org" "gtd.org" "agenda.org"))
 (setq org-capture-templates
       `(("i" "Inbox" entry  (file "inbox.org")
-         ,(concat "* TODO %?\n"
+         ,(concat "* TODO [#B] %?\n"
                   "/Entered on/ %U"))))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (defun org-capture-inbox ()
@@ -284,8 +284,7 @@
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "NEXT" ((org-agenda-overriding-header "❱ TODAY:\n")
-                        (org-agenda-prefix-format " • ")
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))))
+                        (org-agenda-prefix-format " • ")))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
                        (org-deadline-warning-days 30)
@@ -295,8 +294,8 @@
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
-          (tags "CLOSED>=\"<-1w>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                     (org-agenda-prefix-format " • ")))))))
+          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
+                                       (org-agenda-prefix-format " • ")))))))
 
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
@@ -500,7 +499,8 @@
   (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 130)
   (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-agenda-structure nil :family "SF Compact" :weight 'bold :height 130))
+  (set-face-attribute 'org-agenda-structure nil :family "SF Compact" :weight 'bold :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "SF Compact" :weight 'normal :height 130))
 
 (with-eval-after-load 'font-latex
   (set-face-attribute 'font-latex-sectioning-0-face nil :family "SF Compact" :weight 'semibold :height 130)
