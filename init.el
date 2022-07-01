@@ -139,10 +139,10 @@
 ;; Set default font
 (set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "SF Compact" :height 130 :weight 'normal)
-;; (if (fboundp 'mac-auto-operator-composition-mode)
-;;     (mac-auto-operator-composition-mode))
-(setq x-underline-at-descent-line t)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 130 :weight 'normal)
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
+(setq x-underline-at-descent-line nil)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -154,6 +154,9 @@
 
 (setq recentf-max-saved-items 500)
 (setq recentf-max-menu-items 15)
+
+(setq bibtex-dialect 'biblatex)
+(setq bibtex-entry-format '(opts-or-alts required-fields numerical-fields realign sort-fields))
 
 ;; File browsing
 (require 'dired)
@@ -268,8 +271,8 @@
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
       '((agenda time-up todo-state-up priority-down habit-down category-keep)
-        (todo todo-state-up priority-down effort-down category-keep)
-        (tags todo-state-up priority-down effort-down category-keep)
+        (todo todo-state-up priority-down category-keep)
+        (tags todo-state-up priority-down category-keep)
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
@@ -287,7 +290,7 @@
                         (org-agenda-prefix-format " • ")))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
-                       (org-deadline-warning-days 30)
+                       (org-deadline-warning-days 90)
                        (org-agenda-time-grid nil)
                        (org-agenda-format-date "")
                        (org-agenda-prefix-format " • %?-12t% s")
@@ -309,7 +312,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("◉"))
+  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -400,20 +403,35 @@
   (setq company-tooltip-minimum-width 40)
   (company-posframe-mode t))
 
+(defun elfeed-scroll-up-command (&optional arg)
+  "Scroll up or go to next feed item in Elfeed"
+  (interactive "^P")
+  (let ((scroll-error-top-bottom nil))
+    (condition-case-unless-debug nil
+        (scroll-up-command arg)
+      (error (elfeed-show-next)))))
+
+(defun elfeed-scroll-down-command (&optional arg)
+  "Scroll up or go to next feed item in Elfeed"
+  (interactive "^P")
+  (let ((scroll-error-top-bottom nil))
+    (condition-case-unless-debug nil
+        (scroll-down-command arg)
+      (error (elfeed-show-prev)))))
+
 (use-package elfeed
   :ensure t
   :bind ("C-c f" . elfeed)
   :config
-  (setq elfeed-feeds
-        '(("https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25" news)
-          ("https://www.inference.vc/rss/" blog ml)
-          ("http://blog.samaltman.com/posts.atom" blog tech)
-          ("https://ciechanow.ski/atom.xml" blog)
-          ("https://danluu.com/atom.xml" blog)
-          ("https://www.aaronsw.com/2002/feeds/pgessays.rss" blog tech)
-          ("https://lilianweng.github.io/lil-log/feed.xml" blog ml)
-          ("https://news.ycombinator.com/rss" news tech)))
+  (define-key elfeed-show-mode-map (kbd "SPC") 'elfeed-scroll-up-command)
+  (define-key elfeed-show-mode-map (kbd "S-SPC") 'elfeed-scroll-down-command)
   (setq elfeed-search-filter "@1-week-ago +unread "))
+
+(use-package elfeed-org
+  :ensure t
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
 
 ;; C/C++
 (use-package cc-mode
@@ -455,13 +473,13 @@
   :config
   (setq modus-themes-bold-constructs t)
   (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-mixed-fonts nil)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (rainbow variable-pitch semibold))))
+  (setq modus-themes-headings '((t . (rainbow semibold))))
   (setq modus-themes-links '(underline faint))
   (setq modus-themes-org-agenda
-        '((header-block . (variable-pitch))
+        '((header-block . (bold 1.0))
           (header-date . (accented grayscale bold-all))
           (scheduled . uniform)
           (habit . nil)))
@@ -489,23 +507,3 @@
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
-
-(with-eval-after-load 'org
-  (set-face-attribute 'org-todo nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-done nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-checkbox nil :family "Iosevka Proper" :weight 'normal :height 130 :box nil :background nil)
-  (set-face-attribute 'org-priority nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-special-keyword nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-property-value nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-table nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'ivy-org nil :family "Iosevka Proper" :weight 'normal :height 130)
-  (set-face-attribute 'org-agenda-structure nil :family "SF Compact" :weight 'bold :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "SF Compact" :weight 'normal :height 130))
-
-(with-eval-after-load 'font-latex
-  (set-face-attribute 'font-latex-sectioning-0-face nil :family "SF Compact" :weight 'semibold :height 130)
-  (set-face-attribute 'font-latex-sectioning-1-face nil :family "SF Compact" :weight 'semibold :height 130)
-  (set-face-attribute 'font-latex-sectioning-2-face nil :family "SF Compact" :weight 'semibold :height 130)
-  (set-face-attribute 'font-latex-sectioning-3-face nil :family "SF Compact" :weight 'semibold :height 130)
-  (set-face-attribute 'font-latex-sectioning-4-face nil :family "SF Compact" :weight 'semibold :height 130)
-  (set-face-attribute 'font-latex-sectioning-5-face nil :family "SF Compact" :weight 'semibold :height 130))

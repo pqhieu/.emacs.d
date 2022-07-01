@@ -1,0 +1,17 @@
+* News                                                               :elfeed:
+** [[https://news.ycombinator.com/rss][Hacker News]]                                                   :tech:news:
+** [[https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25][Reddit]]                                                             :news:
+* Programming                                                        :elfeed:
+** [[https://planet.emacslife.com/atom.xml][Planet Emacslife]]                                                  :emacs:
+* Blogs                                                              :elfeed:
+** [[http://blog.samaltman.com/posts.atom][Sam Altman]]                                                    :tech:blog:
+** [[https://ciechanow.ski/atom.xml][Bartosz Ciechanowski]]                                               :blog:
+** [[https://www.aaronsw.com/2002/feeds/pgessays.rss][Paul Graham]]                                                   :tech:blog:
+* YouTube                                                            :elfeed:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]]                                                :finance:video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC2C_jShtL725hvbm1arSV9w][CGP Grey]]                                                          :video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCkCGANrihzExmu9QiqZpPlQ][How Money Works]]                                           :finance:video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC4QZ_LsYcvcq7qOsOhpAX4A][Cold Fusion]]                                                  :tech:video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCASM0cgfkJxQ1ICmRilfHLw][Patrick Boyle]]                                             :finance:video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCDXTQ8nWmx_EhZ2v-kp7QxA][Ben Felix]]                                                 :finance:video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw][3 Blue 1 Brown]]                                               :math:video:
