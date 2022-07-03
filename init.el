@@ -137,9 +137,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 120 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 120 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 120 :weight 'normal)
+;; (setq-default line-spacing 0.1)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line nil)
@@ -232,6 +233,7 @@
 (setq org-refile-targets '(("gtd.org" :level . 2)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
+(setq org-columns-skip-archived-trees t)
 (add-to-list 'org-modules 'org-habit t)
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -256,6 +258,7 @@
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-indent-mode)
+;; (add-hook 'org-mode-hook #'mixed-pitch-mode)
 
 (require 'org-agenda)
 (setq org-agenda-todo-ignore-scheduled (quote all))
@@ -312,7 +315,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
+  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -473,13 +476,13 @@
   :config
   (setq modus-themes-bold-constructs t)
   (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts nil)
+  (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
   (setq modus-themes-headings '((t . (semibold))))
   (setq modus-themes-links '(underline faint))
   (setq modus-themes-org-agenda
-        '((header-block . (bold 1.0))
+        '((header-block . (bold variable-pitch 1.0))
           (header-date . (accented grayscale bold-all))
           (event . nil)
           (scheduled . nil)
