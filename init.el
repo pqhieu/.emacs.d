@@ -65,13 +65,12 @@
 (setq user-mail-address "pqhieu1192@gmail.com")
 
 (setq default-frame-alist
-      (append (list '(min-height . 1)  '(height . 45)
-                    '(min-width . 40) '(width . 81)
+      (append (list '(min-height . 1)  '(height . 60)
+                    '(min-width . 40) '(width . 100)
                     '(vertical-scroll-bars . nil)
                     '(internal-border-width . 24)
                     '(tool-bar-lines . 0)
                     '(menu-bar-lines . 0))))
-(add-hook 'after-init-hook 'toggle-frame-fullscreen)
 
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
@@ -81,6 +80,7 @@
 (setq-default initial-scratch-message nil)
 
 (setq frame-title-format nil)
+(setq ns-use-proxy-icon nil)
 
 (display-time-mode 1)
 
@@ -137,10 +137,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 120 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 120 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 120 :weight 'normal)
-;; (setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 130 :weight 'normal)
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 (setq x-underline-at-descent-line nil)
@@ -265,7 +264,7 @@
 (setq org-agenda-todo-ignore-timestamp (quote all))
 (setq org-agenda-tags-column -77)
 ;; Do not show scheduled/deadline if done
-(setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+(setq org-agenda-skip-deadline-prewarning-if-scheduled nil)
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-show-future-repeats 'next)
@@ -284,7 +283,7 @@
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                       (org-deadline-warning-days 0)
-                      (org-agenda-prefix-format "   %-12s%?-12t ")
+                      (org-agenda-prefix-format "   %-12s%-12t ")
                       (org-habit-show-habits t)
                       (org-agenda-time-grid
                        '((daily today remove-match)
@@ -315,7 +314,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿"))
+  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿" "○"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -436,6 +435,11 @@
   (elfeed-org)
   (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
 
+(use-package elfeed-tube
+  :ensure t
+  :config
+  (elfeed-tube-setup))
+
 ;; C/C++
 (use-package cc-mode
   :config
@@ -471,25 +475,10 @@
   :mode ("\\.dat\\'")
   :config (setq ledger-clear-whole-transactions t))
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (semibold))))
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-org-agenda
-        '((header-block . (bold variable-pitch 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-org-blocks 'gray-background)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
