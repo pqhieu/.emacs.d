@@ -2,6 +2,7 @@
 ** [[https://news.ycombinator.com/rss][Hacker News]]                                                   :tech:news:
 ** [[https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25][Reddit]]                                                             :news:
 * Programming                                                        :elfeed:
+** [[https://github.blog/feed/][Github Blog]]                                                 :programming:
 ** [[https://planet.emacslife.com/atom.xml][Planet Emacslife]]                                                  :emacs:
 * Blogs                                                              :elfeed:
 ** [[http://blog.samaltman.com/posts.atom][Sam Altman]]                                                    :tech:blog:
