@@ -161,7 +161,7 @@
 (require 'dired)
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
-(setq delete-by-moving-to-trash nil)
+(setq delete-by-moving-to-trash t)
 (setq dired-dwim-target t)
 ;; Reuse current buffer by pressing 'a'
 (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
