@@ -137,9 +137,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Berkeley Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Berkeley Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Berkeley Mono Variable" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 130 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -313,7 +313,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿"))
+  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿" "✤" "✽"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -474,30 +474,30 @@
   :mode ("\\.dat\\'")
   :config (setq ledger-clear-whole-transactions t))
 
-;; (use-package modus-themes
-;;   :ensure t
-;;   :config
-;;   (setq modus-themes-bold-constructs t)
-;;   (setq modus-themes-slanted-constructs t)
-;;   (setq modus-themes-mixed-fonts t)
-;;   (setq modus-themes-syntax '(faint))
-;;   (setq modus-themes-fringes nil)
-;;   (setq modus-themes-headings '((t . (semibold))))
-;;   (setq modus-themes-links '(underline faint))
-;;   (setq modus-themes-org-agenda
-;;         '((header-block . (bold variable-pitch 1.0))
-;;           (header-date . (accented grayscale bold-all))
-;;           (event . nil)
-;;           (scheduled . nil)
-;;           (habit . nil)))
-;;   (setq modus-themes-org-blocks 'gray-background)
-;;   (setq modus-themes-variable-pitch-ui nil)
-;;   (load-theme 'modus-operandi t))
-
-(use-package doom-themes
+(use-package modus-themes
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t))
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-syntax '(faint))
+  (setq modus-themes-fringes nil)
+  (setq modus-themes-headings '((t . (semibold))))
+  (setq modus-themes-links '(underline faint))
+  (setq modus-themes-org-agenda
+        '((header-block . (bold variable-pitch 1.0))
+          (header-date . (accented grayscale bold-all))
+          (event . nil)
+          (scheduled . nil)
+          (habit . nil)))
+  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-variable-pitch-ui nil)
+  (load-theme 'modus-operandi t))
+
+;; (use-package doom-themes
+;;   :ensure t
+;;   :config
+;;   (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
