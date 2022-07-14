@@ -1,5 +1,5 @@
 ;; Personal Emacs configuration
-;; Copyright (C) 2015-2022
+;; Copyright © 2015-2022
 ;;
 ;; Author: Pham Quang Hieu <pqhieu1192@gmail.com>
 ;;
@@ -71,6 +71,7 @@
                     '(internal-border-width . 24)
                     '(tool-bar-lines . 0)
                     '(menu-bar-lines . 0))))
+(add-hook 'after-init-hook 'toggle-frame-fullscreen)
 
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
@@ -137,10 +138,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 130 :weight 'normal)
-(setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :family "Iosevka Proper" :height 120 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 120 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 120 :weight 'normal)
+;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
 ;; Uniquify buffer names
@@ -155,7 +156,9 @@
 (setq recentf-max-menu-items 15)
 
 (setq bibtex-dialect 'biblatex)
-(setq bibtex-entry-format '(opts-or-alts required-fields numerical-fields realign sort-fields))
+(setq bibtex-entry-format '(realign numerical-fields last-comma required-fields sort-fields))
+(add-hook 'bibtex-mode-hook
+          (lambda () (setq fill-column 999999)))
 
 ;; File browsing
 (require 'dired)
@@ -193,17 +196,17 @@
 (setq org-capture-templates
       `(("i" "Inbox" entry  (file "inbox.org")
          ,(concat "* TODO [#B] %?\n"
-                  "/Entered on/ %U"))))
+                  "Entered on %U"))))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (defun org-capture-inbox ()
   (interactive)
   (call-interactively 'org-store-link)
   (org-capture nil "i"))
 (define-key global-map (kbd "C-c i") 'org-capture-inbox)
-(setq org-ellipsis "▾")
+(setq org-ellipsis "↷")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "HOLD(h)" "WAIT(w)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "NEXT(n)" "READ(r)" "TODO(t)" "HOLD(h)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -277,7 +280,7 @@
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
-         ((agenda "" ((org-agenda-span 'week)
+         ((agenda "" ((org-agenda-span 'day)
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
@@ -298,6 +301,9 @@
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
+          (todo "TODO|READ" ((org-agenda-files (list "reading.org"))
+                             (org-agenda-overriding-header "❱ READING:\n")
+                             (org-agenda-prefix-format " • ")))
           (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
                                        (org-agenda-prefix-format " • ")))))))
 
@@ -482,10 +488,10 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (semibold))))
+  (setq modus-themes-headings '((t . (bold))))
   (setq modus-themes-links '(underline faint))
   (setq modus-themes-org-agenda
-        '((header-block . (bold variable-pitch 1.0))
+        '((header-block . (bold 1.0))
           (header-date . (accented grayscale bold-all))
           (event . nil)
           (scheduled . nil)
@@ -493,11 +499,6 @@
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-variable-pitch-ui nil)
   (load-theme 'modus-operandi t))
-
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -519,3 +520,12 @@
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+
+(global-set-key (kbd "C-c e") 'ebib)
+(setq ebib-preload-bib-files '("~/Documents/library/main.bib"))
+(setq ebib-bibtex-dialect 'biblatex)
+(setq ebib-file-search-dirs '("~/Documents/library"))
+(setq ebib-reading-list-file "~/Documents/org/reading.org")
+(setq ebib-file-associations '(("pdf" . nil) ("ps" . nil)))
+(setq ebib-index-window-size 20)
+(setq ebib-layout 'window)
