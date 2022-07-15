@@ -1,5 +1,5 @@
 ;; Personal Emacs configuration
-;; Copyright © 2015-2022
+;; Copyright (C) 2015-2022
 ;;
 ;; Author: Pham Quang Hieu <pqhieu1192@gmail.com>
 ;;
@@ -203,7 +203,7 @@
   (call-interactively 'org-store-link)
   (org-capture nil "i"))
 (define-key global-map (kbd "C-c i") 'org-capture-inbox)
-(setq org-ellipsis "↷")
+(setq org-ellipsis "▾")
 (setq org-tags-column -77)
 (setq org-adapt-indentation t)
 (setq org-todo-keywords '((sequence "NEXT(n)" "READ(r)" "TODO(t)" "HOLD(h)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
@@ -227,6 +227,7 @@
 (setq org-habit-graph-column 70)
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
+(setq org-image-actual-width 360)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
@@ -490,6 +491,11 @@
   (setq modus-themes-fringes nil)
   (setq modus-themes-headings '((t . (bold))))
   (setq modus-themes-links '(underline faint))
+  (setq modus-themes-diffs 'desaturated)
+  (setq modus-themes-completions
+        (quote ((matches . nil)
+                (selection . (background))
+                (popup . nil))))
   (setq modus-themes-org-agenda
         '((header-block . (bold 1.0))
           (header-date . (accented grayscale bold-all))
