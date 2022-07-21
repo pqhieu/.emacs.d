@@ -216,6 +216,7 @@
 (org-clock-persistence-insinuate)
 (setq org-clock-out-when-done t)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.9))
 (setq org-fontify-whole-heading-line nil)
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
@@ -252,11 +253,7 @@
         (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
                 '(("[ ]" . "")
 		  ("[X]" . "")
-		  ("[-]" . "❍")
-                  ("clock:" . "")
-                  ("scheduled:" . "")
-                  ("deadline:" . "")
-                  ("closed:" . ""))))
+		  ("[-]" . "❍"))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-indent-mode)
@@ -272,7 +269,7 @@
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-agenda-show-future-repeats 'next)
 (setq org-agenda-hidden-separator "‌‌ ")
-(setq org-agenda-block-separator (string-to-char "-"))
+(setq org-agenda-block-separator ?─)
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
       '((agenda time-up todo-state-up priority-down habit-down category-keep)
@@ -281,7 +278,7 @@
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
-         ((agenda "" ((org-agenda-span 'day)
+         ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
@@ -306,7 +303,10 @@
                              (org-agenda-overriding-header "❱ READING:\n")
                              (org-agenda-prefix-format " • ")))
           (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                       (org-agenda-prefix-format " • ")))))))
+                                       (org-agenda-prefix-format " • ")))
+          (todo "TODO|WAIT" ((org-agenda-files (list "gtd.org"))
+                             (org-agenda-overriding-header "❱ BACKLOG:\n")
+                             (org-agenda-prefix-format " • ")))))))
 
 (defun org-agenda-show-all ()
   "Show both agenda and todo list."
@@ -320,7 +320,7 @@
   :ensure t
   :hook (org-mode . org-superstar-mode)
   :config
-  (setq org-superstar-headline-bullets-list '("◉" "✸" "✿" "✤" "✽"))
+  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
   (setq org-superstar-prettify-item-bullets t)
   (setq org-superstar-item-bullet-alist
         '((?* . ?•)
@@ -489,7 +489,7 @@
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
-  (setq modus-themes-headings '((t . (bold))))
+  (setq modus-themes-subtle-line-numbers t)
   (setq modus-themes-links '(underline faint))
   (setq modus-themes-diffs 'desaturated)
   (setq modus-themes-completions
