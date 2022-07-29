@@ -130,6 +130,10 @@
 
 ;; Use pixel scrolling instead of character scrolling
 (pixel-scroll-mode 1)
+(setq pixel-dead-time 0) ; Never go back to the old scrolling behaviour.
+(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
+(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
+(setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
 
 ;; Enable line numbers
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -141,7 +145,7 @@
 (set-face-attribute 'default nil :family "Iosevka Proper" :height 120 :weight 'normal)
 (set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 120 :weight 'normal)
 (set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 120 :weight 'normal)
-;; (setq-default line-spacing 0.1)
+(setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
 ;; Uniquify buffer names
@@ -257,7 +261,8 @@
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-indent-mode)
-;; (add-hook 'org-mode-hook #'mixed-pitch-mode)
+(setq mixed-pitch-variable-pitch-cursor nil)
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
 
 (require 'org-agenda)
 (setq org-agenda-todo-ignore-scheduled (quote all))
@@ -478,8 +483,10 @@
 ;; Ledger
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.dat\\'")
-  :config (setq ledger-clear-whole-transactions t))
+  :mode ("\\.journal\\'")
+  :config
+  (setq ledger-clear-whole-transactions t)
+  (setq ledger-default-date-format "%Y-%m-%d"))
 
 (use-package modus-themes
   :ensure t
@@ -509,8 +516,8 @@
 (use-package nano-modeline
   :ensure t
   :config
-  (setq nano-modeline-prefix-padding t)
   (setq nano-modeline-position 'bottom)
+  (setq nano-modeline-prefix-padding t)
   (nano-modeline-mode 1))
 
 (use-package org-roam
@@ -535,3 +542,10 @@
 (setq ebib-file-associations '(("pdf" . nil) ("ps" . nil)))
 (setq ebib-index-window-size 20)
 (setq ebib-layout 'window)
+
+(setq org-modern-checkbox '((?X . "")
+                            (?- . "❍")
+                            (?\s . "")))
+(setq org-modern-table nil)
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
