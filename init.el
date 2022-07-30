@@ -255,7 +255,11 @@
   "Beautify org mode keywords."
   (setq prettify-symbols-alist
         (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-                '(("[ ]" . "")
+                '(("clock:" . "")
+                  ("scheduled:" . "")
+                  ("deadline:" . "")
+                  ("closed:" . "")
+                  ("[ ]" . "")
 		  ("[X]" . "")
 		  ("[-]" . "❍"))))
   (prettify-symbols-mode 1))
@@ -542,10 +546,3 @@
 (setq ebib-file-associations '(("pdf" . nil) ("ps" . nil)))
 (setq ebib-index-window-size 20)
 (setq ebib-layout 'window)
-
-(setq org-modern-checkbox '((?X . "")
-                            (?- . "❍")
-                            (?\s . "")))
-(setq org-modern-table nil)
-(add-hook 'org-mode-hook #'org-modern-mode)
-(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
