@@ -487,39 +487,33 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-;; (use-package modus-themes
-;;   :ensure t
-;;   :config
-;;   (setq modus-themes-bold-constructs t)
-;;   (setq modus-themes-slanted-constructs t)
-;;   (setq modus-themes-mixed-fonts t)
-;;   (setq modus-themes-syntax '(faint))
-;;   (setq modus-themes-fringes nil)
-;;   (setq modus-themes-subtle-line-numbers t)
-;;   (setq modus-themes-links '(underline faint))
-;;   (setq modus-themes-diffs 'desaturated)
-;;   (setq modus-themes-completions
-;;         (quote ((matches . nil)
-;;                 (selection . (background))
-;;                 (popup . nil))))
-;;   (setq modus-themes-org-agenda
-;;         '((header-block . (variable-pitch bold 1.0))
-;;           (header-date . (accented grayscale bold-all))
-;;           (event . nil)
-;;           (scheduled . nil)
-;;           (habit . nil)))
-;;   (setq modus-themes-headings
-;;         '((0 . (variable-pitch bold (height 1.5)))
-;;           (1 . (variable-pitch bold (height 1.1)))))
-;;   (setq modus-themes-org-blocks 'gray-background)
-;;   (setq modus-themes-variable-pitch-ui nil)
-;;   (load-theme 'modus-operandi t))
-(use-package catppuccin-theme
+(use-package modus-themes
+  :ensure t
   :config
-  (setq catppuccin-height-title-1 1.1)
-  (setq catppuccin-height-title-2 1.0)
-  (setq catppuccin-height-title-3 1.0)
-  (load-theme 'catppuccin t))
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-syntax '(faint))
+  (setq modus-themes-fringes nil)
+  (setq modus-themes-subtle-line-numbers t)
+  (setq modus-themes-links '(underline faint))
+  (setq modus-themes-diffs 'desaturated)
+  (setq modus-themes-completions
+        (quote ((matches . nil)
+                (selection . (background))
+                (popup . nil))))
+  (setq modus-themes-org-agenda
+        '((header-block . (variable-pitch bold 1.0))
+          (header-date . (accented grayscale bold-all))
+          (event . nil)
+          (scheduled . nil)
+          (habit . nil)))
+  (setq modus-themes-headings
+        '((0 . (variable-pitch bold (height 1.4)))
+          (1 . (variable-pitch bold (height 1.1)))))
+  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-variable-pitch-ui nil)
+  (load-theme 'modus-operandi t))
 
 (use-package nano-modeline
   :ensure t
