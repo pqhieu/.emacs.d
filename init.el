@@ -97,7 +97,7 @@
 
 ;; Disable blinking cursor
 (blink-cursor-mode 0)
-(setq-default cursor-type 'hbar)
+(setq-default cursor-type 'bar)
 
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
@@ -142,10 +142,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Proper" :height 120 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Proper" :height 120 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Proper Duo" :height 120 :weight 'normal)
-(setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Alegreya Sans" :height 140 :weight 'normal)
+;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
 ;; Uniquify buffer names
@@ -196,11 +196,9 @@
 
 (require 'org)
 (setq org-directory "~/Documents/org")
-(setq org-agenda-files (list "inbox.org" "gtd.org" "agenda.org"))
+(setq org-agenda-files '("inbox.org" "agenda.org" "gtd.org"))
 (setq org-capture-templates
-      `(("i" "Inbox" entry  (file "inbox.org")
-         ,(concat "* TODO [#B] %?\n"
-                  "Entered on %U"))))
+      `(("i" "Inbox" entry  (file "inbox.org") "* TODO [#B] %?")))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (defun org-capture-inbox ()
   (interactive)
@@ -209,8 +207,8 @@
 (define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "▾")
 (setq org-tags-column -77)
-(setq org-adapt-indentation t)
-(setq org-todo-keywords '((sequence "NEXT(n)" "READ(r)" "TODO(t)" "HOLD(h)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
+(setq org-adapt-indentation nil)
+(setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -247,6 +245,7 @@
  '((emacs-lisp . t)
    (R . t)
    (ledger . t)))
+(require 'ob-hledger)
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 
@@ -265,8 +264,8 @@
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-indent-mode)
-(setq mixed-pitch-variable-pitch-cursor nil)
-(add-hook 'org-mode-hook #'mixed-pitch-mode)
+;; (setq mixed-pitch-variable-pitch-cursor nil)
+(add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
 
 (require 'org-agenda)
 (setq org-agenda-todo-ignore-scheduled (quote all))
@@ -297,8 +296,10 @@
                       (org-agenda-time-grid
                        '((daily today remove-match)
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "NEXT" ((org-agenda-overriding-header "❱ TODAY:\n")
+          (todo "NEXT" ((org-agenda-overriding-header "❱ TODO:\n")
                         (org-agenda-prefix-format " • ")))
+          (tags "CLOSED>=\"<-7d>\"" ((org-agenda-overriding-header "❱ DONE:\n")
+                                     (org-agenda-prefix-format " • ")))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
                        (org-deadline-warning-days 90)
@@ -308,13 +309,7 @@
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
                               (org-agenda-prefix-format " • ")))
-          (todo "TODO|READ" ((org-agenda-files (list "reading.org"))
-                             (org-agenda-overriding-header "❱ READING:\n")
-                             (org-agenda-prefix-format " • ")))
-          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                       (org-agenda-prefix-format " • ")))
-          (todo "TODO|WAIT" ((org-agenda-files (list "gtd.org"))
-                             (org-agenda-overriding-header "❱ BACKLOG:\n")
+          (todo "TODO|WAIT" ((org-agenda-overriding-header "❱ BACKLOG:\n")
                              (org-agenda-prefix-format " • ")))))))
 
 (defun org-agenda-show-all ()
@@ -487,35 +482,44 @@
 ;; Ledger
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.journal\\'")
+  :mode ("\\.ledger\\'")
   :config
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package modus-themes
-  :ensure t
+;; (use-package modus-themes
+;;   :ensure t
+;;   :config
+;;   (setq modus-themes-bold-constructs t)
+;;   (setq modus-themes-slanted-constructs t)
+;;   (setq modus-themes-mixed-fonts t)
+;;   (setq modus-themes-syntax '(faint))
+;;   (setq modus-themes-fringes nil)
+;;   (setq modus-themes-subtle-line-numbers t)
+;;   (setq modus-themes-links '(underline faint))
+;;   (setq modus-themes-diffs 'desaturated)
+;;   (setq modus-themes-completions
+;;         (quote ((matches . nil)
+;;                 (selection . (background))
+;;                 (popup . nil))))
+;;   (setq modus-themes-org-agenda
+;;         '((header-block . (variable-pitch bold 1.0))
+;;           (header-date . (accented grayscale bold-all))
+;;           (event . nil)
+;;           (scheduled . nil)
+;;           (habit . nil)))
+;;   (setq modus-themes-headings
+;;         '((0 . (variable-pitch bold (height 1.5)))
+;;           (1 . (variable-pitch bold (height 1.1)))))
+;;   (setq modus-themes-org-blocks 'gray-background)
+;;   (setq modus-themes-variable-pitch-ui nil)
+;;   (load-theme 'modus-operandi t))
+(use-package catppuccin-theme
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-subtle-line-numbers t)
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-diffs 'desaturated)
-  (setq modus-themes-completions
-        (quote ((matches . nil)
-                (selection . (background))
-                (popup . nil))))
-  (setq modus-themes-org-agenda
-        '((header-block . (bold 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-org-blocks 'gray-background)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (setq catppuccin-height-title-1 1.1)
+  (setq catppuccin-height-title-2 1.0)
+  (setq catppuccin-height-title-3 1.0)
+  (load-theme 'catppuccin t))
 
 (use-package nano-modeline
   :ensure t
@@ -524,25 +528,106 @@
   (setq nano-modeline-prefix-padding t)
   (nano-modeline-mode 1))
 
-(use-package org-roam
-  :ensure t
-  :custom
-  (org-roam-directory "~/Documents/notes")
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode))
+;; Add frame borders and window dividers
+(modify-all-frames-parameters
+ '((right-divider-width . 40)))
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+(set-face-background 'fringe (face-attribute 'default :background))
 
-(global-set-key (kbd "C-c e") 'ebib)
-(setq ebib-preload-bib-files '("~/Documents/library/main.bib"))
-(setq ebib-bibtex-dialect 'biblatex)
-(setq ebib-file-search-dirs '("~/Documents/library"))
-(setq ebib-reading-list-file "~/Documents/org/reading.org")
-(setq ebib-file-associations '(("pdf" . nil) ("ps" . nil)))
-(setq ebib-index-window-size 20)
-(setq ebib-layout 'window)
+(setq
+ ;; Edit settings
+ org-auto-align-tags nil
+ org-tags-column 0
+ org-catch-invisible-edits 'show-and-error
+ org-special-ctrl-a/e t
+ org-insert-heading-respect-content t)
+
+(setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
+(setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
+(setq org-modern-table nil)
+(setq org-modern-keyword nil)
+(global-org-modern-mode)
+(require 'org-modern-indent)
+(add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
+
+(with-eval-after-load 'org-modern
+  (set-face-attribute 'org-level-1 nil :family "Alegreya Sans SC")
+  (set-face-attribute 'org-document-title nil :family "Alegreya Sans SC")
+  (set-face-attribute 'org-block nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-verbatim nil :family "Iosevka Sans Mono" :height 130 :slant 'normal)
+  (set-face-attribute 'org-code nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-table nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Iosevka Sans Mono" :height 120))
+
+(require 'denote)
+;; Remember to check the doc strings of those variables.
+(setq denote-directory (expand-file-name "~/Documents/notes"))
+(setq denote-infer-keywords t)
+(setq denote-sort-keywords t)
+(setq denote-file-type nil) ; Org is the default, set others here
+(setq denote-prompts '(title))
+
+;; Read this manual for how to specify `denote-templates'.  We do not
+;; include an example here to avoid potential confusion.
+
+;; We allow multi-word keywords by default.  The author's personal
+;; preference is for single-word keywords for a more rigid workflow.
+(setq denote-allow-multi-word-keywords t)
+
+(setq denote-date-format nil) ; read doc string
+
+;; By default, we fontify backlinks in their bespoke buffer.
+(setq denote-link-fontify-backlinks t)
+
+;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
+;; advanced.
+
+;; If you use Markdown or plain text files (Org renders links as buttons
+;; right away)
+(add-hook 'find-file-hook #'denote-link-buttonize-buffer)
+
+;; Generic (great if you rename files Denote-style in lots of places):
+(add-hook 'dired-mode-hook #'denote-dired-mode)
+
+;; Denote DOES NOT define any key bindings.  This is for the user to
+;; decide.  For example:
+(let ((map global-map))
+  (define-key map (kbd "C-c n n") #'denote)
+  (define-key map (kbd "C-c n N") #'denote-type)
+  (define-key map (kbd "C-c n d") #'denote-date)
+  (define-key map (kbd "C-c n s") #'denote-subdirectory)
+  (define-key map (kbd "C-c n t") #'denote-template)
+  ;; If you intend to use Denote with a variety of file types, it is
+  ;; easier to bind the link-related commands to the `global-map', as
+  ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
+  ;; `markdown-mode-map', and/or `text-mode-map'.
+  (define-key map (kbd "C-c n i") #'denote-link) ; "insert" mnemonic
+  (define-key map (kbd "C-c n I") #'denote-link-add-links)
+  (define-key map (kbd "C-c n l") #'denote-link-find-file) ; "list" links
+  (define-key map (kbd "C-c n b") #'denote-link-backlinks)
+  ;; Note that `denote-rename-file' can work from any context, not just
+  ;; Dired bufffers.  That is why we bind it here to the `global-map'.
+  (define-key map (kbd "C-c n r") #'denote-rename-file)
+  (define-key map (kbd "C-c n R") #'denote-rename-file-using-front-matter))
+
+;; Key bindings specifically for Dired.
+(let ((map dired-mode-map))
+  (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
+  (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
+  (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
+
+(with-eval-after-load 'org-capture
+  (setq denote-org-capture-specifiers "%l\n%i\n%?")
+  (add-to-list 'org-capture-templates
+               '("n" "New note (with denote.el)" plain
+                 (file denote-last-path)
+                 #'denote-org-capture
+                 :no-save t
+                 :immediate-finish nil
+                 :kill-buffer t
+                 :jump-to-captured t)))
