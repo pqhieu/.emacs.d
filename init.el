@@ -142,9 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Alegreya Sans" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "DM Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "DM Mono" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Alegreya Sans" :height 130 :weight 'normal)
 ;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -196,7 +196,7 @@
 
 (require 'org)
 (setq org-directory "~/Documents/org")
-(setq org-agenda-files '("inbox.org" "agenda.org" "gtd.org"))
+(setq org-agenda-files '("inbox.org" "agenda.org"))
 (setq org-capture-templates
       `(("i" "Inbox" entry  (file "inbox.org") "* TODO [#B] %?")))
 (define-key global-map (kbd "C-c c") 'org-capture)
@@ -298,8 +298,8 @@
                          (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
           (todo "NEXT" ((org-agenda-overriding-header "❱ TODO:\n")
                         (org-agenda-prefix-format " • ")))
-          (tags "CLOSED>=\"<-7d>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                     (org-agenda-prefix-format " • ")))
+          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
+                                       (org-agenda-prefix-format " • ")))
           (agenda nil ((org-agenda-span 'day)
                        (org-agenda-entry-types '(:deadline))
                        (org-deadline-warning-days 90)
@@ -482,7 +482,7 @@
 ;; Ledger
 (use-package ledger-mode
   :ensure t
-  :mode ("\\.ledger\\'")
+  :mode ("\\.dat\\'")
   :config
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
@@ -513,7 +513,7 @@
           (1 . (variable-pitch bold (height 1.1)))))
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
 
 (use-package nano-modeline
   :ensure t
@@ -545,18 +545,19 @@
 (setq org-modern-table nil)
 (setq org-modern-keyword nil)
 (global-org-modern-mode)
+
 (require 'org-modern-indent)
 (add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
 
 (with-eval-after-load 'org-modern
   (set-face-attribute 'org-level-1 nil :family "Alegreya Sans SC")
   (set-face-attribute 'org-document-title nil :family "Alegreya Sans SC")
-  (set-face-attribute 'org-block nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-verbatim nil :family "Iosevka Sans Mono" :height 130 :slant 'normal)
-  (set-face-attribute 'org-code nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-table nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Iosevka Sans Mono" :height 120))
+  (set-face-attribute 'org-block nil :family "DM Mono" :height 130)
+  (set-face-attribute 'org-verbatim nil :family "DM Mono" :height 130 :slant 'normal)
+  (set-face-attribute 'org-code nil :family "DM Mono" :height 130)
+  (set-face-attribute 'org-table nil :family "DM Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "DM Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "DM Mono" :height 0.9))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
