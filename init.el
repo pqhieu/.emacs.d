@@ -142,9 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "DM Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "DM Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Alegreya Sans" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Roboto Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Roboto Mono" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 140 :weight 'normal)
 ;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -196,9 +196,9 @@
 
 (require 'org)
 (setq org-directory "~/Documents/org")
-(setq org-agenda-files '("inbox.org" "agenda.org"))
+(setq org-agenda-files '("todo.org" "agenda.org"))
 (setq org-capture-templates
-      `(("i" "Inbox" entry  (file "inbox.org") "* TODO [#B] %?")))
+      `(("i" "Inbox" entry  (file "todo.org") "* TODO [#B] %?")))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (defun org-capture-inbox ()
   (interactive)
@@ -513,7 +513,7 @@
           (1 . (variable-pitch bold (height 1.1)))))
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-vivendi t))
+  (load-theme 'modus-operandi t))
 
 (use-package nano-modeline
   :ensure t
@@ -546,18 +546,18 @@
 (setq org-modern-keyword nil)
 (global-org-modern-mode)
 
-(require 'org-modern-indent)
-(add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
+;; (require 'org-modern-indent)
+;; (add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-level-1 nil :family "Alegreya Sans SC")
-  (set-face-attribute 'org-document-title nil :family "Alegreya Sans SC")
-  (set-face-attribute 'org-block nil :family "DM Mono" :height 130)
-  (set-face-attribute 'org-verbatim nil :family "DM Mono" :height 130 :slant 'normal)
-  (set-face-attribute 'org-code nil :family "DM Mono" :height 130)
-  (set-face-attribute 'org-table nil :family "DM Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "DM Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "DM Mono" :height 0.9))
+  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps")
+  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps")
+  (set-face-attribute 'org-block nil :family "Roboto Mono" :height 130)
+  (set-face-attribute 'org-verbatim nil :family "Roboto Mono" :height 130 :slant 'normal)
+  (set-face-attribute 'org-code nil :family "Roboto Mono" :height 130)
+  (set-face-attribute 'org-table nil :family "Roboto Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Roboto Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Roboto Mono" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
