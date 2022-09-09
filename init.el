@@ -142,11 +142,12 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Roboto Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Roboto Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 140 :weight 'normal)
-;; (setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :family "Basier Square Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Basier Square Mono" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Palatino" :height 140 :weight 'normal)
+(setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
+(mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -195,17 +196,8 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(setq org-directory "~/Documents/org")
-(setq org-agenda-files '("todo.org" "agenda.org"))
-(setq org-capture-templates
-      `(("i" "Inbox" entry  (file "todo.org") "* TODO [#B] %?")))
 (define-key global-map (kbd "C-c c") 'org-capture)
-(defun org-capture-inbox ()
-  (interactive)
-  (call-interactively 'org-store-link)
-  (org-capture nil "i"))
-(define-key global-map (kbd "C-c i") 'org-capture-inbox)
-(setq org-ellipsis "▾")
+(setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
 (setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
@@ -219,6 +211,7 @@
 (setq org-clock-out-when-done t)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.9))
+(add-to-list 'org-latex-packages-alist '("" "mathpazo" t))
 (setq org-fontify-whole-heading-line nil)
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
@@ -230,7 +223,7 @@
 (setq org-habit-graph-column 70)
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
-(setq org-image-actual-width 360)
+(setq org-image-actual-width t)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
@@ -263,7 +256,7 @@
 		  ("[-]" . "❍"))))
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
-(add-hook 'org-mode-hook #'org-indent-mode)
+;; (add-hook 'org-mode-hook #'org-indent-mode)
 ;; (setq mixed-pitch-variable-pitch-cursor nil)
 (add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
 
@@ -289,48 +282,12 @@
          ((agenda "" ((org-agenda-span 'week)
                       (org-agenda-overriding-header "❱ AGENDA:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                      (org-deadline-warning-days 0)
+                      (org-deadline-warning-days 90)
                       (org-agenda-prefix-format "   %-12s%-12t ")
                       (org-habit-show-habits t)
                       (org-agenda-time-grid
                        '((daily today remove-match)
-                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "NEXT" ((org-agenda-overriding-header "❱ TODO:\n")
-                        (org-agenda-prefix-format " • ")))
-          (tags "CLOSED>=\"<today>\"" ((org-agenda-overriding-header "❱ DONE:\n")
-                                       (org-agenda-prefix-format " • ")))
-          (agenda nil ((org-agenda-span 'day)
-                       (org-agenda-entry-types '(:deadline))
-                       (org-deadline-warning-days 90)
-                       (org-agenda-time-grid nil)
-                       (org-agenda-format-date "")
-                       (org-agenda-prefix-format " • %?-12t% s")
-                       (org-agenda-overriding-header "❱ DEADLINES:")))
-          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")
-                              (org-agenda-prefix-format " • ")))
-          (todo "TODO|WAIT" ((org-agenda-overriding-header "❱ BACKLOG:\n")
-                             (org-agenda-prefix-format " • ")))))))
-
-(defun org-agenda-show-all ()
-  "Show both agenda and todo list."
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
-(add-hook 'after-init-hook #'org-agenda-show-all)
-
-(use-package org-superstar
-  :ensure t
-  :hook (org-mode . org-superstar-mode)
-  :config
-  (setq org-superstar-headline-bullets-list '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
-  (setq org-superstar-prettify-item-bullets t)
-  (setq org-superstar-item-bullet-alist
-        '((?* . ?•)
-          (?+ . ?•)
-          (?- . ?•)))
-  (setq inhibit-compacting-font-caches t))
+                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))))))
 
 (use-package org-appear
   :ensure t
@@ -509,11 +466,26 @@
           (scheduled . nil)
           (habit . nil)))
   (setq modus-themes-headings
-        '((0 . (variable-pitch bold (height 1.4)))
-          (1 . (variable-pitch bold (height 1.1)))))
+        '((0 . (variable-pitch bold (height 1.3)))
+          (1 . (variable-pitch bold (height 1.2)))
+          (t . (variable-pitch bold (height 1.0)))))
   (setq modus-themes-org-blocks 'gray-background)
   (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
+
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 37.386051)
+  (setq calendar-longitude -122.083855)
+  (setq circadian-themes '((:sunrise . modus-operandi)
+                           (:sunset  . modus-vivendi)))
+(circadian-setup))
+
+;; (use-package doom-themes
+;;   :ensure t
+;;   :config
+;;   (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -540,24 +512,25 @@
  org-special-ctrl-a/e t
  org-insert-heading-respect-content t)
 
-(setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
+(setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
+(setq org-modern-block t)
 (setq org-modern-table nil)
-(setq org-modern-keyword nil)
+(setq org-modern-keyword t)
 (global-org-modern-mode)
 
 ;; (require 'org-modern-indent)
 ;; (add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps")
-  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps")
-  (set-face-attribute 'org-block nil :family "Roboto Mono" :height 130)
-  (set-face-attribute 'org-verbatim nil :family "Roboto Mono" :height 130 :slant 'normal)
-  (set-face-attribute 'org-code nil :family "Roboto Mono" :height 130)
-  (set-face-attribute 'org-table nil :family "Roboto Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Roboto Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Roboto Mono" :height 120))
+  (set-face-attribute 'markdown-url-face nil :family "Basier Square Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Basier Square Mono" :height 130)
+  (set-face-attribute 'modus-themes-heading-0 nil :family "Alegreya Sans SC" :height 180 :weight 'bold)
+  (set-face-attribute 'modus-themes-heading-1 nil :family "Alegreya Sans SC" :height 150 :weight 'bold)
+  (set-face-attribute 'modus-themes-heading-2 nil :family "Alegreya Sans" :height 140 :weight 'bold)
+  (set-face-attribute 'modus-themes-heading-3 nil :family "Alegreya Sans" :height 140 :weight 'bold)
+  (set-face-attribute 'modus-themes-heading-4 nil :family "Alegreya Sans" :height 140 :weight 'bold)
+  (set-face-attribute 'org-modern-label nil :family "Basier Square Mono" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
