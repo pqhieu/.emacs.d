@@ -142,9 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Basier Square Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Basier Square Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Palatino" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "Hypersevka" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Hypersevka" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Atkinson Hyperlegible" :height 130 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 (mac-auto-operator-composition-mode t)
@@ -208,7 +208,7 @@
 (setq org-clock-into-drawer t)
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
-(setq org-clock-out-when-done t)
+(setq org-clock-out-when-done nil)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.9))
 (add-to-list 'org-latex-packages-alist '("" "mathpazo" t))
@@ -221,7 +221,7 @@
 (setq org-edit-src-content-indentation 0)
 (setq org-src-window-setup 'other-window)
 (setq org-habit-graph-column 70)
-(setq org-log-done 'time)
+(setq org-log-done 'nil)
 (setq org-log-into-drawer t)
 (setq org-image-actual-width t)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
@@ -255,9 +255,7 @@
 		  ("[X]" . "")
 		  ("[-]" . "❍"))))
   (prettify-symbols-mode 1))
-(add-hook 'org-mode-hook #'prettify-org-keywords)
-;; (add-hook 'org-mode-hook #'org-indent-mode)
-;; (setq mixed-pitch-variable-pitch-cursor nil)
+;; (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
 
 (require 'org-agenda)
@@ -482,11 +480,6 @@
                            (:sunset  . modus-vivendi)))
 (circadian-setup))
 
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   (load-theme 'doom-tomorrow-night t))
-
 (use-package nano-modeline
   :ensure t
   :config
@@ -512,6 +505,8 @@
  org-special-ctrl-a/e t
  org-insert-heading-respect-content t)
 
+(setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Hypersevka" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-block t)
@@ -523,22 +518,18 @@
 ;; (add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'markdown-url-face nil :family "Basier Square Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Basier Square Mono" :height 130)
-  (set-face-attribute 'modus-themes-heading-0 nil :family "Alegreya Sans SC" :height 180 :weight 'bold)
-  (set-face-attribute 'modus-themes-heading-1 nil :family "Alegreya Sans SC" :height 150 :weight 'bold)
-  (set-face-attribute 'modus-themes-heading-2 nil :family "Alegreya Sans" :height 140 :weight 'bold)
-  (set-face-attribute 'modus-themes-heading-3 nil :family "Alegreya Sans" :height 140 :weight 'bold)
-  (set-face-attribute 'modus-themes-heading-4 nil :family "Alegreya Sans" :height 140 :weight 'bold)
-  (set-face-attribute 'org-modern-label nil :family "Basier Square Mono" :height 120))
+  (set-face-attribute 'org-quote nil :family "Hypersevka" :height 130 :slant 'italic)
+  (set-face-attribute 'markdown-url-face nil :family "Hypersevka" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Hypersevka" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Hypersevka" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/notes"))
+(setq denote-directory (expand-file-name "~/Documents/cogito"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
-(setq denote-prompts '(title))
+(setq denote-prompts '(title keywords))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
 ;; include an example here to avoid potential confusion.
