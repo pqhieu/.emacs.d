@@ -6,6 +6,7 @@
 ** [[https://ciechanow.ski/atom.xml][Bartosz Ciechanowski]]
 ** [[https://github.blog/feed/][Github Blog]] :programming:
 ** [[https://eugeneyan.com/rss/][Eugene Yan]] :ml:
+** [[http://karpathy.github.io/feed.xml][Andrej Karpathy]] :ml:
 ** [[https://protesilaos.com/codelog.xml][Protesilaos Stavrou]] :emacs:
 * YouTube :elfeed:video:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]] :finance:

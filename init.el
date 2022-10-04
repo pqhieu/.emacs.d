@@ -142,9 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Hypersevka" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Hypersevka" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Atkinson Hyperlegible" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Univers Next Pro" :height 130 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 (mac-auto-operator-composition-mode t)
@@ -211,7 +211,7 @@
 (setq org-clock-out-when-done nil)
 (setq org-preview-latex-image-directory "/tmp/ltximg")
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.9))
-(add-to-list 'org-latex-packages-alist '("" "mathpazo" t))
+(add-to-list 'org-latex-packages-alist '("euler-digits,euler-hat-accent" "eulervm" t))
 (setq org-fontify-whole-heading-line nil)
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
@@ -221,7 +221,7 @@
 (setq org-edit-src-content-indentation 0)
 (setq org-src-window-setup 'other-window)
 (setq org-habit-graph-column 70)
-(setq org-log-done 'nil)
+(setq org-log-done 'time)
 (setq org-log-into-drawer t)
 (setq org-image-actual-width t)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
@@ -467,18 +467,9 @@
         '((0 . (variable-pitch bold (height 1.3)))
           (1 . (variable-pitch bold (height 1.2)))
           (t . (variable-pitch bold (height 1.0)))))
-  (setq modus-themes-org-blocks 'gray-background)
+  (setq modus-themes-org-blocks nil)
   (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-vivendi t))
-
-(use-package circadian
-  :ensure t
-  :config
-  (setq calendar-latitude 37.386051)
-  (setq calendar-longitude -122.083855)
-  (setq circadian-themes '((:sunrise . modus-operandi)
-                           (:sunset  . modus-vivendi)))
-(circadian-setup))
+  (load-theme 'modus-operandi t))
 
 (use-package nano-modeline
   :ensure t
@@ -505,23 +496,21 @@
  org-special-ctrl-a/e t
  org-insert-heading-respect-content t)
 
+(require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Hypersevka" :height 130))
+;; (set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Sans Mono" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
-(setq org-modern-block t)
 (setq org-modern-table nil)
 (setq org-modern-keyword t)
+(setq org-modern-block-fringe t)
+(setq org-modern-block-name t)
 (global-org-modern-mode)
 
-;; (require 'org-modern-indent)
-;; (add-hook 'org-indent-mode-hook 'org-modern-indent-mode)
-
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-quote nil :family "Hypersevka" :height 130 :slant 'italic)
-  (set-face-attribute 'markdown-url-face nil :family "Hypersevka" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Hypersevka" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Hypersevka" :height 120))
+  (set-face-attribute 'markdown-url-face nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Iosevka Sans Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Iosevka Sans Mono" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
