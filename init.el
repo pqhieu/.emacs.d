@@ -142,8 +142,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Iosevka Sans Mono" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Basier Circle Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Basier Circle Mono" :height 130 :weight 'normal)
 (set-face-attribute 'variable-pitch nil :family "Univers Next Pro" :height 130 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
@@ -196,11 +196,21 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
+(setq org-directory "~/Documents/org")
+(setq org-agenda-files (list "inbox.org" "work.org" "personal.org" "hobbies.org" "calendar.org"))
 (define-key global-map (kbd "C-c c") 'org-capture)
+(setq org-capture-templates
+      `(("i" "Inbox" entry  (file+headline "inbox.org" "Inbox")
+         ,(concat "* TODO %?\n"))))
+(defun org-capture-inbox ()
+  (interactive)
+  (call-interactively 'org-store-link)
+  (org-capture nil "i"))
+(define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
-(setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -224,11 +234,17 @@
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
 (setq org-image-actual-width t)
+(setq org-hierarchical-todo-statistics nil)
 (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+")))
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
-(setq org-refile-targets '(("gtd.org" :level . 2)))
+(setq org-refile-targets '
+      (("work.org" :level . 2)
+       ("personal.org" :level . 2)
+       ("hobbies.org" :level . 2)
+       ("someday.org" :level . 1)
+       ("inbox.org" :level . 1)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 (setq org-columns-skip-archived-trees t)
@@ -250,13 +266,11 @@
                 '(("clock:" . "")
                   ("scheduled:" . "")
                   ("deadline:" . "")
-                  ("closed:" . "")
-                  ("[ ]" . "")
-		  ("[X]" . "")
-		  ("[-]" . "❍"))))
+                  ("closed:" . ""))))
   (prettify-symbols-mode 1))
-;; (add-hook 'org-mode-hook #'prettify-org-keywords)
+(add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
+
 
 (require 'org-agenda)
 (setq org-agenda-todo-ignore-scheduled (quote all))
@@ -278,14 +292,31 @@
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
          ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-overriding-header "❱ AGENDA:\n")
+                      (org-agenda-overriding-header "❱ TODAY:\n")
                       (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
                       (org-deadline-warning-days 90)
-                      (org-agenda-prefix-format "   %-12s%-12t ")
                       (org-habit-show-habits t)
                       (org-agenda-time-grid
                        '((daily today remove-match)
-                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))))))
+                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")))
+          (agenda nil ((org-agenda-span 'day)
+                       (org-agenda-entry-types '(:deadline))
+                       (org-deadline-warning-days 90)
+                       (org-agenda-time-grid nil)
+                       (org-agenda-format-date "")
+                       ;; (org-agenda-prefix-format " • %?-12t% s")
+                       (org-agenda-overriding-header "❱ DEADLINES:")))
+          (todo "TODO|WAIT" ((org-agenda-overriding-header "❱ ANYTIME:\n")))))))
+
+(defun org-agenda-show-all ()
+  "Show both agenda and todo list."
+  (interactive)
+  (org-agenda nil "o")
+  (delete-other-windows))
+(global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(add-hook 'after-init-hook #'org-agenda-show-all)
 
 (use-package org-appear
   :ensure t
@@ -498,7 +529,7 @@
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-;; (set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Sans Mono" :height 130))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Sans Mono" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
@@ -508,13 +539,13 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'markdown-url-face nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Iosevka Sans Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Iosevka Sans Mono" :height 120))
+  (set-face-attribute 'markdown-url-face nil :family "Basier Circle Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Basier Circle Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Basier Circle Mono" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/cogito"))
+(setq denote-directory (expand-file-name "~/Documents/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
