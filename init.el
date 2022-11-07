@@ -142,12 +142,12 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Basier Circle Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Basier Circle Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Univers Next Pro" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "SF Mono" :height 120 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "SF Mono" :height 120 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 140 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
-(mac-auto-operator-composition-mode t)
+;; (mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -200,7 +200,7 @@
 (setq org-agenda-files (list "inbox.org" "work.org" "personal.org" "hobbies.org" "calendar.org"))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
-      `(("i" "Inbox" entry  (file+headline "inbox.org" "Inbox")
+      `(("i" "Inbox" entry  (file+headline "inbox.org" "Unsorted")
          ,(concat "* TODO %?\n"))))
 (defun org-capture-inbox ()
   (interactive)
@@ -210,7 +210,7 @@
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
-(setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -529,7 +529,7 @@
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 120))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -539,10 +539,12 @@
 (setq org-modern-block-name t)
 (global-org-modern-mode)
 
-(with-eval-after-load 'org-modern
-  (set-face-attribute 'markdown-url-face nil :family "Basier Circle Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Basier Circle Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Basier Circle Mono" :height 120))
+(with-eval-after-load 'modus-operandi-theme
+  (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 180)
+  (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 160)
+  (set-face-attribute 'markdown-url-face nil :family "SF Mono" :height 120)
+  (set-face-attribute 'org-ellipsis nil :family "SF Mono" :height 120)
+  (set-face-attribute 'org-modern-label nil :family "SF Mono" :height 110))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
