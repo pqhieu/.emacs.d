@@ -142,8 +142,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "SF Mono" :height 120 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "SF Mono" :height 120 :weight 'normal)
+(set-face-attribute 'default nil :family "New Heterodox Mono" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "New Heterodox Mono" :height 130 :weight 'normal)
 (set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 140 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
@@ -285,9 +285,9 @@
 (setq org-agenda-block-separator ?─)
 (setq org-agenda-hide-tags-regexp ".")
 (setq org-agenda-sorting-strategy
-      '((agenda time-up todo-state-up priority-down habit-down category-keep)
-        (todo todo-state-up priority-down category-keep)
-        (tags todo-state-up priority-down category-keep)
+      '((agenda time-up deadline-up category-keep todo-state-up priority-down habit-down)
+        (todo category-keep todo-state-up priority-down)
+        (tags category-keep todo-state-up priority-down)
         (search category-keep)))
 (setq org-agenda-custom-commands
       '(("o" "My agenda"
@@ -477,7 +477,7 @@
   :ensure t
   :config
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-slanted-constructs nil)
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
@@ -529,7 +529,7 @@
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 120))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -539,12 +539,12 @@
 (setq org-modern-block-name t)
 (global-org-modern-mode)
 
-(with-eval-after-load 'modus-operandi-theme
+(with-eval-after-load 'modus-themes
   (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 180)
   (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 160)
-  (set-face-attribute 'markdown-url-face nil :family "SF Mono" :height 120)
-  (set-face-attribute 'org-ellipsis nil :family "SF Mono" :height 120)
-  (set-face-attribute 'org-modern-label nil :family "SF Mono" :height 110))
+  (set-face-attribute 'markdown-url-face nil :family "New Heterodox Mono" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "New Heterodox Mono" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "New Heterodox Mono" :height 120))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
