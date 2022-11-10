@@ -71,7 +71,6 @@
                     '(internal-border-width . 24)
                     '(tool-bar-lines . 0)
                     '(menu-bar-lines . 0))))
-(add-hook 'after-init-hook 'toggle-frame-fullscreen)
 
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
@@ -142,12 +141,11 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Operator Mono" :height 120 :weight 'light)
-(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 120 :weight 'light)
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 130 :weight 'normal)
+(set-face-attribute 'default nil :family "Operator Mono" :height 160 :weight 'light)
+(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 160 :weight 'light)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 160 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
-;; (mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -196,19 +194,9 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(define-key global-map (kbd "C-c c") 'org-capture)
-(setq org-capture-templates
-      `(("i" "Inbox" entry  (file+headline "inbox.org" "Unsorted")
-         ,(concat "* TODO %?\n"))))
-(defun org-capture-inbox ()
-  (interactive)
-  (call-interactively 'org-store-link)
-  (org-capture nil "i"))
-(define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)" "DROP(p)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -237,12 +225,6 @@
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
-(setq org-refile-targets '
-      (("work.org" :level . 2)
-       ("personal.org" :level . 2)
-       ("hobbies.org" :level . 2)
-       ("someday.org" :level . 1)
-       ("inbox.org" :level . 1)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 (setq org-columns-skip-archived-trees t)
@@ -255,58 +237,6 @@
 (require 'ob-hledger)
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-
-(defun prettify-org-keywords ()
-  (interactive)
-  "Beautify org mode keywords."
-  (setq prettify-symbols-alist
-        (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-                '(("clock:" . "")
-                  ("scheduled:" . "")
-                  ("deadline:" . "")
-                  ("closed:" . ""))))
-  (prettify-symbols-mode 1))
-(add-hook 'org-mode-hook #'prettify-org-keywords)
-(add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
-
-
-(require 'org-agenda)
-(setq org-agenda-todo-ignore-scheduled (quote all))
-(setq org-agenda-todo-ignore-timestamp (quote all))
-(setq org-agenda-tags-column -77)
-;; Do not show scheduled/deadline if done
-(setq org-agenda-skip-deadline-prewarning-if-scheduled nil)
-(setq org-agenda-skip-deadline-if-done t)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-show-future-repeats 'next)
-(setq org-agenda-hidden-separator "‌‌ ")
-(setq org-agenda-block-separator ?─)
-(setq org-agenda-hide-tags-regexp ".")
-(setq org-agenda-sorting-strategy
-      '((agenda time-up deadline-up category-keep todo-state-up priority-down habit-down)
-        (todo category-keep todo-state-up priority-down)
-        (tags category-keep todo-state-up priority-down)
-        (search category-keep)))
-(setq org-agenda-custom-commands
-      '(("o" "My agenda"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-overriding-header "❱ TODAY:\n")
-                      (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                      (org-deadline-warning-days 90)
-                      (org-habit-show-habits t)
-                      (org-agenda-time-grid
-                       '((daily today remove-match)
-                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (tags-todo "inbox" ((org-agenda-overriding-header "❱ INBOX:\n")))
-          (agenda nil ((org-agenda-span 'day)
-                       (org-agenda-entry-types '(:deadline))
-                       (org-deadline-warning-days 90)
-                       (org-agenda-time-grid nil)
-                       (org-agenda-format-date "")
-                       ;; (org-agenda-prefix-format " • %?-12t% s")
-                       (org-agenda-overriding-header "❱ DEADLINES:")))
-          (todo "TODO|WAIT" ((org-agenda-overriding-header "❱ ANYTIME:\n")))))))
 
 (use-package org-appear
   :ensure t
@@ -463,34 +393,10 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-subtle-line-numbers t)
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-diffs 'desaturated)
-  (setq modus-themes-completions
-        (quote ((matches . nil)
-                (selection . (background))
-                (popup . nil))))
-  (setq modus-themes-org-agenda
-        '((header-block . (variable-pitch bold 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-headings
-        '((0 . (variable-pitch bold (height 1.3)))
-          (1 . (variable-pitch bold (height 1.2)))
-          (t . (variable-pitch bold (height 1.0)))))
-  (setq modus-themes-org-blocks nil)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (load-theme 'doom-tokyo-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -519,7 +425,7 @@
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 120))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 160))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -530,76 +436,6 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'modus-themes
-  (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 180)
-  (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 160)
-  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 120 :weight 'light)
-  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 120 :weight 'light)
-  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 110 :weight 'light))
-
-(require 'denote)
-;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/cogito"))
-(setq denote-infer-keywords t)
-(setq denote-sort-keywords t)
-(setq denote-file-type nil) ; Org is the default, set others here
-(setq denote-prompts '(title keywords))
-
-;; Read this manual for how to specify `denote-templates'.  We do not
-;; include an example here to avoid potential confusion.
-
-;; We allow multi-word keywords by default.  The author's personal
-;; preference is for single-word keywords for a more rigid workflow.
-(setq denote-allow-multi-word-keywords t)
-
-(setq denote-date-format nil) ; read doc string
-
-;; By default, we fontify backlinks in their bespoke buffer.
-(setq denote-link-fontify-backlinks t)
-
-;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
-;; advanced.
-
-;; If you use Markdown or plain text files (Org renders links as buttons
-;; right away)
-(add-hook 'find-file-hook #'denote-link-buttonize-buffer)
-
-;; Generic (great if you rename files Denote-style in lots of places):
-(add-hook 'dired-mode-hook #'denote-dired-mode)
-
-;; Denote DOES NOT define any key bindings.  This is for the user to
-;; decide.  For example:
-(let ((map global-map))
-  (define-key map (kbd "C-c n n") #'denote)
-  (define-key map (kbd "C-c n N") #'denote-type)
-  (define-key map (kbd "C-c n d") #'denote-date)
-  (define-key map (kbd "C-c n s") #'denote-subdirectory)
-  (define-key map (kbd "C-c n t") #'denote-template)
-  ;; If you intend to use Denote with a variety of file types, it is
-  ;; easier to bind the link-related commands to the `global-map', as
-  ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
-  ;; `markdown-mode-map', and/or `text-mode-map'.
-  (define-key map (kbd "C-c n i") #'denote-link) ; "insert" mnemonic
-  (define-key map (kbd "C-c n I") #'denote-link-add-links)
-  (define-key map (kbd "C-c n l") #'denote-link-find-file) ; "list" links
-  (define-key map (kbd "C-c n b") #'denote-link-backlinks)
-  ;; Note that `denote-rename-file' can work from any context, not just
-  ;; Dired bufffers.  That is why we bind it here to the `global-map'.
-  (define-key map (kbd "C-c n r") #'denote-rename-file)
-  (define-key map (kbd "C-c n R") #'denote-rename-file-using-front-matter))
-
-;; Key bindings specifically for Dired.
-(let ((map dired-mode-map))
-  (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
-  (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
-  (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
-
-(with-eval-after-load 'org-capture
-  (setq denote-org-capture-specifiers "%l\n%i\n%?")
-  (add-to-list 'org-capture-templates
-               '("n" "New note (with denote.el)" plain
-                 (file denote-last-path)
-                 #'denote-org-capture
-                 :no-save t
-                 :immediate-finish nil
-                 :kill-buffer t
-                 :jump-to-captured t)))
+  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 160 :weight 'light)
+  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 160 :weight 'light)
+  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 140 :weight 'light))
