@@ -142,9 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "New Heterodox Mono" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "New Heterodox Mono" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 140 :weight 'normal)
+(set-face-attribute 'default nil :family "Operator Mono" :height 120 :weight 'light)
+(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 120 :weight 'light)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 130 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 ;; (mac-auto-operator-composition-mode t)
@@ -477,7 +477,7 @@
   :ensure t
   :config
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs nil)
+  (setq modus-themes-slanted-constructs t)
   (setq modus-themes-mixed-fonts t)
   (setq modus-themes-syntax '(faint))
   (setq modus-themes-fringes nil)
@@ -529,7 +529,7 @@
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 120))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -542,16 +542,16 @@
 (with-eval-after-load 'modus-themes
   (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 180)
   (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 160)
-  (set-face-attribute 'markdown-url-face nil :family "New Heterodox Mono" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "New Heterodox Mono" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "New Heterodox Mono" :height 120))
+  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 120 :weight 'light)
+  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 120 :weight 'light)
+  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 110 :weight 'light))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
 (setq denote-directory (expand-file-name "~/Documents/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-file-type nil) ; Org is the default, set others here
+(setq denote-file-type 'markdown-toml) ; Org is the default, set others here
 (setq denote-prompts '(title keywords))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
