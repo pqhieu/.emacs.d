@@ -196,8 +196,6 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(setq org-directory "~/Documents/org")
-(setq org-agenda-files (list "inbox.org" "work.org" "personal.org" "hobbies.org" "calendar.org"))
 (define-key global-map (kbd "C-c c") 'org-capture)
 (setq org-capture-templates
       `(("i" "Inbox" entry  (file+headline "inbox.org" "Unsorted")
@@ -548,10 +546,10 @@
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/notes"))
+(setq denote-directory (expand-file-name "~/Documents/cogito"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-file-type 'markdown-toml) ; Org is the default, set others here
+(setq denote-file-type nil) ; Org is the default, set others here
 (setq denote-prompts '(title keywords))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
