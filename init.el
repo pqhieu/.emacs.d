@@ -308,14 +308,6 @@
                        (org-agenda-overriding-header "❱ DEADLINES:")))
           (todo "TODO|WAIT" ((org-agenda-overriding-header "❱ ANYTIME:\n")))))))
 
-(defun org-agenda-show-all ()
-  "Show both agenda and todo list."
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
-(add-hook 'after-init-hook #'org-agenda-show-all)
-
 (use-package org-appear
   :ensure t
   :hook (org-mode . org-appear-mode)
