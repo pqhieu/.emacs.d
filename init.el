@@ -141,9 +141,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Operator Mono" :height 160 :weight 'light)
-(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 160 :weight 'light)
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 160 :weight 'normal)
+(set-face-attribute 'default nil :family "Operator Mono" :height 140 :weight 'book)
+(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 140 :weight 'book)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 150 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -236,7 +236,8 @@
    (ledger . t)))
 (require 'ob-hledger)
 (setq org-confirm-babel-evaluate nil)
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+(add-hook 'org-babel-after-execute-hook #'org-display-inline-images)
+(add-hook 'text-mode-hook #'visual-line-mode)
 
 (use-package org-appear
   :ensure t
@@ -393,10 +394,34 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package doom-themes
+(use-package modus-themes
   :ensure t
   :config
-  (load-theme 'doom-tokyo-night t))
+  (setq modus-themes-bold-constructs t)
+  (setq modus-themes-slanted-constructs t)
+  (setq modus-themes-mixed-fonts t)
+  (setq modus-themes-syntax '(faint))
+  (setq modus-themes-fringes nil)
+  (setq modus-themes-subtle-line-numbers t)
+  (setq modus-themes-links '(underline faint))
+  (setq modus-themes-diffs 'desaturated)
+  (setq modus-themes-completions
+        (quote ((matches . nil)
+                (selection . (background))
+                (popup . nil))))
+  (setq modus-themes-org-agenda
+        '((header-block . (variable-pitch bold 1.0))
+          (header-date . (accented grayscale bold-all))
+          (event . nil)
+          (scheduled . nil)
+          (habit . nil)))
+  (setq modus-themes-headings
+        '((0 . (variable-pitch bold (height 1.3)))
+          (1 . (variable-pitch bold (height 1.2)))
+          (t . (variable-pitch bold (height 1.0)))))
+  (setq modus-themes-org-blocks nil)
+  (setq modus-themes-variable-pitch-ui nil)
+  (load-theme 'modus-operandi t))
 
 (use-package nano-modeline
   :ensure t
@@ -435,7 +460,9 @@
 (setq org-modern-block-name t)
 (global-org-modern-mode)
 
-(with-eval-after-load 'modus-themes
-  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 160 :weight 'light)
-  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 160 :weight 'light)
-  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 140 :weight 'light))
+(with-eval-after-load 'org-modern
+  (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 200)
+  (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 180)
+  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 140 :weight 'book)
+  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 140 :weight 'book)
+  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 130 :weight 'book))
