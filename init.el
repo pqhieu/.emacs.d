@@ -394,34 +394,10 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-subtle-line-numbers t)
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-diffs 'desaturated)
-  (setq modus-themes-completions
-        (quote ((matches . nil)
-                (selection . (background))
-                (popup . nil))))
-  (setq modus-themes-org-agenda
-        '((header-block . (variable-pitch bold 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-headings
-        '((0 . (variable-pitch bold (height 1.3)))
-          (1 . (variable-pitch bold (height 1.2)))
-          (t . (variable-pitch bold (height 1.0)))))
-  (setq modus-themes-org-blocks nil)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
+  (load-theme 'doom-plain-dark t))
 
 (use-package nano-modeline
   :ensure t
@@ -461,8 +437,24 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 Caps" :height 200)
-  (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 Caps" :height 180)
+  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps" :height 200 :weight 'bold)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps" :height 180 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 3 Caps" :height 150 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 3 Caps" :height 180 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 3 Caps" :height 150 :weight 'bold :slant 'normal)
+  (set-face-background 'org-block-begin-line (face-attribute 'default :background))
+  (set-face-background 'org-block-end-line (face-attribute 'default :background))
   (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 140 :weight 'book)
   (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 140 :weight 'book)
   (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 130 :weight 'book))
+
+(use-package deft
+  :ensure t
+  :init
+  (global-set-key (kbd "C-c d") #'deft)
+  (setq deft-extensions '("md"))
+  (setq deft-default-extension "md")
+  (setq deft-directory "~/Documents/notes")
+  (setq deft-use-filename-as-title t)
+  (setq deft-auto-save-interval 0)
+  (setq deft-recursive t))
