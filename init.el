@@ -66,7 +66,7 @@
 
 (setq default-frame-alist
       (append (list '(min-height . 1)  '(height . 60)
-                    '(min-width . 40) '(width . 90)
+                    '(min-width . 40) '(width . 100)
                     '(vertical-scroll-bars . nil)
                     '(internal-border-width . 24)
                     '(tool-bar-lines . 0)
@@ -141,11 +141,12 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Operator Mono" :height 140 :weight 'book)
-(set-face-attribute 'fixed-pitch nil :family "Operator Mono" :height 140 :weight 'book)
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 150 :weight 'normal)
+(set-face-attribute 'default nil :family "Rec Mono Custom" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Rec Mono Custom" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Alegreya" :height 150 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
+(mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -225,7 +226,6 @@
 (setq org-confirm-babel-evaluate nil)
 ;; Increase sub-item indentation
 (setq org-list-indent-offset 1)
-(setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 (setq org-columns-skip-archived-trees t)
 (add-to-list 'org-modules 'org-habit t)
@@ -237,6 +237,18 @@
 (require 'ob-hledger)
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook #'org-display-inline-images)
+
+(defun prettify-org-keywords ()
+  (interactive)
+  "Beautify org mode keywords."
+  (setq prettify-symbols-alist
+        (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
+                '(("clock:" . "")
+                  ("scheduled:" . "")
+                  ("deadline:" . "")
+                  ("closed:" . ""))))
+  (prettify-symbols-mode 1))
+(add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'text-mode-hook #'visual-line-mode)
 
 (use-package org-appear
@@ -397,7 +409,8 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-plain-dark t))
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -416,17 +429,15 @@
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
-(setq
- ;; Edit settings
- org-auto-align-tags nil
- org-tags-column 0
- org-catch-invisible-edits 'show-and-error
- org-special-ctrl-a/e t
- org-insert-heading-respect-content t)
+(setq org-auto-align-tags nil
+      org-tags-column 0
+      org-catch-invisible-edits 'show-and-error
+      org-special-ctrl-a/e t
+      org-insert-heading-respect-content t)
 
 (require 'org-modern)
 (setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 160))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -437,24 +448,27 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps" :height 200 :weight 'bold)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps" :height 180 :weight 'bold :slant 'normal)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 3 Caps" :height 150 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 3 Caps" :height 180 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 3 Caps" :height 150 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-document-title nil :family "Alegreya SC" :height 200 :weight 'bold)
+  (set-face-attribute 'org-level-1 nil :family "Alegreya SC" :height 180 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-level-2 nil :family "Alegreya" :height 150 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Alegreya SC" :height 180 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Alegreya" :height 150 :weight 'bold :slant 'normal)
   (set-face-background 'org-block-begin-line (face-attribute 'default :background))
   (set-face-background 'org-block-end-line (face-attribute 'default :background))
-  (set-face-attribute 'markdown-url-face nil :family "Operator Mono" :height 140 :weight 'book)
-  (set-face-attribute 'org-ellipsis nil :family "Operator Mono" :height 140 :weight 'book)
-  (set-face-attribute 'org-modern-label nil :family "Operator Mono" :height 130 :weight 'book))
+  (set-face-attribute 'markdown-url-face nil :family "Rec Mono Custom" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Rec Mono Custom" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Rec Mono Custom" :height 120))
 
-(use-package deft
+(use-package org-roam
   :ensure t
-  :init
-  (global-set-key (kbd "C-c d") #'deft)
-  (setq deft-extensions '("md"))
-  (setq deft-default-extension "md")
-  (setq deft-directory "~/Documents/notes")
-  (setq deft-use-filename-as-title t)
-  (setq deft-auto-save-interval 0)
-  (setq deft-recursive t))
+  :custom
+  (org-roam-directory "~/Documents/brain")
+  :bind (("C-c d l" . org-roam-buffer-toggle)
+         ("C-c d d" . org-roam-node-find)
+         ("C-c d i" . org-roam-node-insert))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
