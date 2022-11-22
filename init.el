@@ -141,9 +141,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Rec Mono Custom" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Rec Mono Custom" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Alegreya" :height 150 :weight 'normal)
+(set-face-attribute 'default nil :family "Fira Code" :height 130 :weight 'normal)
+(set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 130 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Alegreya" :height 160 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 (mac-auto-operator-composition-mode t)
@@ -213,7 +213,7 @@
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
 (setq org-deadline-warning-days 7)
-(setq org-src-fontify-natively t)
+(setq org-src-fontify-natively nil)
 (setq org-src-preserve-indentation nil)
 (setq org-edit-src-content-indentation 0)
 (setq org-src-window-setup 'other-window)
@@ -237,6 +237,9 @@
 (require 'ob-hledger)
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook #'org-display-inline-images)
+
+(setq mixed-pitch-set-height t)
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
 
 (defun prettify-org-keywords ()
   (interactive)
@@ -436,8 +439,6 @@
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
-(setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
-(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -448,16 +449,18 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Alegreya SC" :height 200 :weight 'bold)
-  (set-face-attribute 'org-level-1 nil :family "Alegreya SC" :height 180 :weight 'bold :slant 'normal)
-  (set-face-attribute 'org-level-2 nil :family "Alegreya" :height 150 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Alegreya SC" :height 180 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Alegreya" :height 150 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-document-title nil :family "Alegreya SC" :height 160 :weight 'bold)
+  (set-face-attribute 'org-level-1 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-level-2 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
+  (set-face-attribute 'org-level-3 nil :family "Alegreya" :height 160 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
+  (set-face-attribute 'markdown-header-face-3 nil :family "Alegreya" :height 160 :weight 'bold :slant 'normal)
   (set-face-background 'org-block-begin-line (face-attribute 'default :background))
   (set-face-background 'org-block-end-line (face-attribute 'default :background))
-  (set-face-attribute 'markdown-url-face nil :family "Rec Mono Custom" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Rec Mono Custom" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Rec Mono Custom" :height 120))
+  (set-face-attribute 'markdown-url-face nil :family "Fira Code" :height 130)
+  (set-face-attribute 'org-ellipsis nil :family "Fira Code" :height 130)
+  (set-face-attribute 'org-modern-label nil :family "Fira Code" :height 120))
 
 (use-package deft
   :ensure t
@@ -476,7 +479,7 @@
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
-(setq denote-prompts '(title keywords))
+(setq denote-prompts '(title))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
 ;; include an example here to avoid potential confusion.
