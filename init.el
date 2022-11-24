@@ -141,12 +141,11 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :family "Fira Code" :height 130 :weight 'normal)
-(set-face-attribute 'fixed-pitch nil :family "Fira Code" :height 130 :weight 'normal)
-(set-face-attribute 'variable-pitch nil :family "Alegreya" :height 160 :weight 'normal)
+(set-face-attribute 'default nil :font "Operator Mono SSm Book 13")
+(set-face-attribute 'fixed-pitch nil :family "Operator Mono SSm Book 13")
+(set-face-attribute 'variable-pitch nil :family "Alegreya" :height 150)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
-(mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -439,6 +438,8 @@
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
+(setq org-modern-progress '("○" "◔" "◑" "◕" "●"))
+(set-fontset-font "fontset-default"  '(#x02500 . #x025ff) (font-spec :family "Iosevka Custom" :height 130))
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
@@ -449,18 +450,14 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Alegreya SC" :height 160 :weight 'bold)
-  (set-face-attribute 'org-level-1 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
-  (set-face-attribute 'org-level-2 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
-  (set-face-attribute 'org-level-3 nil :family "Alegreya" :height 160 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Alegreya SC" :height 160 :weight 'bold :slant 'normal)
-  (set-face-attribute 'markdown-header-face-3 nil :family "Alegreya" :height 160 :weight 'bold :slant 'normal)
-  (set-face-background 'org-block-begin-line (face-attribute 'default :background))
-  (set-face-background 'org-block-end-line (face-attribute 'default :background))
-  (set-face-attribute 'markdown-url-face nil :family "Fira Code" :height 130)
-  (set-face-attribute 'org-ellipsis nil :family "Fira Code" :height 130)
-  (set-face-attribute 'org-modern-label nil :family "Fira Code" :height 120))
+  (set-face-attribute 'org-document-title nil :family "Alegreya SC" :height 200)
+  (set-face-attribute 'org-level-1 nil :family "Alegreya SC" :height 180)
+  (set-face-attribute 'org-level-2 nil :family "Alegreya" :height 150)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Alegreya SC" :height 180)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Alegreya" :height 150)
+  (set-face-attribute 'markdown-url-face nil :family "Operator Mono SSm Book 13")
+  (set-face-attribute 'org-ellipsis nil :family "Operator Mono SSm Book 13")
+  (set-face-attribute 'org-modern-label nil :family "Operator Mono SSm Book 12"))
 
 (use-package deft
   :ensure t
@@ -508,7 +505,6 @@
 (let ((map global-map))
   (define-key map (kbd "C-c n n") #'denote)
   (define-key map (kbd "C-c n N") #'denote-type)
-  (define-key map (kbd "C-c n d") #'denote-date)
   (define-key map (kbd "C-c n s") #'denote-subdirectory)
   (define-key map (kbd "C-c n t") #'denote-template)
   ;; If you intend to use Denote with a variety of file types, it is
@@ -529,14 +525,3 @@
   (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
   (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
   (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
-
-(with-eval-after-load 'org-capture
-  (setq denote-org-capture-specifiers "%l\n%i\n%?")
-  (add-to-list 'org-capture-templates
-               '("n" "New note (with denote.el)" plain
-                 (file denote-last-path)
-                 #'denote-org-capture
-                 :no-save t
-                 :immediate-finish nil
-                 :kill-buffer t
-                 :jump-to-captured t)))
