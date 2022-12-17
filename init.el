@@ -143,7 +143,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "Iosevka Custom 13")
 (set-face-attribute 'fixed-pitch nil :font "Iosevka Custom 13")
-(set-face-attribute 'variable-pitch nil :family "Vollkorn" :height 150 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 150 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -197,6 +197,7 @@
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -407,40 +408,40 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package modus-themes
-  :ensure t
-  :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-subtle-line-numbers t)
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-diffs 'desaturated)
-  (setq modus-themes-completions
-        (quote ((matches . nil)
-                (selection . (background))
-                (popup . nil))))
-  (setq modus-themes-org-agenda
-        '((header-block . (variable-pitch bold 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-headings
-        '((0 . (variable-pitch bold (height 1.5)))
-          (1 . (variable-pitch bold (height 1.3)))
-          (t . (variable-pitch bold (height 1.0)))))
-  (setq modus-themes-org-blocks nil)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
-
-;; (use-package doom-themes
+;; (use-package modus-themes
 ;;   :ensure t
 ;;   :config
-;;   (setq doom-themes-enable-italic t)
-;;   (load-theme 'doom-tomorrow-night t))
+;;   (setq modus-themes-bold-constructs t)
+;;   (setq modus-themes-slanted-constructs t)
+;;   (setq modus-themes-mixed-fonts t)
+;;   (setq modus-themes-syntax '(faint))
+;;   (setq modus-themes-fringes nil)
+;;   (setq modus-themes-subtle-line-numbers t)
+;;   (setq modus-themes-links '(underline faint))
+;;   (setq modus-themes-diffs 'desaturated)
+;;   (setq modus-themes-completions
+;;         (quote ((matches . nil)
+;;                 (selection . (background))
+;;                 (popup . nil))))
+;;   (setq modus-themes-org-agenda
+;;         '((header-block . (variable-pitch bold 1.0))
+;;           (header-date . (accented grayscale bold-all))
+;;           (event . nil)
+;;           (scheduled . nil)
+;;           (habit . nil)))
+;;   (setq modus-themes-headings
+;;         '((0 . (variable-pitch bold (height 1.5)))
+;;           (1 . (variable-pitch bold (height 1.3)))
+;;           (t . (variable-pitch bold (height 1.0)))))
+;;   (setq modus-themes-org-blocks nil)
+;;   (setq modus-themes-variable-pitch-ui nil)
+;;   (load-theme 'modus-operandi t))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -477,13 +478,13 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'modus-themes-heading-0 nil :family "Vollkorn SC" :height 200)
-  (set-face-attribute 'modus-themes-heading-1 nil :family "Vollkorn SC" :height 180)
-  ;; (set-face-attribute 'org-document-title nil :family "Vollkorn Caps" :height 200)
-  ;; (set-face-attribute 'org-level-1 nil :family "Vollkorn Caps" :height 180)
-  ;; (set-face-attribute 'org-level-2 nil :family "Vollkorn" :height 150)
-  ;; (set-face-attribute 'markdown-header-face-1 nil :family "Vollkorn Caps" :height 180)
-  ;; (set-face-attribute 'markdown-header-face-2 nil :family "Vollkorn" :height 150)
+  ;; (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 SC" :height 200)
+  ;; (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 SC" :height 180)
+  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps" :height 200)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps" :height 180)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 3" :height 150)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 3 Caps" :height 180)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 3" :height 150)
   (set-face-attribute 'markdown-url-face nil :font "Iosevka Custom 13")
   (set-face-attribute 'org-ellipsis nil :font "Iosevka Custom 13")
   (set-face-attribute 'org-modern-label nil :font "Iosevka Custom 12"))
@@ -494,14 +495,17 @@
   (global-set-key (kbd "C-c d") #'deft)
   (setq deft-extensions '("org"))
   (setq deft-default-extension "org")
-  (setq deft-directory "~/Documents/brain")
+  (setq deft-directory "~/Documents/notes")
   (setq deft-use-filename-as-title nil)
   (setq deft-auto-save-interval 0)
+  (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
+  (setq deft-strip-summary-regexp "\\([
+	]\\|^#\\+[[:lower:]_]+:.*$\\)")
   (setq deft-recursive t))
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/brain"))
+(setq denote-directory (expand-file-name "~/Documents/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
