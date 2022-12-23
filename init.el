@@ -143,7 +143,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "Iosevka Custom 13")
 (set-face-attribute 'fixed-pitch nil :font "Iosevka Custom 13")
-(set-face-attribute 'variable-pitch nil :family "Concourse 3" :height 150 :weight 'normal)
+(set-face-attribute 'variable-pitch nil :family "Vollkorn" :height 140 :weight 'normal)
 (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 
@@ -194,10 +194,20 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
+(setq org-directory "~/Documents/notes")
+(setq org-agenda-files '("~/Documents/notes"))
+(setq org-capture-templates
+      `(("i" "Backlog" entry (file "20221123T010719--top-of-mind.org") "** NEXT [#B] %?")))
+(define-key global-map (kbd "C-c c") 'org-capture)
+(defun org-capture-inbox ()
+  (interactive)
+  (call-interactively 'org-store-link)
+  (org-capture nil "i"))
+(define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")))
 (setq org-hide-emphasis-markers t)
 (setq org-hide-leading-stars t)
 (setq org-pretty-entities t)
@@ -252,6 +262,55 @@
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'text-mode-hook #'visual-line-mode)
+
+(require 'org-agenda)
+(setq org-agenda-todo-ignore-scheduled (quote all))
+(setq org-agenda-todo-ignore-timestamp (quote all))
+(setq org-agenda-tags-column -77)
+;; Do not show scheduled/deadline if done
+(setq org-agenda-skip-deadline-prewarning-if-scheduled nil)
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-scheduled-if-done t)
+(setq org-agenda-show-future-repeats 'next)
+(setq org-agenda-hidden-separator "‌‌ ")
+(setq org-agenda-block-separator ?─)
+(setq org-agenda-hide-tags-regexp ".")
+(setq org-agenda-sorting-strategy
+      '((agenda time-up deadline-up todo-state-up priority-down habit-down category-keep)
+        (todo todo-state-up priority-down category-keep)
+        (tags todo-state-up priority-down category-keep)
+        (search category-keep)))
+(setq org-agenda-custom-commands
+      '(("o" "My agenda"
+         ((agenda "" ((org-agenda-span 'week)
+                      (org-agenda-overriding-header "❱ AGENDA:\n")
+                      (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+                      (org-deadline-warning-days 0)
+                      (org-agenda-prefix-format "   %-12s%-12t ")
+                      (org-habit-show-habits t)
+                      (org-agenda-time-grid
+                       '((daily today remove-match)
+                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
+          (todo "TODO" ((org-agenda-overriding-header "❱ TODO:\n")
+                        (org-agenda-prefix-format " • ")))
+          (agenda nil ((org-agenda-span 'day)
+                       (org-agenda-entry-types '(:deadline))
+                       (org-deadline-warning-days 90)
+                       (org-agenda-time-grid nil)
+                       (org-agenda-format-date "")
+                       (org-agenda-prefix-format " • %?-12t% s")
+                       (org-agenda-overriding-header "❱ DEADLINES:")))
+          (todo "NEXT|WAIT" ((org-agenda-overriding-header "❱ BACKLOG:\n")
+                             (org-agenda-prefix-format " • ")))))))
+
+(defun org-agenda-show-all ()
+  "Show both agenda and todo list."
+  (interactive)
+  (org-agenda nil "o")
+  (delete-other-windows))
+(global-set-key (kbd "C-c a") #'org-agenda-show-all)
+(add-hook 'after-init-hook #'org-agenda-show-all)
 
 (use-package org-appear
   :ensure t
@@ -478,15 +537,18 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  ;; (set-face-attribute 'modus-themes-heading-0 nil :family "Concourse 3 SC" :height 200)
-  ;; (set-face-attribute 'modus-themes-heading-1 nil :family "Concourse 3 SC" :height 180)
-  (set-face-attribute 'org-document-title nil :family "Concourse 3 Caps" :height 200)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 3 Caps" :height 180)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 3" :height 150)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 3 Caps" :height 180)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 3" :height 150)
+  ;; (set-face-attribute 'modus-themes-heading-0 nil :family "Vollkorn" :height 200)
+  ;; (set-face-attribute 'modus-themes-heading-1 nil :family "Vollkorn" :height 180)
+  (set-face-attribute 'org-document-title nil :family "Vollkorn SC" :height 200)
+  (set-face-attribute 'org-level-1 nil :family "Vollkorn SC" :height 180)
+  (set-face-attribute 'org-level-2 nil :family "Vollkorn" :height 140)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Vollkorn SC" :height 180)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Vollkorn" :height 140)
   (set-face-attribute 'markdown-url-face nil :font "Iosevka Custom 13")
   (set-face-attribute 'org-ellipsis nil :font "Iosevka Custom 13")
+  (set-face-attribute 'org-special-keyword nil :font "Iosevka Custom 13")
+  (set-face-attribute 'org-drawer nil :font "Iosevka Custom 13")
+  (set-face-attribute 'org-property-value nil :font "Iosevka Custom 13")
   (set-face-attribute 'org-modern-label nil :font "Iosevka Custom 12"))
 
 (use-package deft
