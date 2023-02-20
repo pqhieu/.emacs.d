@@ -141,11 +141,12 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Iosevka Custom 13")
-(set-face-attribute 'fixed-pitch nil :font "Iosevka Custom 13")
-(set-face-attribute 'variable-pitch nil :family "Vollkorn" :height 140 :weight 'normal)
-(setq-default line-spacing 0.1)
+(set-face-attribute 'default nil :font "JetBrains Mono 13")
+(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
+(set-face-attribute 'variable-pitch nil :family "Google Sans" :height 130)
+;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
+(mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -194,16 +195,6 @@
 (global-set-key (kbd "C-c w") #'kill-other-buffers)
 
 (require 'org)
-(setq org-directory "~/Documents/notes")
-(setq org-agenda-files '("~/Documents/notes"))
-(setq org-capture-templates
-      `(("i" "Backlog" entry (file "20221123T010719--top-of-mind.org") "** NEXT [#B] %?")))
-(define-key global-map (kbd "C-c c") 'org-capture)
-(defun org-capture-inbox ()
-  (interactive)
-  (call-interactively 'org-store-link)
-  (org-capture nil "i"))
-(define-key global-map (kbd "C-c i") 'org-capture-inbox)
 (setq org-ellipsis "▼")
 (setq org-tags-column -77)
 (setq org-adapt-indentation nil)
@@ -262,55 +253,7 @@
   (prettify-symbols-mode 1))
 (add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'text-mode-hook #'visual-line-mode)
-
-(require 'org-agenda)
-(setq org-agenda-todo-ignore-scheduled (quote all))
-(setq org-agenda-todo-ignore-timestamp (quote all))
-(setq org-agenda-tags-column -77)
-;; Do not show scheduled/deadline if done
-(setq org-agenda-skip-deadline-prewarning-if-scheduled nil)
-(setq org-agenda-skip-deadline-if-done t)
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-agenda-show-future-repeats 'next)
-(setq org-agenda-hidden-separator "‌‌ ")
-(setq org-agenda-block-separator ?─)
-(setq org-agenda-hide-tags-regexp ".")
-(setq org-agenda-sorting-strategy
-      '((agenda time-up deadline-up todo-state-up priority-down habit-down category-keep)
-        (todo todo-state-up priority-down category-keep)
-        (tags todo-state-up priority-down category-keep)
-        (search category-keep)))
-(setq org-agenda-custom-commands
-      '(("o" "My agenda"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-agenda-overriding-header "❱ AGENDA:\n")
-                      (org-agenda-current-time-string "┈┈┈┈ now ┈┈┈┈")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                      (org-deadline-warning-days 0)
-                      (org-agenda-prefix-format "   %-12s%-12t ")
-                      (org-habit-show-habits t)
-                      (org-agenda-time-grid
-                       '((daily today remove-match)
-                         (0800 1200 1600 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈"))))
-          (todo "TODO" ((org-agenda-overriding-header "❱ TODO:\n")
-                        (org-agenda-prefix-format " • ")))
-          (agenda nil ((org-agenda-span 'day)
-                       (org-agenda-entry-types '(:deadline))
-                       (org-deadline-warning-days 90)
-                       (org-agenda-time-grid nil)
-                       (org-agenda-format-date "")
-                       (org-agenda-prefix-format " • %?-12t% s")
-                       (org-agenda-overriding-header "❱ DEADLINES:")))
-          (todo "NEXT|WAIT" ((org-agenda-overriding-header "❱ BACKLOG:\n")
-                             (org-agenda-prefix-format " • ")))))))
-
-(defun org-agenda-show-all ()
-  "Show both agenda and todo list."
-  (interactive)
-  (org-agenda nil "o")
-  (delete-other-windows))
-(global-set-key (kbd "C-c a") #'org-agenda-show-all)
-(add-hook 'after-init-hook #'org-agenda-show-all)
+(add-hook 'elfeed-show-mode #'visual-line-mode)
 
 (use-package org-appear
   :ensure t
@@ -467,40 +410,11 @@
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
-(use-package modus-themes
+(use-package doom-themes
   :ensure t
   :config
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-slanted-constructs t)
-  (setq modus-themes-mixed-fonts t)
-  (setq modus-themes-syntax '(faint))
-  (setq modus-themes-fringes nil)
-  (setq modus-themes-subtle-line-numbers t)
-  (setq modus-themes-links '(underline faint))
-  (setq modus-themes-diffs 'desaturated)
-  (setq modus-themes-completions
-        (quote ((matches . nil)
-                (selection . (background))
-                (popup . nil))))
-  (setq modus-themes-org-agenda
-        '((header-block . (variable-pitch bold 1.0))
-          (header-date . (accented grayscale bold-all))
-          (event . nil)
-          (scheduled . nil)
-          (habit . nil)))
-  (setq modus-themes-headings
-        '((0 . (variable-pitch bold (height 1.5)))
-          (1 . (variable-pitch bold (height 1.3)))
-          (t . (variable-pitch bold (height 1.0)))))
-  (setq modus-themes-org-blocks nil)
-  (setq modus-themes-variable-pitch-ui nil)
-  (load-theme 'modus-operandi t))
-
-;; (use-package doom-themes
-;;   :ensure t
-;;   :config
-;;   (setq doom-themes-enable-italic t)
-;;   (load-theme 'doom-tomorrow-night t))
+  (setq doom-themes-enable-italic t)
+  (load-theme 'doom-tomorrow-night t))
 
 (use-package nano-modeline
   :ensure t
@@ -519,16 +433,16 @@
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
-(setq org-auto-align-tags nil
+(setq org-auto-align-tags t
       org-tags-column 0
       org-catch-invisible-edits 'show-and-error
       org-special-ctrl-a/e t
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
-(setq org-modern-progress '("○" "◔" "◐" "◕" "●"))
+;; (setq org-modern-progress nil)
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
-(setq org-modern-list '((43 . "•") (45 . "•") (42 . "•")))
+(setq org-modern-list '((43 . "–") (45 . "•") (42 . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
 (setq org-modern-keyword t)
@@ -537,19 +451,17 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  ;; (set-face-attribute 'org-document-title nil :family "Vollkorn" :height 200)
-  ;; (set-face-attribute 'org-level-1 nil :family "Vollkorn" :height 180)
-  ;; (set-face-attribute 'org-level-2 nil :family "Vollkorn" :height 140)
-  ;; (set-face-attribute 'markdown-header-face-1 nil :family "Vollkorn" :height 180)
-  ;; (set-face-attribute 'markdown-header-face-2 nil :family "Vollkorn" :height 140)
-  ;; (set-face-attribute 'org-special-keyword nil :font "Iosevka Custom 13")
-  ;; (set-face-attribute 'org-drawer nil :font "Iosevka Custom 13")
-  ;; (set-face-attribute 'org-property-value nil :font "Iosevka Custom 13")
-  (set-face-attribute 'modus-themes-heading-0 nil :family "Vollkorn SC" :height 200)
-  (set-face-attribute 'modus-themes-heading-1 nil :family "Vollkorn SC" :height 180)
-  (set-face-attribute 'markdown-url-face nil :font "Iosevka Custom 13")
-  (set-face-attribute 'org-ellipsis nil :font "Iosevka Custom 13")
-  (set-face-attribute 'org-modern-label nil :font "Iosevka Custom 12"))
+  (set-face-attribute 'org-document-title nil :family "Google Sans" :height 150)
+  (set-face-attribute 'org-level-1 nil :family "Google Sans" :height 130)
+  (set-face-attribute 'org-level-2 nil :family "Google Sans" :height 130)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Google Sans" :height 130)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Google Sans" :height 130)
+  (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
+  (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
+  (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
+  (set-face-attribute 'markdown-url-face nil :font "JetBrains Mono 13")
+  (set-face-attribute 'org-ellipsis nil :font "JetBrains Mono 13")
+  (set-face-attribute 'org-modern-label nil :font "JetBrains Mono 12"))
 
 (use-package deft
   :ensure t
@@ -557,7 +469,7 @@
   (global-set-key (kbd "C-c d") #'deft)
   (setq deft-extensions '("org"))
   (setq deft-default-extension "org")
-  (setq deft-directory "~/Documents/notes")
+  (setq deft-directory "~/Workspace/notes")
   (setq deft-use-filename-as-title nil)
   (setq deft-auto-save-interval 0)
   (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
@@ -567,7 +479,7 @@
 
 (require 'denote)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Documents/notes"))
+(setq denote-directory (expand-file-name "~/Workspace/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
