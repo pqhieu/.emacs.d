@@ -143,7 +143,7 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "JetBrains Mono 13")
 (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
-(set-face-attribute 'variable-pitch nil :family "Google Sans" :height 130)
+(set-face-attribute 'variable-pitch nil :family "Inter" :height 130)
 ;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 (mac-auto-operator-composition-mode t)
@@ -451,11 +451,11 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Google Sans" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Google Sans" :height 130)
-  (set-face-attribute 'org-level-2 nil :family "Google Sans" :height 130)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Google Sans" :height 130)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Google Sans" :height 130)
+  (set-face-attribute 'org-document-title nil :family "Inter" :height 150)
+  (set-face-attribute 'org-level-1 nil :family "Inter" :height 130)
+  (set-face-attribute 'org-level-2 nil :family "Inter" :height 130)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Inter" :height 130)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Inter" :height 130)
   (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
