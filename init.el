@@ -143,10 +143,10 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "JetBrains Mono 13")
 (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
-(set-face-attribute 'variable-pitch nil :family "Inter" :height 130)
+(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 150)
 ;; (setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
-(mac-auto-operator-composition-mode t)
+;; (mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -442,7 +442,7 @@
 (require 'org-modern)
 ;; (setq org-modern-progress nil)
 (setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
-(setq org-modern-list '((43 . "–") (45 . "•") (42 . "•")))
+(setq org-modern-list '((?- . "•") (?* . "•") (?+ . "‣")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
 (setq org-modern-keyword t)
@@ -451,11 +451,12 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Inter" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Inter" :height 130)
-  (set-face-attribute 'org-level-2 nil :family "Inter" :height 130)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Inter" :height 130)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Inter" :height 130)
+  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 180)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 150)
   (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
@@ -469,7 +470,7 @@
   (global-set-key (kbd "C-c d") #'deft)
   (setq deft-extensions '("org"))
   (setq deft-default-extension "org")
-  (setq deft-directory "~/Workspace/notes")
+  (setq deft-directory "~/Workspace/vault")
   (setq deft-use-filename-as-title nil)
   (setq deft-auto-save-interval 0)
   (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
@@ -478,8 +479,9 @@
   (setq deft-recursive t))
 
 (require 'denote)
+(require 'denote-org-dblock)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Workspace/notes"))
+(setq denote-directory (expand-file-name "~/Workspace/vault"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
@@ -532,3 +534,5 @@
   (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
   (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
   (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
+
+(require 'denote-menu)

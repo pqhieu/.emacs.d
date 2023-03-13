@@ -11,6 +11,7 @@
 ** [[http://lilianweng.github.io/index.xml][Lilian Weng]] :ml:
 ** [[https://lethain.com/feeds/][Irrational Exuberance]] :tech:
 ** [[https://longform.asmartbear.com/index.xml][A Smart Bear]] :tech:
+** [[https://fs.blog/feed/][Farnam Street]]
 * YouTube :elfeed:video:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]] :finance:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC2C_jShtL725hvbm1arSV9w][CGP Grey]]
