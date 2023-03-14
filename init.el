@@ -534,5 +534,3 @@
   (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
   (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
   (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
-
-(require 'denote-menu)
