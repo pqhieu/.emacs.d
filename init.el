@@ -143,8 +143,8 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "JetBrains Mono 13")
 (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
-(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 150)
-;; (setq-default line-spacing 0.1)
+(set-face-attribute 'variable-pitch nil :family "Valkyrie B" :height 140)
+(setq-default line-spacing 0.1)
 (setq x-underline-at-descent-line nil)
 ;; (mac-auto-operator-composition-mode t)
 
@@ -240,18 +240,6 @@
 
 (setq mixed-pitch-set-height t)
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
-
-(defun prettify-org-keywords ()
-  (interactive)
-  "Beautify org mode keywords."
-  (setq prettify-symbols-alist
-        (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
-                '(("clock:" . "")
-                  ("scheduled:" . "")
-                  ("deadline:" . "")
-                  ("closed:" . ""))))
-  (prettify-symbols-mode 1))
-(add-hook 'org-mode-hook #'prettify-org-keywords)
 (add-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'elfeed-show-mode #'visual-line-mode)
 
@@ -407,6 +395,9 @@
   :ensure t
   :mode ("\\.dat\\'")
   :config
+  ;; (setq ledger-mode-should-check-version nil)
+  ;; (setq ledger-report-links-in-register nil)
+  ;; (setq ledger-binary-path "hledger")
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
@@ -414,7 +405,23 @@
   :ensure t
   :config
   (setq doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-night t))
+  (setq doom-flatwhite-no-highlight-variables t)
+  (load-theme 'doom-flatwhite t))
+
+;; (use-package modus-themes
+;;   :ensure t
+;;   :config
+;;   (setq modus-themes-bold-constructs t)
+;;   (setq modus-themes-slanted-constructs t)
+;;   (setq modus-themes-mixed-fonts t)
+;;   (setq modus-themes-completions
+;;         (quote ((matches . nil)
+;;                 (selection . (background))
+;;                 (popup . nil))))
+;;   (setq modus-themes-headings '((t . (variable-pitch bold (height 1.0)))))
+;;   (setq modus-themes-org-blocks 'gray-background)
+;;   (setq modus-themes-variable-pitch-ui nil)
+;;   (load-theme 'modus-operandi-tinted t))
 
 (use-package nano-modeline
   :ensure t
@@ -445,18 +452,19 @@
 (setq org-modern-list '((?- . "•") (?* . "•") (?+ . "‣")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
-(setq org-modern-keyword t)
+(setq org-modern-keyword nil)
 (setq org-modern-block-fringe t)
 (setq org-modern-block-name t)
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 180)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-document-title nil :family "Valkyrie B Caps" :height 140)
+  (set-face-attribute 'org-level-1 nil :family "Valkyrie B" :height 140)
+  (set-face-attribute 'org-level-2 nil :family "Valkyrie B" :height 140)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Valkyrie B" :height 140)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Valkyrie B" :height 140)
+  (set-face-attribute 'org-quote nil :family "Valkyrie B" :height 140)
+  (set-face-attribute 'ivy-org nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
@@ -470,7 +478,7 @@
   (global-set-key (kbd "C-c d") #'deft)
   (setq deft-extensions '("org"))
   (setq deft-default-extension "org")
-  (setq deft-directory "~/Workspace/vault")
+  (setq deft-directory "~/Workspace/brain")
   (setq deft-use-filename-as-title nil)
   (setq deft-auto-save-interval 0)
   (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
@@ -480,8 +488,9 @@
 
 (require 'denote)
 (require 'denote-org-dblock)
+(require 'denote-menu)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Workspace/vault"))
+(setq denote-directory (expand-file-name "~/Workspace/brain"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here
@@ -512,6 +521,7 @@
 ;; Denote DOES NOT define any key bindings.  This is for the user to
 ;; decide.  For example:
 (let ((map global-map))
+  (define-key map (kbd "C-c n d") #'list-denotes)
   (define-key map (kbd "C-c n n") #'denote)
   (define-key map (kbd "C-c n N") #'denote-type)
   (define-key map (kbd "C-c n s") #'denote-subdirectory)
@@ -522,7 +532,6 @@
   ;; `markdown-mode-map', and/or `text-mode-map'.
   (define-key map (kbd "C-c n i") #'denote-link) ; "insert" mnemonic
   (define-key map (kbd "C-c n I") #'denote-link-add-links)
-  (define-key map (kbd "C-c n l") #'denote-link-find-file) ; "list" links
   (define-key map (kbd "C-c n b") #'denote-link-backlinks)
   ;; Note that `denote-rename-file' can work from any context, not just
   ;; Dired bufffers.  That is why we bind it here to the `global-map'.
