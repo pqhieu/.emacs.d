@@ -95,8 +95,8 @@
 (set-keyboard-coding-system 'utf-8)
 
 ;; Disable blinking cursor
-(blink-cursor-mode 0)
-(setq-default cursor-type 'bar)
+(blink-cursor-mode 1)
+(setq-default cursor-type 'box)
 
 ;; Disable the annoying bell ring
 (setq ring-bell-function 'ignore)
@@ -130,9 +130,9 @@
 ;; Use pixel scrolling instead of character scrolling
 (pixel-scroll-mode 1)
 (setq pixel-dead-time 0) ; Never go back to the old scrolling behaviour.
-(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
-(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
-(setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
+(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines
+(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event
+(setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me
 
 ;; Enable line numbers
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -143,10 +143,8 @@
 ;; Set default font
 (set-face-attribute 'default nil :font "JetBrains Mono 13")
 (set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
-(set-face-attribute 'variable-pitch nil :family "Valkyrie B" :height 140)
-(setq-default line-spacing 0.1)
+(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 150)
 (setq x-underline-at-descent-line nil)
-;; (mac-auto-operator-composition-mode t)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -240,6 +238,7 @@
 
 (setq mixed-pitch-set-height t)
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
+(add-hook 'markdown-mode #'mixed-pitch-mode)
 (add-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'elfeed-show-mode #'visual-line-mode)
 
@@ -354,6 +353,7 @@
   :ensure t
   :config
   (elfeed-org)
+  (setq rmh-elfeed-org-tree-id "@elfeed")
   (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
 
 (use-package elfeed-tube
@@ -405,8 +405,7 @@
   :ensure t
   :config
   (setq doom-themes-enable-italic t)
-  (setq doom-flatwhite-no-highlight-variables t)
-  (load-theme 'doom-flatwhite t))
+  (load-theme 'doom-tomorrow-night t))
 
 ;; (use-package modus-themes
 ;;   :ensure t
@@ -421,14 +420,22 @@
 ;;   (setq modus-themes-headings '((t . (variable-pitch bold (height 1.0)))))
 ;;   (setq modus-themes-org-blocks 'gray-background)
 ;;   (setq modus-themes-variable-pitch-ui nil)
-;;   (load-theme 'modus-operandi-tinted t))
+;;   (setq modus-themes-common-palette-overrides modus-themes-preset-overrides-faint)
+;;   (load-theme 'modus-vivendi t))
 
-(use-package nano-modeline
+;; (use-package nano-modeline
+;;   :ensure t
+;;   :config
+;;   (setq nano-modeline-position 'bottom)
+;;   (setq nano-modeline-prefix-padding t)
+;;   (nano-modeline-mode 1))
+
+(use-package doom-modeline
   :ensure t
+  :hook (after-init . doom-modeline-mode)
   :config
-  (setq nano-modeline-position 'bottom)
-  (setq nano-modeline-prefix-padding t)
-  (nano-modeline-mode 1))
+  (setq doom-modeline-buffer-file-name-style 'buffer-name)
+  (setq doom-modeline-icon nil))
 
 ;; Add frame borders and window dividers
 (modify-all-frames-parameters
@@ -458,13 +465,12 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Valkyrie B Caps" :height 140)
-  (set-face-attribute 'org-level-1 nil :family "Valkyrie B" :height 140)
-  (set-face-attribute 'org-level-2 nil :family "Valkyrie B" :height 140)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Valkyrie B" :height 140)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Valkyrie B" :height 140)
-  (set-face-attribute 'org-quote nil :family "Valkyrie B" :height 140)
-  (set-face-attribute 'ivy-org nil :font "JetBrains Mono 13")
+  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 150)
   (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
   (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
@@ -478,7 +484,7 @@
   (global-set-key (kbd "C-c d") #'deft)
   (setq deft-extensions '("org"))
   (setq deft-default-extension "org")
-  (setq deft-directory "~/Workspace/brain")
+  (setq deft-directory "~/Workspace/notes")
   (setq deft-use-filename-as-title nil)
   (setq deft-auto-save-interval 0)
   (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
@@ -488,9 +494,8 @@
 
 (require 'denote)
 (require 'denote-org-dblock)
-(require 'denote-menu)
 ;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Workspace/brain"))
+(setq denote-directory (expand-file-name "~/Workspace/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
 (setq denote-file-type nil) ; Org is the default, set others here

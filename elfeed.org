@@ -1,23 +1,22 @@
-* News :elfeed:news:
-** [[https://news.ycombinator.com/rss][Hacker News]] :tech:
+* News :@elfeed:@news:
+** [[https://news.ycombinator.com/rss][Hacker News]] :@tech:
 ** [[https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25][Reddit]]
-* Blogs :elfeed:blog:
-** [[http://blog.samaltman.com/posts.atom][Sam Altman]] :tech:
+* Blogs :@elfeed:@blog:
+** [[http://blog.samaltman.com/posts.atom][Sam Altman]] :@tech:@startup:
 ** [[https://ciechanow.ski/atom.xml][Bartosz Ciechanowski]]
-** [[https://eugeneyan.com/rss/][Eugene Yan]] :ml:
-** [[http://karpathy.github.io/feed.xml][Andrej Karpathy]] :ml:
-** [[https://protesilaos.com/codelog.xml][Protesilaos Stavrou]] :emacs:
-** [[https://matt-rickard.com/rss/][Matt Rickard]] :tech:
-** [[http://lilianweng.github.io/index.xml][Lilian Weng]] :ml:
-** [[https://lethain.com/feeds/][Irrational Exuberance]] :tech:
-** [[https://longform.asmartbear.com/index.xml][A Smart Bear]] :tech:
+** [[https://eugeneyan.com/rss/][Eugene Yan]] :@ml:
+** [[http://karpathy.github.io/feed.xml][Andrej Karpathy]] :@ml:
+** [[https://protesilaos.com/codelog.xml][Protesilaos Stavrou]] :@emacs:
+** [[https://matt-rickard.com/rss/][Matt Rickard]] :@tech:@startup:
+** [[http://lilianweng.github.io/index.xml][Lilian Weng]] :@ml:
+** [[https://lethain.com/feeds/][Irrational Exuberance]] :@tech:@career:
 ** [[https://fs.blog/feed/][Farnam Street]]
 ** [[https://daryl.wakatara.com/rss.xml][Daryl Manning]]
-* YouTube :elfeed:video:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]] :finance:
+* YouTube :@elfeed:@video:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]] :@finance:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC2C_jShtL725hvbm1arSV9w][CGP Grey]]
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCkCGANrihzExmu9QiqZpPlQ][How Money Works]] :finance:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC4QZ_LsYcvcq7qOsOhpAX4A][ColdFusion]] :tech:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCDXTQ8nWmx_EhZ2v-kp7QxA][Ben Felix]] :finance:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]] :math:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCvJJ_dzjViJCoLf5uKUTwoA][CNBC]] :business:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCkCGANrihzExmu9QiqZpPlQ][How Money Works]] :@finance:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC4QZ_LsYcvcq7qOsOhpAX4A][ColdFusion]] :@tech:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCDXTQ8nWmx_EhZ2v-kp7QxA][Ben Felix]] :@finance:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]] :@math:
+** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCvJJ_dzjViJCoLf5uKUTwoA][CNBC]] :@business:
