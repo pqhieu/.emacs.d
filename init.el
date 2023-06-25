@@ -141,9 +141,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "JetBrains Mono 13")
-(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 13")
-(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 150)
+(set-face-attribute 'default nil :font "JetBrains Mono 14")
+(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 14")
+(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 160)
 (setq x-underline-at-descent-line nil)
 
 ;; Uniquify buffer names
@@ -395,9 +395,6 @@
   :ensure t
   :mode ("\\.dat\\'")
   :config
-  ;; (setq ledger-mode-should-check-version nil)
-  ;; (setq ledger-report-links-in-register nil)
-  ;; (setq ledger-binary-path "hledger")
   (setq ledger-clear-whole-transactions t)
   (setq ledger-default-date-format "%Y-%m-%d"))
 
@@ -406,29 +403,6 @@
   :config
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t))
-
-;; (use-package modus-themes
-;;   :ensure t
-;;   :config
-;;   (setq modus-themes-bold-constructs t)
-;;   (setq modus-themes-slanted-constructs t)
-;;   (setq modus-themes-mixed-fonts t)
-;;   (setq modus-themes-completions
-;;         (quote ((matches . nil)
-;;                 (selection . (background))
-;;                 (popup . nil))))
-;;   (setq modus-themes-headings '((t . (variable-pitch bold (height 1.0)))))
-;;   (setq modus-themes-org-blocks 'gray-background)
-;;   (setq modus-themes-variable-pitch-ui nil)
-;;   (setq modus-themes-common-palette-overrides modus-themes-preset-overrides-faint)
-;;   (load-theme 'modus-vivendi t))
-
-;; (use-package nano-modeline
-;;   :ensure t
-;;   :config
-;;   (setq nano-modeline-position 'bottom)
-;;   (setq nano-modeline-prefix-padding t)
-;;   (nano-modeline-mode 1))
 
 (use-package doom-modeline
   :ensure t
@@ -454,8 +428,6 @@
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
-;; (setq org-modern-progress nil)
-(setq org-modern-checkbox '((88 . "") (45 . "❍") (32 . "")))
 (setq org-modern-list '((?- . "•") (?* . "•") (?+ . "‣")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
@@ -465,18 +437,18 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 13")
-  (set-face-attribute 'org-drawer nil :font "JetBrains Mono 13")
-  (set-face-attribute 'org-property-value nil :font "JetBrains Mono 13")
-  (set-face-attribute 'markdown-url-face nil :font "JetBrains Mono 13")
-  (set-face-attribute 'org-ellipsis nil :font "JetBrains Mono 13")
-  (set-face-attribute 'org-modern-label nil :font "JetBrains Mono 12"))
+  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 160)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 160)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 160)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 160)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 160)
+  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 160)
+  (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 14")
+  (set-face-attribute 'org-drawer nil :font "JetBrains Mono 14")
+  (set-face-attribute 'org-property-value nil :font "JetBrains Mono 14")
+  (set-face-attribute 'markdown-url-face nil :font "JetBrains Mono 14")
+  (set-face-attribute 'org-ellipsis nil :font "JetBrains Mono 14")
+  (set-face-attribute 'org-modern-label nil :font "JetBrains Mono 13"))
 
 (use-package deft
   :ensure t
