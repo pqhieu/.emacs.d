@@ -1,6 +1,6 @@
 * News :@elfeed:@news:
 ** [[https://news.ycombinator.com/rss][Hacker News]] :@tech:
-** [[https://www.reddit.com/.rss?feed=b715b97328a94d3dcbddf4442e2777b95a1a6397&user=CaiCuoc&limit=25][Reddit]]
+** [[https://www.reddit.com/.rss?feed=e1b466a1a01af59d7f4a472306f5c5346ab7b5ae&user=CaiCuoc&limit=25][Reddit]]
 * Blogs :@elfeed:@blog:
 ** [[http://blog.samaltman.com/posts.atom][Sam Altman]] :@tech:@startup:
 ** [[https://ciechanow.ski/atom.xml][Bartosz Ciechanowski]]

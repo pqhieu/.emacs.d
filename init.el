@@ -135,16 +135,18 @@
 (setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me
 
 ;; Enable line numbers
-(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Disable all changes through customize
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "JetBrains Mono 14")
-(set-face-attribute 'fixed-pitch nil :font "JetBrains Mono 14")
-(set-face-attribute 'variable-pitch nil :family "Concourse 4" :height 160)
+(set-face-attribute 'default nil :font "SF Mono 13")
+(set-face-attribute 'fixed-pitch nil :font "SF Mono 13")
+(set-face-attribute 'variable-pitch nil :family "SF Pro Text" :height 130)
+(set-face-attribute 'variable-pitch-text nil :family "SF Pro Text" :height 130)
 (setq x-underline-at-descent-line nil)
+(setq-default line-spacing 0.15)
 
 ;; Uniquify buffer names
 (setq uniquify-buffer-name-style 'reverse)
@@ -428,7 +430,7 @@
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
-(setq org-modern-list '((?- . "•") (?* . "•") (?+ . "‣")))
+(setq org-modern-list '((?- . "•") (?* . "•") (?+ . "•")))
 (setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
 (setq org-modern-keyword nil)
@@ -437,18 +439,17 @@
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 160)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 4" :height 160)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 160)
-  (set-face-attribute 'markdown-header-face-1 nil :family "Concourse 4" :height 160)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Concourse 4" :height 160)
-  (set-face-attribute 'org-quote nil :family "Concourse 4" :height 160)
-  (set-face-attribute 'org-special-keyword nil :font "JetBrains Mono 14")
-  (set-face-attribute 'org-drawer nil :font "JetBrains Mono 14")
-  (set-face-attribute 'org-property-value nil :font "JetBrains Mono 14")
-  (set-face-attribute 'markdown-url-face nil :font "JetBrains Mono 14")
-  (set-face-attribute 'org-ellipsis nil :font "JetBrains Mono 14")
-  (set-face-attribute 'org-modern-label nil :font "JetBrains Mono 13"))
+  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
+  (set-face-attribute 'org-level-1 nil :family "Concourse 4 Caps" :height 150)
+  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-level-3 nil :family "Concourse 4" :height 150)
+  (set-face-attribute 'org-quote nil :family "SF Pro Text" :height 130)
+  (set-face-attribute 'org-special-keyword nil :font "SF Mono 13")
+  (set-face-attribute 'org-drawer nil :font "SF Mono 13")
+  (set-face-attribute 'org-property-value nil :font "SF Mono 13")
+  (set-face-attribute 'markdown-url-face nil :font "SF Mono 13")
+  (set-face-attribute 'org-ellipsis nil :font "SF Mono 13")
+  (set-face-attribute 'org-modern-label nil :font "SF Mono 12"))
 
 (use-package deft
   :ensure t
@@ -466,6 +467,7 @@
 
 (require 'denote)
 (require 'denote-org-dblock)
+(denote-rename-buffer-mode)
 ;; Remember to check the doc strings of those variables.
 (setq denote-directory (expand-file-name "~/Workspace/notes"))
 (setq denote-infer-keywords t)
