@@ -71,6 +71,7 @@
                     '(internal-border-width . 24)
                     '(tool-bar-lines . 0)
                     '(menu-bar-lines . 0))))
+;; (add-hook 'after-init-hook #'toggle-frame-fullscreen)
 
 ;; Disable splash screen, toolbar and scrollbar
 (menu-bar-mode 0)
@@ -141,10 +142,10 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "SF Mono 13")
-(set-face-attribute 'fixed-pitch nil :font "SF Mono 13")
-(set-face-attribute 'variable-pitch nil :family "SF Pro Text" :height 130)
-(set-face-attribute 'variable-pitch-text nil :family "SF Pro Text" :height 130)
+(set-face-attribute 'default nil :font "Monaspace Neon 13")
+(set-face-attribute 'fixed-pitch nil :font "Monaspace Neon 13")
+(set-face-attribute 'variable-pitch nil :family "Hubot Sans" :height 130)
+(set-face-attribute 'variable-pitch-text nil :family "Hubot Sans" :height 130)
 (setq x-underline-at-descent-line nil)
 (setq-default line-spacing 0.15)
 
@@ -214,7 +215,7 @@
 (setq org-fontify-done-headline nil)
 (setq org-fontify-quote-and-verse-blocks t)
 (setq org-deadline-warning-days 7)
-(setq org-src-fontify-natively nil)
+(setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation nil)
 (setq org-edit-src-content-indentation 0)
 (setq org-src-window-setup 'other-window)
@@ -406,6 +407,7 @@
   (setq doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-night t))
 
+
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode)
@@ -440,16 +442,19 @@
 
 (with-eval-after-load 'org-modern
   (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Concourse 4 Caps" :height 150)
-  (set-face-attribute 'org-level-2 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-level-3 nil :family "Concourse 4" :height 150)
-  (set-face-attribute 'org-quote nil :family "SF Pro Text" :height 130)
-  (set-face-attribute 'org-special-keyword nil :font "SF Mono 13")
-  (set-face-attribute 'org-drawer nil :font "SF Mono 13")
-  (set-face-attribute 'org-property-value nil :font "SF Mono 13")
-  (set-face-attribute 'markdown-url-face nil :font "SF Mono 13")
-  (set-face-attribute 'org-ellipsis nil :font "SF Mono 13")
-  (set-face-attribute 'org-modern-label nil :font "SF Mono 12"))
+  (set-face-attribute 'org-level-1 nil :family "Hubot Sans" :height 150)
+  (set-face-attribute 'org-level-2 nil :family "Hubot Sans" :height 130)
+  (set-face-attribute 'org-level-3 nil :family "Hubot Sans" :height 130)
+  (set-face-attribute 'org-quote nil :family "Hubot Sans" :height 130)
+  (set-face-attribute 'org-special-keyword nil :font "Monaspace Neon 13")
+  (set-face-attribute 'org-drawer nil :font "Monaspace Neon 16")
+  (set-face-attribute 'org-property-value nil :font "Monaspace Neon 13")
+  (set-face-attribute 'markdown-header-face-1 nil :family "Hubot Sans" :height 150)
+  (set-face-attribute 'markdown-header-face-2 nil :family "Hubot Sans" :height 130)
+  (set-face-attribute 'markdown-header-face-3 nil :family "Hubot Sans" :height 130)
+  (set-face-attribute 'markdown-url-face nil :font "Monaspace Neon 13")
+  (set-face-attribute 'org-ellipsis nil :font "Monaspace Neon 13")
+  (set-face-attribute 'org-modern-label nil :font "Monaspace Neon 13"))
 
 (use-package deft
   :ensure t
@@ -467,12 +472,13 @@
 
 (require 'denote)
 (require 'denote-org-dblock)
+(require 'denote-menu)
 (denote-rename-buffer-mode)
 ;; Remember to check the doc strings of those variables.
 (setq denote-directory (expand-file-name "~/Workspace/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-file-type nil) ; Org is the default, set others here
+(setq denote-file-type 'markdown-yaml) ; Org is the default, set others here
 (setq denote-prompts '(title))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
@@ -480,7 +486,7 @@
 
 ;; We allow multi-word keywords by default.  The author's personal
 ;; preference is for single-word keywords for a more rigid workflow.
-(setq denote-allow-multi-word-keywords t)
+(setq denote-allow-multi-word-keywords nil)
 
 (setq denote-date-format nil) ; read doc string
 

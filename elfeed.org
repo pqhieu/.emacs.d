@@ -12,6 +12,7 @@
 ** [[https://lethain.com/feeds/][Irrational Exuberance]] :@tech:@career:
 ** [[https://fs.blog/feed/][Farnam Street]]
 ** [[https://daryl.wakatara.com/rss.xml][Daryl Manning]]
+** [[https://pytorch.org/feed][PyTorch]] :@ml:
 * YouTube :@elfeed:@video:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCbzVRTkX3bzNZuBd9In4XyA][Modern MBA]] :@finance:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC2C_jShtL725hvbm1arSV9w][CGP Grey]]
@@ -19,4 +20,3 @@
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UC4QZ_LsYcvcq7qOsOhpAX4A][ColdFusion]] :@tech:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCDXTQ8nWmx_EhZ2v-kp7QxA][Ben Felix]] :@finance:
 ** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCYO_jab_esuFRV4b17AJtAw][3Blue1Brown]] :@math:
-** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCvJJ_dzjViJCoLf5uKUTwoA][CNBC]] :@business:
