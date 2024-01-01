@@ -142,8 +142,8 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Monaspace Neon 13")
-(set-face-attribute 'fixed-pitch nil :font "Monaspace Neon 13")
+(set-face-attribute 'default nil :font "Monaspace Neon" :height 130)
+(set-face-attribute 'fixed-pitch nil :font "Monaspace Neon" :height 130)
 (set-face-attribute 'variable-pitch nil :family "Hubot Sans" :height 130)
 (set-face-attribute 'variable-pitch-text nil :family "Hubot Sans" :height 130)
 (setq x-underline-at-descent-line nil)
@@ -241,7 +241,8 @@
 
 (setq mixed-pitch-set-height t)
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
-(add-hook 'markdown-mode #'mixed-pitch-mode)
+(add-hook 'markdown-mode-hook #'mixed-pitch-mode)
+(add-hook 'adoc-mode-hook #'mixed-pitch-mode)
 (add-hook 'text-mode-hook #'visual-line-mode)
 (add-hook 'elfeed-show-mode #'visual-line-mode)
 
@@ -405,8 +406,8 @@
   :ensure t
   :config
   (setq doom-themes-enable-italic t)
+  (setq doom-tomorrow-night-padded-modeline 1)
   (load-theme 'doom-tomorrow-night t))
-
 
 (use-package doom-modeline
   :ensure t
@@ -442,19 +443,19 @@
 
 (with-eval-after-load 'org-modern
   (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Hubot Sans" :height 150)
+  (set-face-attribute 'org-level-1 nil :family "Hubot Sans" :height 130)
   (set-face-attribute 'org-level-2 nil :family "Hubot Sans" :height 130)
   (set-face-attribute 'org-level-3 nil :family "Hubot Sans" :height 130)
   (set-face-attribute 'org-quote nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'org-special-keyword nil :font "Monaspace Neon 13")
-  (set-face-attribute 'org-drawer nil :font "Monaspace Neon 16")
+  (set-face-attribute 'org-special-keyword nil :font "Monaspace Neon" :height 130)
+  (set-face-attribute 'org-drawer nil :font "Monaspace Neon" :height 130)
   (set-face-attribute 'org-property-value nil :font "Monaspace Neon 13")
-  (set-face-attribute 'markdown-header-face-1 nil :family "Hubot Sans" :height 150)
+  (set-face-attribute 'markdown-header-face-1 nil :family "Hubot Sans" :height 130)
   (set-face-attribute 'markdown-header-face-2 nil :family "Hubot Sans" :height 130)
   (set-face-attribute 'markdown-header-face-3 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'markdown-url-face nil :font "Monaspace Neon 13")
-  (set-face-attribute 'org-ellipsis nil :font "Monaspace Neon 13")
-  (set-face-attribute 'org-modern-label nil :font "Monaspace Neon 13"))
+  (set-face-attribute 'markdown-url-face nil :font "Monaspace Neon" :height 130)
+  (set-face-attribute 'org-ellipsis nil :font "Monaspace Neon" :height 130)
+  (set-face-attribute 'org-modern-label nil :font "Monaspace Neon" :height 130))
 
 (use-package deft
   :ensure t
@@ -478,7 +479,7 @@
 (setq denote-directory (expand-file-name "~/Workspace/notes"))
 (setq denote-infer-keywords t)
 (setq denote-sort-keywords t)
-(setq denote-file-type 'markdown-yaml) ; Org is the default, set others here
+(setq denote-file-type nil) ; Org is the default, set others here
 (setq denote-prompts '(title))
 
 ;; Read this manual for how to specify `denote-templates'.  We do not
