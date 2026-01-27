@@ -142,10 +142,9 @@
 (setq custom-file (make-temp-file ""))
 
 ;; Set default font
-(set-face-attribute 'default nil :font "Monaspace Neon" :height 130)
-(set-face-attribute 'fixed-pitch nil :font "Monaspace Neon" :height 130)
-(set-face-attribute 'variable-pitch nil :family "Hubot Sans" :height 130)
-(set-face-attribute 'variable-pitch-text nil :family "Hubot Sans" :height 130)
+(set-face-attribute 'default nil :font "SF Mono" :height 140)
+(set-face-attribute 'fixed-pitch nil :font "SF Mono" :height 140)
+(set-face-attribute 'variable-pitch nil :font "SF Pro" :height 140)
 (setq x-underline-at-descent-line nil)
 (setq-default line-spacing 0.15)
 
@@ -234,17 +233,13 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (R . t)
-   (ledger . t)))
+   (ledger . t)
+   (R . t)))
 (setq org-confirm-babel-evaluate nil)
 (add-hook 'org-babel-after-execute-hook #'org-display-inline-images)
 
 (setq mixed-pitch-set-height t)
-(add-hook 'org-mode-hook #'mixed-pitch-mode)
-(add-hook 'markdown-mode-hook #'mixed-pitch-mode)
-(add-hook 'adoc-mode-hook #'mixed-pitch-mode)
 (add-hook 'text-mode-hook #'visual-line-mode)
-(add-hook 'elfeed-show-mode #'visual-line-mode)
 
 (use-package org-appear
   :ensure t
@@ -329,42 +324,6 @@
   (setq company-tooltip-minimum-width 40)
   (company-posframe-mode t))
 
-(defun elfeed-scroll-up-command (&optional arg)
-  "Scroll up or go to next feed item in Elfeed"
-  (interactive "^P")
-  (let ((scroll-error-top-bottom nil))
-    (condition-case-unless-debug nil
-        (scroll-up-command arg)
-      (error (elfeed-show-next)))))
-
-(defun elfeed-scroll-down-command (&optional arg)
-  "Scroll up or go to next feed item in Elfeed"
-  (interactive "^P")
-  (let ((scroll-error-top-bottom nil))
-    (condition-case-unless-debug nil
-        (scroll-down-command arg)
-      (error (elfeed-show-prev)))))
-
-(use-package elfeed
-  :ensure t
-  :bind ("C-c f" . elfeed)
-  :config
-  (define-key elfeed-show-mode-map (kbd "SPC") 'elfeed-scroll-up-command)
-  (define-key elfeed-show-mode-map (kbd "S-SPC") 'elfeed-scroll-down-command)
-  (setq elfeed-search-filter "@1-week-ago +unread "))
-
-(use-package elfeed-org
-  :ensure t
-  :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-tree-id "@elfeed")
-  (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org")))
-
-(use-package elfeed-tube
-  :ensure t
-  :config
-  (elfeed-tube-setup))
-
 ;; C/C++
 (use-package cc-mode
   :config
@@ -403,11 +362,24 @@
   (setq ledger-default-date-format "%Y-%m-%d"))
 
 (use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-italic t)
-  (setq doom-tomorrow-night-padded-modeline 1)
-  (load-theme 'doom-tomorrow-night t))
+   :ensure t
+   :config
+   (setq doom-themes-enable-italic t)
+   (setq doom-tomorrow-night-padded-modeline 1)
+   (load-theme 'doom-tomorrow-night t))
+
+;; (use-package modus-themes
+;;   :ensure t
+;;   :demand t
+;;   :config
+;;   ;; Your customizations here:
+;;   (setq modus-themes-mixed-fonts t
+;;         modus-themes-variable-pitch-ui t
+;;         modus-themes-italic-constructs t
+;;         modus-themes-bold-constructs t
+;;         modus-themes-completions '((t . (bold)))
+;;         modus-themes-prompts '(bold))
+;;   (load-theme 'modus-vivendi t))
 
 (use-package doom-modeline
   :ensure t
@@ -433,99 +405,16 @@
       org-insert-heading-respect-content t)
 
 (require 'org-modern)
+(setq org-modern-star 'replace)
+(setq org-modern-replace-stars '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-list '((?- . "•") (?* . "•") (?+ . "•")))
-(setq org-modern-star '("①" "②" "③" "④" "⑤" "⑥" "⑦" "⑧"))
 (setq org-modern-table nil)
 (setq org-modern-keyword nil)
 (setq org-modern-block-fringe t)
 (setq org-modern-block-name t)
+(setq org-modern-tag t)
+(setq org-modern-timestamp t)
 (global-org-modern-mode)
 
 (with-eval-after-load 'org-modern
-  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150)
-  (set-face-attribute 'org-level-1 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'org-level-2 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'org-level-3 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'org-quote nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'org-special-keyword nil :font "Monaspace Neon" :height 130)
-  (set-face-attribute 'org-drawer nil :font "Monaspace Neon" :height 130)
-  (set-face-attribute 'org-property-value nil :font "Monaspace Neon 13")
-  (set-face-attribute 'markdown-header-face-1 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'markdown-header-face-2 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'markdown-header-face-3 nil :family "Hubot Sans" :height 130)
-  (set-face-attribute 'markdown-url-face nil :font "Monaspace Neon" :height 130)
-  (set-face-attribute 'org-ellipsis nil :font "Monaspace Neon" :height 130)
-  (set-face-attribute 'org-modern-label nil :font "Monaspace Neon" :height 130))
-
-(use-package deft
-  :ensure t
-  :init
-  (global-set-key (kbd "C-c d") #'deft)
-  (setq deft-extensions '("org"))
-  (setq deft-default-extension "org")
-  (setq deft-directory "~/Workspace/notes")
-  (setq deft-use-filename-as-title nil)
-  (setq deft-auto-save-interval 0)
-  (setq deft-strip-title-regexp "\\(?:^%+\\|^#\\+title: *\\|^[#* ]+\\|-\\*-[[:alpha:]]+-\\*-\\|^Title:[	 ]*\\|#+$\\)")
-  (setq deft-strip-summary-regexp "\\([
-	]\\|^#\\+[[:lower:]_]+:.*$\\)")
-  (setq deft-recursive t))
-
-(require 'denote)
-(require 'denote-org-dblock)
-(require 'denote-menu)
-(denote-rename-buffer-mode)
-;; Remember to check the doc strings of those variables.
-(setq denote-directory (expand-file-name "~/Workspace/notes"))
-(setq denote-infer-keywords t)
-(setq denote-sort-keywords t)
-(setq denote-file-type nil) ; Org is the default, set others here
-(setq denote-prompts '(title))
-
-;; Read this manual for how to specify `denote-templates'.  We do not
-;; include an example here to avoid potential confusion.
-
-;; We allow multi-word keywords by default.  The author's personal
-;; preference is for single-word keywords for a more rigid workflow.
-(setq denote-allow-multi-word-keywords nil)
-
-(setq denote-date-format nil) ; read doc string
-
-;; By default, we fontify backlinks in their bespoke buffer.
-(setq denote-link-fontify-backlinks t)
-
-;; Also see `denote-link-backlinks-display-buffer-action' which is a bit
-;; advanced.
-
-;; If you use Markdown or plain text files (Org renders links as buttons
-;; right away)
-(add-hook 'find-file-hook #'denote-link-buttonize-buffer)
-
-;; Generic (great if you rename files Denote-style in lots of places):
-(add-hook 'dired-mode-hook #'denote-dired-mode)
-
-;; Denote DOES NOT define any key bindings.  This is for the user to
-;; decide.  For example:
-(let ((map global-map))
-  (define-key map (kbd "C-c n d") #'list-denotes)
-  (define-key map (kbd "C-c n n") #'denote)
-  (define-key map (kbd "C-c n N") #'denote-type)
-  (define-key map (kbd "C-c n s") #'denote-subdirectory)
-  (define-key map (kbd "C-c n t") #'denote-template)
-  ;; If you intend to use Denote with a variety of file types, it is
-  ;; easier to bind the link-related commands to the `global-map', as
-  ;; shown here.  Otherwise follow the same pattern for `org-mode-map',
-  ;; `markdown-mode-map', and/or `text-mode-map'.
-  (define-key map (kbd "C-c n i") #'denote-link) ; "insert" mnemonic
-  (define-key map (kbd "C-c n I") #'denote-link-add-links)
-  (define-key map (kbd "C-c n b") #'denote-link-backlinks)
-  ;; Note that `denote-rename-file' can work from any context, not just
-  ;; Dired bufffers.  That is why we bind it here to the `global-map'.
-  (define-key map (kbd "C-c n r") #'denote-rename-file)
-  (define-key map (kbd "C-c n R") #'denote-rename-file-using-front-matter))
-
-;; Key bindings specifically for Dired.
-(let ((map dired-mode-map))
-  (define-key map (kbd "C-c C-d C-i") #'denote-link-dired-marked-notes)
-  (define-key map (kbd "C-c C-d C-r") #'denote-dired-rename-marked-files)
-  (define-key map (kbd "C-c C-d C-R") #'denote-dired-rename-marked-files-using-front-matter))
+  (set-face-attribute 'org-document-title nil :family "Concourse 4 Caps" :height 150))
